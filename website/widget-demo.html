@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Widget Embed Demo — BIS Sahayak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/bis.css">
+<style>
+  /* Deliberately "hostile" host-page styles to prove widget isolation */
+  body.hostpage { font-family: Georgia, serif; background: #fdf8f2; color: #4a2c1a; }
+  .hostpage * { border-radius: 0 !important; }
+  .hostpage .host-header { background: #7b3f24; color: #fff; padding: 40px 24px; text-align: center; }
+  .hostpage .host-header h1 { font-size: 40px; margin: 0; }
+  .hostpage .host-main { max-width: 780px; margin: 0 auto; padding: 40px 24px 140px; font-size: 18px; line-height: 1.7; }
+  .hostpage .note { border: 3px dashed #7b3f24 !important; padding: 18px; margin: 28px 0; font-family: monospace; font-size: 15px; }
+  .setup { max-width: 860px; margin: 0 auto; padding: 48px 24px; }
+  pre {
+    background: #0B2D5B; color: #E6EEF9; padding: 18px 20px; border-radius: 12px;
+    overflow-x: auto; font-size: 14px; line-height: 1.6;
+  }
+  code { font-family: ui-monospace, "Cascadia Mono", monospace; }
+  .specs { display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(220px, 1fr)); margin-top: 24px; }
+  .spec { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px; font-family: var(--font-body); }
+  .spec b { display: block; font-size: var(--fs-14); }
+  .spec span { font-size: var(--fs-14); color: var(--text-dim); }
+</style>
+</head>
+<body class="hostpage">
+
+  <div class="host-header">
+    <h1>Kumhar Jewellers</h1>
+    <p>Est. 1978 · Pune · hallmarked gold since day one</p>
+  </div>
+
+  <main class="host-main">
+    <p>This page plays the role of a <strong>third-party host site</strong> — its stylesheet is intentionally aggressive (<code>border-radius: 0 !important</code>, serif fonts, custom colors) to prove that the BIS Sahayak widget neither breaks the host layout nor inherits host styles.</p>
+
+    <div class="note">
+      🧪 Test: click the saffron <b>IS</b> button at the bottom-right.<br>
+      The panel opens at 380×560, fixed position, inside a Shadow DOM —
+      Georgia and the host's orange cannot touch it.
+    </div>
+
+    <p>Scroll the page — the launcher stays anchored bottom-right. Resize below 480px — the panel becomes a full-width sheet. That's requirement §4.1A: <em>must NOT break host page layout</em>.</p>
+
+    <p>Content continues so there's a real page to not break… The hallmark of a jeweller's site is trust, which is exactly what the widget's citation chips and confidence badges are built to carry from BIS's world into this one.</p>
+  </main>
+
+  <section class="setup">
+    <h2>How BIS embeds it</h2>
+    <p>One script tag, no CSS link, no build step:</p>
+    <pre><code>&lt;div id="widget-root"&gt;&lt;/div&gt;
+&lt;script src="https://cdn.bissahayak.gov.in/widget/bis-widget.js" data-auto&gt;&lt;/script&gt;</code></pre>
+
+    <div class="specs">
+      <div class="spec"><b>Collapsed</b><span>60px saffron circle, bottom-right, ISI-style mark</span></div>
+      <div class="spec"><b>Expanded</b><span>380 × 560px panel with header + language switcher</span></div>
+      <div class="spec"><b>Isolation</b><span>Shadow DOM — styles never cross either direction</span></div>
+      <div class="spec"><b>Positioning</b><span><code>position: fixed</code>, z-index topmost, mobile sheet ≤480px</span></div>
+    </div>
+  </section>
+
+  <div id="widget-root"></div>
+
+<script src="widget/bis-widget.js" data-auto></script>
+</body>
+</html>

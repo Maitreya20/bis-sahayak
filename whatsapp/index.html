@@ -1,0 +1,420 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>WhatsApp Chatbot — Conversation Design · BIS Sahayak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/bis.css">
+<style>
+  body { background: #ECE5DD; color: #111B21; }
+  @media (prefers-color-scheme: dark) { body { background: #0B141A; color: #E9EDEF; } }
+  .wa-top { background: #075E54; color: #fff; }
+  .wa-top .topnav { background: transparent; border-bottom: 0; backdrop-filter: none; }
+  .wa-top .topnav nav a { color: #CDE7E1; }
+  .wa-top .topnav nav a:hover, .wa-top .topnav nav a[aria-current="page"] { background: rgba(255,255,255,.14); color: #fff; }
+  .wa-top .lang-switch { background: rgba(255,255,255,.12); border-color: rgba(255,255,255,.2); }
+  .wa-top .lang-switch button { color: #CDE7E1; }
+  .wa-top .lang-switch button[aria-pressed="true"] { background: #fff; color: #075E54; }
+
+  .wa-layout { display: grid; grid-template-columns: minmax(340px, 460px) minmax(0, 1fr); gap: 26px; align-items: start; max-width: 1320px; margin: 0 auto; padding: 26px 20px 70px; }
+  @media (max-width: 980px) { .wa-layout { grid-template-columns: 1fr; } }
+
+  .wa-intro { grid-column: 1 / -1; margin: 0 0 -4px; }
+  .wa-intro h1 { margin: 6px 0 6px; }
+  .wa-intro p { margin: 0; color: var(--text-dim); max-width: 70ch; }
+
+  .phone {
+    background: #0B0F17; border-radius: 40px; padding: 10px;
+    box-shadow: 0 24px 60px rgba(0,0,0,.35); margin: 0 auto; width: 100%; max-width: 400px;
+  }
+  .wa-screen {
+    border-radius: 32px; overflow: hidden; height: 720px; display: flex; flex-direction: column;
+    background: #ECE5DD;
+    background-image: radial-gradient(rgba(0,0,0,.05) 1px, transparent 1px);
+    background-size: 22px 22px;
+  }
+  @media (prefers-color-scheme: dark) { .wa-screen { background: #0B141A; background-image: radial-gradient(rgba(255,255,255,.04) 1px, transparent 1px); } }
+  .wa-header {
+    background: #075E54; color: #fff; padding: 14px 16px; display: flex; gap: 12px; align-items: center; flex: none;
+  }
+  .wa-header .avatar {
+    width: 40px; height: 40px; border-radius: 50%; background: var(--bis-saffron); color: var(--bis-navy);
+    display: flex; align-items: center; justify-content: center; font-weight: 900; font-size: 13px;
+  }
+  .wa-header b { font-size: 15px; display: block; }
+  .wa-header span { font-size: 11.5px; opacity: .8; }
+
+  .wa-thread { flex: 1; overflow-y: auto; padding: 16px 14px; display: flex; flex-direction: column; gap: 8px; }
+  .wa-msg { max-width: 84%; padding: 8px 11px 7px; border-radius: 10px; font-size: 14px; line-height: 1.45; position: relative; box-shadow: 0 1px 1px rgba(0,0,0,.08); }
+  .wa-msg.bot { align-self: flex-start; background: #fff; border-top-left-radius: 3px; }
+  .wa-msg.user { align-self: flex-end; background: #DCF8C6; border-top-right-radius: 3px; color: #111B21; }
+  @media (prefers-color-scheme: dark) {
+    .wa-msg.bot { background: #1F2C33; color: #E9EDEF; }
+    .wa-msg.user { background: #005C4B; color: #fff; }
+  }
+  .wa-msg .time { display: block; text-align: right; font-size: 10px; color: rgba(0,0,0,.45); margin-top: 3px; }
+  @media (prefers-color-scheme: dark) { .wa-msg .time { color: rgba(255,255,255,.5); } }
+  .wa-msg b { font-weight: 700; }
+
+  .wa-btns { align-self: flex-start; display: flex; flex-direction: column; gap: 6px; width: 84%; }
+  .wa-btns.row { flex-direction: row; flex-wrap: wrap; width: auto; }
+  .wa-btn {
+    font: 600 13.5px/1.3 var(--font-body); background: #fff; color: #027EB5;
+    border: 1px solid #E2E8EC; border-radius: 999px; padding: 10px 14px; cursor: pointer; text-align: center;
+    box-shadow: 0 1px 1px rgba(0,0,0,.06);
+  }
+  @media (prefers-color-scheme: dark) { .wa-btn { background: #1F2C33; border-color: #2A3942; color: #53BDEB; } }
+  .wa-btn:hover { background: #F0F8FC; }
+  .wa-btn[aria-pressed="true"] { background: #00A884; border-color: #00A884; color: #fff; }
+  @media (prefers-color-scheme: dark) { .wa-btn[aria-pressed="true"] { background: #00A884; border-color: #00A884; color: #fff; } }
+  .wa-list {
+    align-self: flex-start; width: 84%; background: #fff; border: 1px solid #E2E8EC;
+    border-radius: 10px; overflow: hidden; box-shadow: 0 1px 1px rgba(0,0,0,.06);
+  }
+  @media (prefers-color-scheme: dark) { .wa-list { background: #1F2C33; border-color: #2A3942; } }
+  .wa-list button {
+    display: block; width: 100%; font: 600 14px/1.3 var(--font-body); background: transparent;
+    border: 0; border-bottom: 1px solid #E2E8EC; padding: 13px; color: #027EB5; cursor: pointer;
+  }
+  @media (prefers-color-scheme: dark) { .wa-list button { border-color: #2A3942; color: #53BDEB; } }
+  .wa-list .title {
+    display: block; padding: 12px 13px; font-weight: 700; font-size: 14px;
+    border-bottom: 1px solid #E2E8EC;
+  }
+  .wa-list .title span { display: block; font-weight: 400; font-size: 12px; color: #667781; }
+  @media (prefers-color-scheme: dark) { .wa-list .title { border-color: #2A3942; } }
+  .wa-list button:last-child { border-bottom: 0; }
+
+  .wa-composer { flex: none; display: flex; gap: 8px; align-items: center; padding: 10px 12px 16px; }
+  .wa-composer .field {
+    flex: 1; min-width: 0; background: #fff; color: #111B21;
+    border: 0; border-radius: 999px; padding: 11px 16px; font: inherit; font-size: 13.5px;
+  }
+  .wa-composer .field::placeholder { color: #667781; }
+  @media (prefers-color-scheme: dark) {
+    .wa-composer .field { background: #1F2C33; color: #E9EDEF; }
+    .wa-composer .field::placeholder { color: #8696A0; }
+  }
+  .wa-composer .send { width: 46px; height: 46px; border-radius: 50%; border: 0; background: #00A884; color: #fff; font-size: 17px; cursor: pointer; }
+
+  .doc-panel { display: flex; flex-direction: column; gap: 22px; min-width: 0; }
+  .doc-panel .card { background: #fff; color: #111B21; }
+  @media (prefers-color-scheme: dark) { .doc-panel .card { background: #1F2C33; color: #E9EDEF; } }
+  .rules li { margin-bottom: 7px; font-size: var(--fs-14); }
+  .rules li b { color: inherit; }
+
+  /* flowchart */
+  .flow { overflow-x: auto; padding-bottom: 8px; }
+  .flow-row { display: flex; gap: 14px; align-items: center; min-width: max-content; }
+  .fnode {
+    background: var(--surface); border: 1.5px solid var(--bis-navy); border-radius: 12px;
+    padding: 11px 15px; font-size: var(--fs-14); font-weight: 600; text-align: center; min-width: 150px;
+  }
+  .fnode.start { background: var(--bis-navy); color: #fff; border-radius: 999px; }
+  .fnode.decision { border-color: var(--bis-saffron); background: #FFF6EC; }
+  @media (prefers-color-scheme: dark) { .fnode.decision { background: #33270F; } }
+  .fnode.end { border-style: dashed; color: var(--text-dim); }
+  .farrow { color: var(--text-dim); font-size: 20px; flex: none; }
+  .fbranch { display: flex; flex-direction: column; gap: 10px; }
+  .flabel { font-size: 11px; font-weight: 800; letter-spacing: .08em; text-transform: uppercase; color: var(--bis-saffron); text-align: center; }
+</style>
+</head>
+<body>
+
+<div class="wa-top">
+  <header class="topnav">
+    <a class="logo" href="../index.html" style="color:#fff"><span class="logo-mark" style="background:#fff;color:#075E54">IS</span> BIS Sahayak</a>
+    <nav aria-label="Primary">
+      <a href="../website/index.html">Website</a>
+      <a href="../app/index.html">App</a>
+      <a href="index.html" aria-current="page">WhatsApp</a>
+      <a href="templates.md">Templates ↗</a>
+    </nav>
+    <div class="lang-switch" role="group" aria-label="Language">
+      <button data-lang="en" lang="en">English</button>
+      <button data-lang="hi" lang="hi">हिंदी</button>
+      <button data-lang="mr" lang="mr">मराठी</button>
+    </div>
+  </header>
+</div>
+
+<main class="wa-layout">
+
+  <header class="wa-intro">
+    <p class="eyebrow">Surface 3 · §6</p>
+    <h1>WhatsApp chatbot — conversation design</h1>
+    <p>The same assistant, rendered in WhatsApp's own vocabulary: quick replies, list messages, emoji confidence and a source line instead of colour.</p>
+  </header>
+
+  <!-- ============ live conversation prototype ============ -->
+  <section aria-label="Conversation prototype">
+    <div class="phone">
+      <div class="wa-screen">
+        <div class="wa-header">
+          <div class="avatar">IS</div>
+          <div><b>BIS Sahayak</b><span>online · Business account</span></div>
+        </div>
+
+        <div class="wa-thread" id="thread">
+          <div class="wa-msg bot">🙏 Namaste! I'm BIS Sahayak — your helper for Indian Standards &amp; BIS services. Choose your language:
+            <span class="time">10:02 ✓✓</span></div>
+          <div class="wa-btns row" id="langBtns">
+            <button class="wa-btn" data-lang="en">English</button>
+            <button class="wa-btn" data-lang="hi">हिंदी</button>
+            <button class="wa-btn" data-lang="mr">मराठी</button>
+          </div>
+
+          <div class="wa-msg user" lang="mr">मराठी<span class="time">10:02 ✓✓</span></div>
+          <div class="wa-msg bot" lang="mr">उत्तम! मी तुम्हाला कशी मदत करू शकतो?
+            <span class="time">10:02 ✓✓</span></div>
+
+          <!-- List message: up to 10 rows, so the 6 menu branches fit (§6.3) -->
+          <div class="wa-list" role="group" aria-label="Main menu — list message">
+            <span class="title">BIS Sahayak — Main menu<span>Pick an option, or just type your question.</span></span>
+            <button type="button" data-run="standard" lang="mr">माझा मानक शोधा</button>
+            <button type="button" data-run="cert" lang="mr">प्रमाणपत्र प्रक्रिया</button>
+            <button type="button" data-run="hallmark" lang="mr">हॉलमार्क तपासा</button>
+            <button type="button" data-run="lab" lang="mr">चाचणी प्रयोगशाला शोधा</button>
+            <button type="button" data-run="handoff" lang="mr">BIS अधिकाऱ्याशी बोला</button>
+            <button type="button" data-run="lang">Change language / भाषा बदला</button>
+          </div>
+
+          <div class="wa-msg user" lang="mr">सोन्याच्या दागिन्यांवरील हॉलमार्क कसे तपासायचे?<span class="time">10:03 ✓✓</span></div>
+
+          <div class="wa-msg bot" lang="mr">
+            ✅ सोन्याच्या दागिन्यावर <b>चार चिन्हे</b> असावीत: BIS लोगो, शुद्धता ग्रेड (22K = 916), तपासणी केंद्र आणि <b>HUID</b>.<br><br>
+            HUID BIS Care अ‍ॅपवर तपासा — जर जुळणी नसेल, तर खरेदी पूर्ण करू नका.<br><br>
+            📄 Source: IS 1417, Clause 5
+            <span class="time">10:03 ✓✓</span>
+          </div>
+          <!-- exactly the three quick replies of templates.md §4 — max 3 per message (§6.1) -->
+          <div class="wa-btns row">
+            <button class="wa-btn" type="button" data-run="audio">🔊 Listen</button>
+            <button class="wa-btn" type="button" data-run="thanks">👍 Helpful</button>
+            <button class="wa-btn" type="button" data-run="narrow">👎 Not quite</button>
+          </div>
+
+          <div class="wa-msg user">👎 Not quite<span class="time">10:04 ✓✓</span></div>
+          <div class="wa-msg bot">Which part is wrong — the <b>product</b>, the <b>standard number</b>, or the <b>certification route</b>? Tell me and I'll narrow it down.
+            <span class="time">10:04 ✓✓</span></div>
+
+          <div id="dynamic"></div>
+        </div>
+
+        <form class="wa-composer" id="waComposer">
+          <label class="sr-only" for="waField">Type a message</label>
+          <input class="field" id="waField" type="text" placeholder="Type a message…" autocomplete="off">
+          <button class="send" type="submit" aria-label="Send">➤</button>
+        </form>
+      </div>
+    </div>
+    <p class="center small" style="color:var(--text-dim);margin-top:12px">Type below, or tap the buttons — they behave like WhatsApp Quick Reply / List messages, and every reply comes from the same <code>POST /chat</code> the portal uses.</p>
+  </section>
+
+  <!-- ============ conversation design doc ============ -->
+  <div class="doc-panel">
+
+    <section class="card">
+      <h2>Formatting rules (§6.1)</h2>
+      <ul class="rules">
+        <li><b>Quick Reply buttons:</b> max 3 per message (the language row uses a List message instead, which allows up to 10).</li>
+        <li><b>Citation line, exact format:</b> <code>📄 Source: IS 302 Part 1, Clause 4.2</code> — ends every AI answer, no exceptions.</li>
+        <li><b>Confidence as emoji prefix:</b> ✅ high · ⚠️ medium/partial · ❌ <i>Not found in BIS records — here's who to contact:</i></li>
+        <li><b>Bold (<code>*text*</code>) and emoji carry hierarchy</b> — WhatsApp has no colour, so structure does the work colour does on web/app.</li>
+        <li><b>Quick-action labels worded identically</b> to web &amp; app: Find my standard / Certification steps / Check hallmark / Find a lab (translated, same meaning).</li>
+        <li><b>Voice notes:</b> user sends voice → Saaras v3 transcribes → same <code>POST /chat</code> → reply text + optional Bulbul v3 voice note via the 🔊 Listen button.</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Flowchart — every menu branch (§6.3)</h2>
+      <p class="muted small">Scroll horizontally on small screens.</p>
+      <div class="flow">
+        <div class="flow-row">
+          <div class="fnode start">User: Hi</div>
+          <div class="farrow">→</div>
+          <div class="fnode">Welcome +<br>language list<br><span class="flabel" style="display:block;margin-top:4px">List · up to 10</span></div>
+          <div class="farrow">→</div>
+          <div class="fbranch">
+            <div class="fnode decision">Language chosen?</div>
+            <div class="flabel">yes ↓</div>
+          </div>
+          <div class="farrow">→</div>
+          <div class="fnode">Main menu<br>(6 branches)</div>
+          <div class="farrow">→</div>
+          <div class="fbranch">
+            <div class="fnode decision">Branch</div>
+          </div>
+        </div>
+
+        <div class="flow-row" style="margin-top:16px">
+          <div class="fnode end">↳ <b>Find my standard</b><br>ask product → RAG<br>→ answer + citation<br>+ ✅/⚠️/❌ badge</div>
+          <div class="fnode end">↳ <b>Certification steps</b><br>CRS or FMCS?<br>→ step list message<br>→ 5 numbered replies</div>
+          <div class="fnode end">↳ <b>Check hallmark</b><br>ask HUID → verify<br>→ verified ✅ /<br>not found ❌ + contact</div>
+          <div class="fnode end">↳ <b>Type / voice</b><br>free text or voice note<br>→ Saaras v3 → /chat<br>→ 🔊 Listen reply btn</div>
+          <div class="fnode end">↳ <b>Find a lab</b><br>state + product →<br>recognised labs list<br>→ Ask Sahayak deep link</div>
+          <div class="fnode end">↳ <b>Talk to BIS officer</b><br>summarise + ticket #<br>→ human reply<br>≤ 1 working day</div>
+        </div>
+
+        <div class="flow-row" style="margin-top:16px">
+          <div class="fnode">Answer delivered<br>+ 📄 Source line</div>
+          <div class="farrow">→</div>
+          <div class="fbranch">
+            <div class="fnode decision">Feedback row</div>
+            <div class="flabel">3 quick replies</div>
+          </div>
+          <div class="farrow">→</div>
+          <div class="fnode">👍 thanks /<br>👎 ask narrowing Q</div>
+          <div class="farrow">·</div>
+          <div class="fnode decision">🔁 Ask BIS officer</div>
+          <div class="farrow">→</div>
+          <div class="fnode end">Human handoff<br>ticket # issued<br>reply ≤ 1 working day</div>
+        </div>
+
+        <div class="flow-row" style="margin-top:16px">
+          <div class="fnode decision">❌ Low confidence</div>
+          <div class="farrow">→</div>
+          <div class="fnode end">“Not found in BIS records —<br>here's who to contact:”<br>Branch Office / BIS Care app</div>
+          <div class="farrow">·</div>
+          <div class="fnode decision">Wrong language?</div>
+          <div class="farrow">→</div>
+          <div class="fnode end">/language command →<br>back to language list</div>
+        </div>
+      </div>
+    </section>
+
+    <section class="card">
+      <h2>Message template library (§6.3)</h2>
+      <p class="muted small">Full copy deck with all six templates in all three languages: <a href="templates.md">templates.md</a> · machine-readable map: <a href="flow.md">flow.md</a></p>
+      <ul class="rules">
+        <li>1 · <b>Welcome</b> — 🙏 Namaste + language list</li>
+        <li>2 · <b>Language-select</b> — acknowledgement + main menu</li>
+        <li>3 · <b>Main-menu</b> — 6 branches, sent as a List message</li>
+        <li>4 · <b>Answer-with-citation</b> — confidence emoji + answer + 📄 Source + feedback row</li>
+        <li>5 · <b>Low-confidence-fallback</b> — ❌ + who to contact</li>
+        <li>6 · <b>Human-handoff</b> — ticket number + SLA</li>
+      </ul>
+    </section>
+
+    <section class="card">
+      <h2>Same brain, third door</h2>
+      <p class="muted" style="margin:0">Every WhatsApp reply is the same <code>POST /chat</code> response the website and app render — identical citations, identical confidence logic, emoji instead of colour. Open <a href="../website/chat.html">the portal chat</a> and ask the hallmark question to see the same answer with the same clause.</p>
+    </section>
+  </div>
+</main>
+
+<script src="../assets/js/bis.js"></script>
+<script>
+  const thread = document.getElementById("thread");
+  const dynamic = document.getElementById("dynamic");
+  const field = document.getElementById("waField");
+
+  function scrollDown() { thread.scrollTop = thread.scrollHeight; }
+
+  /* thread clock: static messages end at 10:04, so replies keep moving forward */
+  let clock = 10 * 60 + 4;
+  function nextTime() {
+    clock += 1 + Math.floor(Math.random() * 2);
+    return Math.floor(clock / 60) + ":" + String(clock % 60).padStart(2, "0") + " ✓✓";
+  }
+
+  function botMsg(html, lang) {
+    const d = document.createElement("div");
+    d.className = "wa-msg bot";
+    if (lang) d.lang = lang;
+    d.innerHTML = html + '<span class="time">' + nextTime() + "</span>";
+    dynamic.appendChild(d);
+    scrollDown();
+    return d;
+  }
+
+  function userMsg(text, lang) {
+    const d = document.createElement("div");
+    d.className = "wa-msg user";
+    if (lang) d.lang = lang;
+    d.innerHTML = BIS.escapeHtml(text) + '<span class="time">' + nextTime() + "</span>";
+    dynamic.appendChild(d);
+    scrollDown();
+    return d;
+  }
+
+  /* WhatsApp quick replies: exactly the three in templates.md §4 (max 3, §6.1) */
+  function feedbackRow() {
+    const row = document.createElement("div");
+    row.className = "wa-btns row";
+    [
+      { label: "🔊 Listen", run: () => botMsg("🔊 <i>Bulbul v3 voice note playing…</i> (same text, spoken)") },
+      { label: "👍 Helpful", run: () => botMsg("धन्यवाद! Ask a follow-up any time — I'll keep citing the source.") },
+      { label: "👎 Not quite", run: () => botMsg("Got it — which part is wrong: the <b>product</b>, the <b>standard number</b>, or the <b>certification route</b>? I'll narrow it down.") },
+    ].forEach((spec) => {
+      const b = document.createElement("button");
+      b.className = "wa-btn";
+      b.type = "button";
+      b.textContent = spec.label;
+      b.addEventListener("click", () => { row.remove(); spec.run(); });
+      row.appendChild(b);
+    });
+    dynamic.appendChild(row);
+    scrollDown();
+  }
+
+  /* the same POST /chat response, rendered in WhatsApp's format (§6.1) */
+  function whatsappReply(res) {
+    const emoji = res.confidence === "high" ? "✅" : res.confidence === "low" ? "❌" : "⚠️";
+    const cite = (res.citations || [])[0];
+    const source = cite ? "📄 Source: " + cite.doc + (cite.clause ? ", Clause " + cite.clause : "") : "";
+    return emoji + " " + BIS.escapeHtml(res.answer) + (source ? "<br><br>" + source : "");
+  }
+
+  const langBtns = document.getElementById("langBtns");
+  function markLangButtons() {
+    langBtns.querySelectorAll(".wa-btn").forEach((b) =>
+      b.setAttribute("aria-pressed", String(b.dataset.lang === BIS.getLanguage()))
+    );
+  }
+  langBtns.addEventListener("click", (e) => {
+    if (e.target.matches(".wa-btn")) {
+      BIS.setLanguage(e.target.dataset.lang);
+      markLangButtons();
+    }
+  });
+  document.addEventListener("bis:lang", markLangButtons);
+  document.addEventListener("DOMContentLoaded", markLangButtons);
+  markLangButtons();
+
+  const flows = {
+    audio: () => botMsg("🔊 <i>Bulbul v3 voice note playing…</i> (audio note reply, same text as above)"),
+    thanks: () => botMsg("धन्यवाद! Ask a follow-up any time — I'll keep citing the source."),
+    narrow: () => botMsg("Which part is wrong — the <b>product</b>, the <b>standard number</b>, or the <b>certification route</b>? Tell me and I'll narrow it down."),
+    handoff: () => botMsg("Ticket <b>#BIS-4471</b> created — a BIS officer replies here within <b>1 working day</b>."),
+    lang: () => botMsg("भाषा बदला / Change language — tap <b>English</b>, <b>हिंदी</b> or <b>मराठी</b> in the language row at the top of this chat."),
+    standard: () => botMsg("Which product do you make? Describe it in a line — I'll match the applicable Indian Standard."),
+    cert: () => botMsg("<b>CRS or FMCS?</b><br>• Made in India → CRS<br>• Made abroad → FMCS (needs Indian authorised rep)<br><br>📄 Source: BIS CRS Regulations 2018, Reg. 5"),
+    hallmark: () => botMsg("Please send the <b>HUID</b> (6 characters on your receipt). I'll check it against BIS records."),
+    lab: () => botMsg("Which state is your plant in? I'll list BIS-recognised labs there and the clause testing each one covers."),
+    type: () => botMsg("Go ahead — type your question in any language. आप किसी भी भाषा में लिख सकते हैं।"),
+  };
+
+  document.querySelectorAll("[data-run]").forEach((b) =>
+    b.addEventListener("click", () => (flows[b.dataset.run] || flows.type)())
+  );
+
+  /* typing in the mock goes through the real /chat contract */
+  document.getElementById("waComposer").addEventListener("submit", async (e) => {
+    e.preventDefault();
+    const q = field.value.trim();
+    if (!q) return;
+    field.value = "";
+    userMsg(q);
+    const pending = botMsg('<span class="typing-dots"><i></i><i></i><i></i></span>');
+    const res = await BIS.chat(q);
+    pending.remove();
+    botMsg(whatsappReply(res));
+    feedbackRow();
+  });
+</script>
+</body>
+</html>

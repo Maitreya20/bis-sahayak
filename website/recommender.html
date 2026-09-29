@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Standard Recommender — BIS Sahayak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/bis.css">
+<style>
+  .intro { max-width: 720px; margin-bottom: 26px; }
+  .reco-form { max-width: 760px; }
+  .reco-form label { display: block; font-weight: 700; font-size: var(--fs-14); margin-bottom: 6px; }
+  .reco-form textarea {
+    width: 100%; font: inherit; font-size: var(--fs-16); color: var(--text);
+    background: var(--bg); border: 1.5px solid var(--line); border-radius: 12px;
+    padding: 14px 16px; min-height: 120px; resize: vertical;
+  }
+  .reco-form textarea:focus { border-color: var(--bis-navy); outline: none; }
+  .examples { display: flex; gap: 8px; flex-wrap: wrap; margin: 12px 0 18px; }
+  .results { display: grid; gap: 16px; grid-template-columns: repeat(auto-fill, minmax(320px, 1fr)); margin-top: 34px; }
+  .std-card { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 18px 20px; display: flex; flex-direction: column; }
+  .std-card .std-no { font-size: var(--fs-24); font-weight: 800; letter-spacing: -0.01em; color: var(--bis-navy); }
+  @media (prefers-color-scheme: dark) { .std-card .std-no { color: #9CC0F2; } }
+  .std-card .title { font-size: var(--fs-16); font-weight: 600; margin: 2px 0 8px; }
+  .std-card .why { font-size: var(--fs-14); color: var(--text-dim); margin: 0 0 6px; }
+  .std-card .foot { display: flex; align-items: center; justify-content: space-between; gap: 10px; margin-top: 12px; flex-wrap: wrap; }
+  .cert-steps { counter-reset: step; display: grid; gap: 14px; max-width: 760px; margin-top: 18px; }
+  .cert-step { display: flex; gap: 16px; background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+  .cert-step::before {
+    counter-increment: step; content: counter(step);
+    flex: none; width: 34px; height: 34px; border-radius: 50%;
+    background: var(--bis-navy); color: #fff; font-weight: 800; font-size: var(--fs-14);
+    display: flex; align-items: center; justify-content: center;
+  }
+  .cert-step b { display: block; margin-bottom: 2px; }
+  .cert-step span { font-size: var(--fs-14); color: var(--text-dim); }
+  .section-gap { margin-top: 56px; padding-top: 40px; border-top: 1px solid var(--line); }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <a class="logo" href="index.html"><span class="logo-mark">IS</span> BIS Sahayak</a>
+  <nav aria-label="Primary">
+    <a href="chat.html">Ask AI</a>
+    <a href="recommender.html" aria-current="page">Standards</a>
+    <a href="recommender.html#cert">Certification</a>
+    <a href="lab-finder.html">Labs</a>
+  </nav>
+  <div class="lang-switch" role="group" aria-label="Language">
+    <button data-lang="en" lang="en">English</button>
+    <button data-lang="hi" lang="hi">हिंदी</button>
+    <button data-lang="mr" lang="mr">मराठी</button>
+  </div>
+</header>
+
+<main class="page">
+  <div class="intro">
+    <h1>Standard Recommender</h1>
+    <p class="muted">Describe your product the way you'd explain it to an officer. We'll match it to applicable Indian Standards with a confidence grade and the exact clause to check.</p>
+  </div>
+
+  <form class="reco-form" id="recoForm">
+    <label for="prod">Product description</label>
+    <textarea id="prod" placeholder="e.g. We manufacture 12W LED bulb drivers for the Indian market, selling online and through distributors…"></textarea>
+    <div class="examples">
+      <button class="chip" type="button" data-ex="12W LED bulb drivers sold in India">LED drivers</button>
+      <button class="chip" type="button" data-ex="22K gold rings and bangles hallmarked jewellery">Gold jewellery</button>
+      <button class="chip" type="button" data-ex="Prepared snack foods packed for retail sale">Packaged food</button>
+      <button class="chip" type="button" data-ex="Steel TMT rebars for construction">Steel rebar</button>
+    </div>
+    <button class="btn btn-accent" type="submit" id="findBtn">Find applicable standards</button>
+  </form>
+
+  <section class="results" id="results" hidden aria-live="polite"></section>
+
+  <section class="section-gap" id="cert">
+    <h2>Certification steps (CRS)</h2>
+    <p class="muted" style="max-width:640px">The standard path for electronics &amp; IT goods manufactured in or outside India.</p>
+    <div class="cert-steps">
+      <div class="cert-step"><div><b>Check the compulsory list</b><span>Confirm your product category appears in the current CRS schedule under the relevant IS number.</span></div></div>
+      <div class="cert-step"><div><b>Apply on the BIS MANAK portal</b><span>Submit Form-I with your factory details and manufacturing process information.</span></div></div>
+      <div class="cert-step"><div><b>Test at a BIS-recognised lab</b><span>Sample testing against every clause of the standard — <a href="lab-finder.html">find a lab</a> near your plant.</span></div></div>
+      <div class="cert-step"><div><b>Factory inspection</b><span>BIS officers assess in-process quality control and calibration records.</span></div></div>
+      <div class="cert-step"><div><b>Licence &amp; Standard Mark</b><span>On approval you may apply the ISI mark with the CM/L number. Typical timeline: 4–6 weeks.</span></div></div>
+    </div>
+    <p style="margin-top:22px"><a class="btn btn-ghost" href="chat.html?q=What are the certification steps?" style="text-decoration:none">Ask a follow-up in chat</a></p>
+  </section>
+</main>
+
+<div id="widget-root"></div>
+
+<script src="../assets/js/bis.js"></script>
+<script src="widget/bis-widget.js"></script>
+<script>
+  const DB = [
+    { no: "IS 1417", title: "Gold jewellery &amp; gold artefacts — fineness", why: "Applies to 22K/18K gold articles; defines purity grades and marking.", conf: "high", cites: [{ doc: "IS 1417", clause: "5", url: "#is1417" }] },
+    { no: "IS 302 (Part 1)", title: "Safety of household electrical appliances", why: "Base safety standard for mains-powered appliances and their drivers.", conf: "high", cites: [{ doc: "IS 302 Part 1", clause: "4.2", url: "#is302" }] },
+    { no: "IS 16107 (Part 2/Sec 11)", title: "LED modules — performance &amp; safety", why: "Matches LED bulb/driver performance requirements under CRS.", conf: "high", cites: [{ doc: "IS 16107", clause: "7", url: "#is16107" }] },
+    { no: "IS 10322 (Part 5/Sec 1)", title: "Luminaires — general lighting requirements", why: "Applies if you ship finished luminaires, not bare drivers.", conf: "medium", cites: [{ doc: "IS 10322", clause: "5", url: "#is10322" }] },
+    { no: "IS 15489", title: "Steel bars &amp; rods for concrete reinforcement", why: "TMT rebar grades and mechanical property limits.", conf: "high", cites: [{ doc: "IS 15489", clause: "6", url: "#is15489" }] },
+    { no: "IS 16547", title: "Packaged food labelling requirements", why: "Declaration, nutrition panel and batch marking for retail packs.", conf: "medium", cites: [{ doc: "IS 16547", clause: "4", url: "#is16547" }] },
+  ];
+
+  const rules = [
+    { re: /led|driver|bulb|lamp/i, keys: ["IS 16107 (Part 2/Sec 11)", "IS 302 (Part 1)", "IS 10322 (Part 5/Sec 1)"] },
+    { re: /gold|jewel|ring|bangle|silver|silverware/i, keys: ["IS 1417"] },
+    { re: /steel|rebar|tor|iron/i, keys: ["IS 15489"] },
+    { re: /food|snack|pack|spice|milk/i, keys: ["IS 16547"] },
+  ];
+
+  const results = document.getElementById("results");
+
+  document.querySelectorAll("[data-ex]").forEach((b) =>
+    b.addEventListener("click", () => (document.getElementById("prod").value = b.dataset.ex))
+  );
+
+  document.getElementById("recoForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const text = document.getElementById("prod").value.trim();
+    if (!text) { document.getElementById("prod").focus(); return; }
+    const rule = rules.find((r) => r.re.test(text));
+    const matches = rule ? rule.keys.map((k) => DB.find((d) => d.no === k)) : [DB[0], DB[2]];
+    results.hidden = false;
+    results.innerHTML = `<p class="muted small" style="grid-column:1/-1;margin:0">${matches.length} standards matched for “${BIS.escapeHtml(text.slice(0, 80))}${text.length > 80 ? "…" : ""}”</p>` +
+      matches.map((m) => `
+        <article class="std-card">
+          <span class="std-no">${m.no}</span>
+          <span class="title">${m.title}</span>
+          <p class="why">${m.why}</p>
+          <div class="foot">
+            ${BIS.confidenceBadge(m.conf)}
+            <span>${BIS.citationChips(m.cites)}</span>
+          </div>
+        </article>`).join("");
+    results.scrollIntoView({ behavior: "smooth", block: "start" });
+  });
+
+  BISWidget.mount(document.getElementById("widget-root"));
+</script>
+</body>
+</html>

@@ -1,0 +1,549 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BIS Sahayak — UI Kit · 3 Surfaces, 1 Brain</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="assets/css/bis.css">
+<style>
+  /* ---------- hero: the drawing sheet + the live stamp ---------- */
+  .hero {
+    border-bottom: 1px solid var(--line);
+    padding: 0;
+    background: var(--bg);
+  }
+  .hero-inner {
+    max-width: 1280px;
+    margin: 0 auto;
+    padding: 64px 24px 60px;
+    display: grid;
+    grid-template-columns: 1.02fr 0.98fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .hero h1 { margin: 6px 0 16px; max-width: 15ch; }
+  .hero h1 em {
+    font-style: normal;
+    color: var(--bis-navy);
+    box-shadow: inset 0 -0.14em 0 rgba(255, 153, 51, .5);
+  }
+  @media (prefers-color-scheme: dark) { .hero h1 em { color: #fff; } }
+  .hero p.tag { font-size: var(--fs-20); color: var(--text-dim); max-width: 46ch; margin: 0 0 26px; }
+  .hero-actions { display: flex; gap: 12px; flex-wrap: wrap; align-items: center; }
+  .hero-meta {
+    display: flex; gap: 18px; flex-wrap: wrap;
+    margin-top: 30px; padding-top: 18px; border-top: 1px solid var(--line);
+    font-family: var(--font-mono); font-size: var(--fs-12); color: var(--text-dim);
+  }
+  .hero-meta b { color: var(--text); font-weight: 700; }
+
+  /* ---------- the signature: an answer, stamped ---------- */
+  .demo {
+    background: var(--surface);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    padding: 18px;
+    box-shadow: var(--shadow);
+    position: relative;
+  }
+  .demo-head {
+    display: flex; align-items: center; justify-content: space-between;
+    gap: 10px; padding-bottom: 12px; margin-bottom: 14px;
+    border-bottom: 1px solid var(--line);
+    font-family: var(--font-mono); font-size: var(--fs-12);
+    letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim);
+  }
+  .demo-head .live { display: inline-flex; align-items: center; gap: 7px; color: var(--bis-green); font-weight: 700; }
+  .demo-head .live::before {
+    content: ""; width: 7px; height: 7px; border-radius: 50%;
+    background: var(--bis-green); animation: blink 1.6s ease-in-out infinite;
+  }
+  @keyframes blink { 50% { opacity: .25; } }
+  .demo-body { min-height: 258px; }
+  .demo .lbl {
+    display: block; font-family: var(--font-mono); font-size: 10.5px;
+    letter-spacing: .14em; text-transform: uppercase; color: var(--text-dim); margin-bottom: 5px;
+  }
+  .demo .q { font-weight: 600; margin-bottom: 16px; }
+  .demo .a { position: relative; padding-right: 70px; }
+  .demo .a .bubble-text { margin: 0 0 4px; font-size: var(--fs-14); }
+  .demo .seal-slot { position: absolute; right: -4px; top: -6px; }
+  .demo .seal { width: 54px; height: 54px; font-size: 7.5px; }
+  .demo .src {
+    margin-top: 14px; padding-top: 12px; border-top: 1px dashed var(--line);
+    font-family: var(--font-mono); font-size: var(--fs-12); color: var(--text-dim);
+    display: flex; gap: 8px; align-items: baseline; flex-wrap: wrap;
+  }
+  .demo .src b { color: var(--text); }
+  .demo-chips { display: flex; gap: 7px; flex-wrap: wrap; margin-top: 14px; }
+  .demo-chips .chip { font-size: var(--fs-12); padding: 6px 11px; }
+
+  /* ---------- surfaces ---------- */
+  .grid { display: grid; gap: 18px; grid-template-columns: repeat(auto-fill, minmax(290px, 1fr)); }
+  .surface-card {
+    display: flex; flex-direction: column; gap: 6px; text-decoration: none; color: inherit;
+    position: relative; overflow: hidden; padding-top: 24px;
+  }
+  .surface-card::before {
+    content: ""; position: absolute; left: 0; right: 0; top: 0; height: 3px;
+    background: var(--stripe); transform: scaleX(.18); transform-origin: left;
+    transition: transform .3s ease;
+  }
+  .surface-card:hover::before { transform: scaleX(1); }
+  .surface-card .no {
+    font-family: var(--font-mono); font-size: var(--fs-12); font-weight: 700;
+    letter-spacing: .1em; color: var(--bis-saffron); text-transform: uppercase;
+  }
+  .surface-card h3 { margin: 2px 0 4px; }
+  .surface-card ul { margin: 8px 0 0; padding-left: 18px; color: var(--text-dim); font-size: var(--fs-14); }
+  .surface-card li { margin-bottom: 3px; }
+  .surface-card .go { margin-top: auto; padding-top: 14px; font-weight: 700; font-size: var(--fs-14); color: var(--bis-navy); }
+  @media (prefers-color-scheme: dark) { .surface-card .go { color: var(--bis-saffron); } }
+
+  /* ---------- the contract (§3) ---------- */
+  .contract { display: grid; grid-template-columns: 1.1fr .9fr; gap: 22px; align-items: start; }
+  pre {
+    background: var(--bis-navy); color: #E6EEF9; padding: 18px 20px;
+    border-radius: 12px; overflow-x: auto; font-family: var(--font-mono);
+    font-size: 13px; line-height: 1.65; margin: 0;
+  }
+  pre .k { color: #8FB6EE; }
+  pre .s { color: #FFC46B; }
+  pre .c { color: #7E93B4; }
+  .endpoint-list { display: grid; gap: 10px; }
+  .endpoint {
+    background: var(--surface); border: 1px solid var(--line);
+    border-left: 3px solid var(--bis-saffron); border-radius: 10px; padding: 12px 14px;
+  }
+  .endpoint b { font-family: var(--font-mono); font-size: var(--fs-13, 13px); display: block; }
+  .endpoint span { font-size: var(--fs-14); color: var(--text-dim); }
+  code { font-family: var(--font-mono); font-size: .93em; background: var(--surface-2); padding: 1px 5px; border-radius: 5px; }
+  pre code { background: none; padding: 0; }
+
+  /* ---------- tokens ---------- */
+  .swatches { display: flex; gap: 12px; flex-wrap: wrap; }
+  .swatch {
+    width: 132px; border: 1px solid var(--line); border-radius: 12px;
+    overflow: hidden; font-size: var(--fs-12); cursor: pointer; background: var(--surface);
+    text-align: left; padding: 0; font-family: inherit; color: inherit;
+    transition: transform .15s ease, box-shadow .15s ease;
+  }
+  .swatch:hover { transform: translateY(-3px); box-shadow: var(--shadow); }
+  .swatch .chip-color { height: 54px; }
+  .swatch .label { padding: 8px 10px; background: var(--surface); }
+  .swatch .label b { display: block; }
+  .swatch .label span { color: var(--text-dim); font-family: var(--font-mono); }
+  .type-specimen {
+    display: grid; gap: 14px; grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+    margin-top: 22px;
+  }
+  .specimen { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px; }
+  .specimen .role {
+    font-family: var(--font-mono); font-size: var(--fs-12); letter-spacing: .12em;
+    text-transform: uppercase; color: var(--bis-saffron); font-weight: 700;
+  }
+  .specimen .sample { font-size: 26px; font-weight: 800; letter-spacing: -.02em; margin: 6px 0 2px; }
+  .specimen .sample.mono { font-weight: 700; letter-spacing: 0; }
+  .specimen .note { font-size: var(--fs-14); color: var(--text-dim); }
+
+  /* ---------- component gallery ---------- */
+  .gallery { display: grid; gap: 18px; grid-template-columns: repeat(auto-fit, minmax(300px, 1fr)); }
+  .stage {
+    background: var(--surface); border: 1px solid var(--line);
+    border-radius: 14px; padding: 18px;
+  }
+  .stage h3 { font-size: var(--fs-14); text-transform: uppercase; letter-spacing: .1em; color: var(--text-dim); margin-bottom: 14px; }
+  .stage .row { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+  .stage .hint { font-size: var(--fs-12); color: var(--text-dim); margin: 12px 0 0; }
+  .msg { margin-bottom: 0; }
+
+  .toast {
+    position: fixed; left: 50%; bottom: 26px; transform: translate(-50%, 20px);
+    background: var(--bis-navy); color: #fff; font-family: var(--font-mono);
+    font-size: var(--fs-13, 13px); padding: 10px 16px; border-radius: 999px;
+    opacity: 0; pointer-events: none; transition: opacity .2s ease, transform .2s ease;
+    z-index: 90; box-shadow: var(--shadow);
+  }
+  .toast.show { opacity: 1; transform: translate(-50%, 0); }
+
+  .section-head { display: flex; align-items: baseline; justify-content: space-between; gap: 16px; flex-wrap: wrap; margin-bottom: 16px; }
+  .section-head p { margin: 0; color: var(--text-dim); font-size: var(--fs-14); max-width: 62ch; }
+
+  footer.inv {
+    border-top: 1px solid var(--line); margin-top: 56px; padding-top: 22px;
+    display: flex; gap: 18px; flex-wrap: wrap; justify-content: space-between;
+    font-size: var(--fs-14); color: var(--text-dim);
+  }
+  footer.inv ul { list-style: none; display: flex; gap: 14px; flex-wrap: wrap; margin: 0; padding: 0; }
+
+  @media (max-width: 980px) {
+    .hero-inner { grid-template-columns: 1fr; gap: 34px; padding-top: 44px; }
+    .hero h1 { max-width: none; }
+    .contract { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <a class="logo" href="index.html"><span class="logo-mark">IS</span> BIS Sahayak</a>
+  <nav aria-label="Deliverables">
+    <a href="website/index.html">Portal</a>
+    <a href="app/index.html">App</a>
+    <a href="whatsapp/index.html">WhatsApp</a>
+    <a href="#contract">Contract</a>
+    <a href="#tokens">Tokens</a>
+  </nav>
+  <div class="lang-switch" role="group" aria-label="Language">
+    <button data-lang="en" lang="en">English</button>
+    <button data-lang="hi" lang="hi">हिंदी</button>
+    <button data-lang="mr" lang="mr">मराठी</button>
+  </div>
+</header>
+
+<section class="hero grid-paper-fade">
+  <div class="hero-inner">
+    <div>
+      <p class="eyebrow">SIH26107 · Team Hack Horizon · Design spec §2–§7</p>
+      <h1 class="display">One design system, <em>three doors</em> in.</h1>
+      <p class="tag">AI assistant for Indian Standards &amp; BIS services. Same backend, same citations — web portal, phone app and WhatsApp each get their own door.</p>
+      <div class="hero-actions">
+        <a class="btn btn-accent" href="website/index.html">Open the portal →</a>
+        <a class="btn btn-ghost" href="#contract" style="text-decoration:none">See the /chat contract</a>
+        <div class="lang-switch" role="group" aria-label="Language">
+          <button data-lang="en" lang="en">English</button>
+          <button data-lang="hi" lang="hi">हिंदी</button>
+          <button data-lang="mr" lang="mr">मराठी</button>
+        </div>
+      </div>
+      <div class="hero-meta">
+        <span><b>9</b> pages</span>
+        <span><b>3</b> languages</span>
+        <span><b>1</b> endpoint</span>
+        <span><b>0</b> build steps</span>
+      </div>
+    </div>
+
+    <!-- signature moment: an answer arrives and gets stamped with its source -->
+    <div class="demo" id="demo" aria-label="Live example of a cited answer">
+      <div class="demo-head">
+        <span>POST /chat · live fixture</span>
+        <span class="live">answering</span>
+      </div>
+      <div class="demo-body">
+        <span class="lbl">You asked</span>
+        <p class="q" id="demoQ">—</p>
+
+        <div class="a">
+          <span class="seal-slot"><span class="seal" id="demoSeal" aria-hidden="true"><span class="tick">✓</span>BIS source<br>stamped</span></span>
+          <span class="lbl">Sahayak</span>
+          <div id="demoTyping" hidden><span class="typing-dots"><i></i><i></i><i></i></span></div>
+          <p class="bubble-text" id="demoA">—</p>
+          <div id="demoCites"></div>
+          <div id="demoBadge"></div>
+        </div>
+
+        <div class="src" id="demoSrc"><span>📄 <b>Retrieved excerpt</b></span><span id="demoSrcText">—</span></div>
+      </div>
+      <div class="demo-chips" id="demoChips">
+        <button class="chip" type="button">Is IS 302 mandatory for home appliances?</button>
+        <button class="chip" type="button">How do I verify a gold hallmark HUID?</button>
+        <button class="chip" type="button">Which BIS lab tests home appliances?</button>
+      </div>
+    </div>
+  </div>
+</section>
+
+<main class="page">
+
+  <section id="surfaces">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Deliverables · §4–§6</p>
+        <h2>Three surfaces, one brain</h2>
+      </div>
+      <p>Every surface renders the same <code>POST /chat</code> response — same citations, same confidence logic, same quick-action wording.</p>
+    </div>
+    <div class="grid">
+      <a class="card surface-card reveal" href="website/index.html" data-reveal-delay="0">
+        <span class="no">Surface 1 · §4</span>
+        <h3>Website — Portal &amp; Widget</h3>
+        <ul>
+          <li>Landing: ask bar + 4 feature cards</li>
+          <li>Chat: history · chat · live source drawer</li>
+          <li>Standard Recommender · Lab Finder · Hallmark check</li>
+          <li>Embeddable widget (380×560, Shadow DOM)</li>
+        </ul>
+        <span class="go">Open portal →</span>
+      </a>
+      <a class="card surface-card reveal" href="app/index.html" data-reveal-delay="80">
+        <span class="no">Surface 2 · §5</span>
+        <h3>Mobile App — Android / iOS</h3>
+        <ul>
+          <li>Onboarding: language → user type → permissions</li>
+          <li>Home · Chat · Standard detail · Voice mode</li>
+          <li>5-tab bottom nav, thumb-reachable mic</li>
+          <li>Offline-first: last 20 answers cached</li>
+        </ul>
+        <span class="go">Open app screens →</span>
+      </a>
+      <a class="card surface-card reveal" href="whatsapp/index.html" data-reveal-delay="160">
+        <span class="no">Surface 3 · §6</span>
+        <h3>WhatsApp Chatbot</h3>
+        <ul>
+          <li>Conversation flow with quick replies &amp; lists</li>
+          <li>Message template library</li>
+          <li>Menu-branch flowchart</li>
+          <li>Voice note → Saaras v3 → /chat → Bulbul v3</li>
+        </ul>
+        <span class="go">Open conversation design →</span>
+      </a>
+    </div>
+  </section>
+
+  <section id="contract" style="margin-top:56px">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">The one endpoint · §3</p>
+        <h2>Every surface speaks <code>POST /chat</code></h2>
+      </div>
+      <p>No surface invents its own data. Fixtures below are shaped exactly like the live contract, so the backend drops in behind one attribute.</p>
+    </div>
+    <div class="contract">
+      <pre><code><span class="c">// one attribute switches fixtures → live backend</span>
+&lt;script src=<span class="s">"assets/js/bis.js"</span> data-api=<span class="s">"https://api.bissahayak.gov.in"</span>&gt;&lt;/script&gt;
+
+<span class="c">// POST {apiBase}/chat</span>
+{ <span class="k">"message"</span>: <span class="s">"Is IS 302 mandatory for home appliances?"</span>,
+  <span class="k">"language"</span>: <span class="s">"en"</span> }   <span class="c">// en | hi | mr</span>
+
+<span class="c">// 200 response</span>
+{ <span class="k">"answer"</span>: <span class="s">"IS 302 (Part 1) …"</span>,
+  <span class="k">"citations"</span>: [{ <span class="k">"doc"</span>: <span class="s">"IS 302 Part 1"</span>, <span class="k">"clause"</span>: <span class="s">"4.2"</span>, <span class="k">"url"</span>: <span class="s">"#…"</span> }],
+  <span class="k">"confidence"</span>: <span class="s">"high"</span>,        <span class="c">// high | medium | low</span>
+  <span class="k">"suggested_actions"</span>: [<span class="s">"find_lab"</span>, <span class="s">"view_scheme"</span>, <span class="s">"talk_to_bis"</span>],
+  <span class="k">"audio_url"</span>: <span class="s">"#audio-demo"</span>,
+  <span class="k">"session_id"</span>: <span class="s">"sess-demo"</span> }</code></pre>
+
+      <div class="endpoint-list">
+        <div class="endpoint"><b>POST /chat</b><span>The only API call. Implemented in <code>assets/js/bis.js</code>; the widget keeps an identical copy for zero-dependency embedding.</span></div>
+        <div class="endpoint"><b>bissahayak://chat?q=…</b><span>App deep link — BIS Care drops a question straight into a chat (§5.3).</span></div>
+        <div class="endpoint"><b>cdn.bissahayak.gov.in/widget/bis-widget.js</b><span>Widget distribution URL, loaded with <code>data-auto</code> (§4.1A).</span></div>
+        <div class="endpoint"><b>fonts.googleapis.com</b><span>The only outbound request today: Inter + Noto Sans Devanagari, with system fallbacks.</span></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="tokens" style="margin-top:56px">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Design tokens · §2.2–§2.3</p>
+        <h2>Tokens, typed</h2>
+      </div>
+      <p>Click a swatch to copy its hex. Values are declared once in <code>:root</code> — dark mode swaps the semantic aliases, never the palette.</p>
+    </div>
+    <div class="swatches" id="swatches">
+      <button class="swatch" type="button" data-hex="#0B2D5B"><div class="chip-color" style="background:#0B2D5B"></div><div class="label"><b>BIS Navy</b><span>#0B2D5B</span></div></button>
+      <button class="swatch" type="button" data-hex="#FF9933"><div class="chip-color" style="background:#FF9933"></div><div class="label"><b>BIS Saffron</b><span>#FF9933</span></div></button>
+      <button class="swatch" type="button" data-hex="#128807"><div class="chip-color" style="background:#128807"></div><div class="label"><b>BIS Green</b><span>#128807</span></div></button>
+      <button class="swatch" type="button" data-hex="#FFFFFF"><div class="chip-color" style="background:#FFFFFF;border-bottom:1px solid var(--line)"></div><div class="label"><b>BIS White</b><span>#FFFFFF</span></div></button>
+      <button class="swatch" type="button" data-hex="#F4F6F9"><div class="chip-color" style="background:#F4F6F9"></div><div class="label"><b>Slate 100</b><span>#F4F6F9</span></div></button>
+      <button class="swatch" type="button" data-hex="#5A6B85"><div class="chip-color" style="background:#5A6B85"></div><div class="label"><b>Slate 600</b><span>#5A6B85</span></div></button>
+      <button class="swatch" type="button" data-hex="#D32F2F"><div class="chip-color" style="background:#D32F2F"></div><div class="label"><b>Red Alert</b><span>#D32F2F</span></div></button>
+    </div>
+
+    <div class="type-specimen">
+      <div class="specimen">
+        <span class="role">Body · Inter</span>
+        <div class="sample">Answers you can cite</div>
+        <span class="note">Headings and prose, 400–800.</span>
+      </div>
+      <div class="specimen">
+        <span class="role">Devanagari · Noto Sans</span>
+        <div class="sample" style="font-family:var(--font-deva)">उत्तर जिसका स्रोत है</div>
+        <span class="note" lang="mr" style="font-family:var(--font-deva)">स्रोतासह उत्तरे — मराठी कधीही टोफू होत नाही.</span>
+      </div>
+      <div class="specimen">
+        <span class="role">Data · ui-monospace</span>
+        <div class="sample mono">IS 302 · Clause 4.2</div>
+        <span class="note">Standards, clauses, HUIDs and hex values — anything you read character by character.</span>
+      </div>
+    </div>
+  </section>
+
+  <section id="components" style="margin-top:56px">
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Core components · §2.4</p>
+        <h2>The parts every surface shares</h2>
+      </div>
+      <p>Built once in <code>assets/css/bis.css</code> + <code>assets/js/bis.js</code>, then reused by portal, app, widget and the WhatsApp mock.</p>
+    </div>
+
+    <div class="gallery">
+      <div class="stage reveal">
+        <h3>Cited answer</h3>
+        <div class="msg ai">
+          <div class="bubble">
+            Yes — household appliances fall under IS 302 (Part 1) and require CRS registration before sale in India.
+            <div><a class="citation" href="website/chat.html?q=Is%20IS%20302%20mandatory%20for%20home%20appliances%3F">📄 IS 302 Part 1, Clause 4.2</a><a class="citation" href="website/recommender.html#cert">📄 IS 302 (Part 2/Sec 23), Clause 21</a></div>
+            <span class="confidence high">✅ Verified from BIS source</span>
+            <span class="meta">🔊 Listen · just now</span>
+          </div>
+        </div>
+        <p class="hint">Answer → citation chips → confidence badge → listen. Same order on all three surfaces.</p>
+      </div>
+
+      <div class="stage reveal" data-reveal-delay="80">
+        <h3>Confidence badge</h3>
+        <div class="row" id="badgeRow">
+          <button class="confidence high" type="button">✅ Verified from BIS source</button>
+        </div>
+        <p class="hint">Click to cycle the three states — one implementation, <code>BIS.confidenceBadge()</code>.</p>
+        <div class="row" style="margin-top:14px">
+          <div class="quick-chips">
+            <button class="chip" type="button">Find my standard</button>
+            <button class="chip" type="button">Certification steps</button>
+            <button class="chip" type="button">Check hallmark</button>
+            <button class="chip" type="button">Find a lab</button>
+          </div>
+        </div>
+        <p class="hint">Quick-action wording is identical on portal, app and WhatsApp menu.</p>
+      </div>
+
+      <div class="stage reveal" data-reveal-delay="160">
+        <h3>Seal &amp; voice</h3>
+        <div class="row">
+          <span class="seal stamp-in"><span class="tick">✓</span>BIS source<br>stamped</span>
+          <button class="mic" type="button" id="micDemo" aria-label="Voice input">🎙️</button>
+          <span class="muted small" id="micHint">Tap the mic — it pulses red while Saaras v3 records.</span>
+        </div>
+        <p class="hint">The seal is the system's signature: a rubber stamp with a turning dashed ring.</p>
+      </div>
+    </div>
+  </section>
+
+  <footer class="inv">
+    <span>Static prototype · no build step · dark mode via <code>prefers-color-scheme</code></span>
+    <ul>
+      <li><a href="website/index.html">Portal</a></li>
+      <li><a href="app/index.html">App</a></li>
+      <li><a href="whatsapp/index.html">WhatsApp</a></li>
+      <li><a href="website/widget-demo.html">Widget demo</a></li>
+      <li><a href="README.md">README</a></li>
+      <li><a href="CONSISTENCY.md">Checklist</a></li>
+      <li><a href="AUDIT.md">Audit</a></li>
+    </ul>
+  </footer>
+</main>
+
+<div class="toast" id="toast" role="status" aria-live="polite"></div>
+
+<script src="assets/js/bis.js"></script>
+<script>
+(function () {
+  /* ---- 1. the stamping demo: ask → type → cite → stamp ---- */
+  const QUESTIONS = [
+    "Is IS 302 mandatory for home appliances?",
+    "How do I verify a gold hallmark HUID?",
+    "Which BIS lab tests home appliances?",
+  ];
+  const qEl = document.getElementById("demoQ");
+  const aEl = document.getElementById("demoA");
+  const typingEl = document.getElementById("demoTyping");
+  const citesEl = document.getElementById("demoCites");
+  const badgeEl = document.getElementById("demoBadge");
+  const sealEl = document.getElementById("demoSeal");
+  const srcText = document.getElementById("demoSrcText");
+  const srcWrap = document.getElementById("demoSrc");
+  let index = 0;
+  let timer = null;
+
+  async function ask(question) {
+    clearTimeout(timer);
+    qEl.textContent = question;
+    aEl.textContent = "";
+    citesEl.innerHTML = "";
+    badgeEl.innerHTML = "";
+    sealEl.classList.remove("stamp-in");
+    srcWrap.style.visibility = "hidden";
+    typingEl.hidden = false;
+
+    const res = await BIS.chat(question);
+    typingEl.hidden = true;
+    aEl.textContent = res.answer;
+    citesEl.innerHTML = BIS.citationChips(res.citations);
+    badgeEl.innerHTML = BIS.confidenceBadge(res.confidence);
+    srcText.textContent = res.excerpt ? res.excerpt.text : "No excerpt — confidence is " + res.confidence + ".";
+    srcWrap.style.visibility = "visible";
+    void sealEl.offsetWidth;           /* restart the stamp */
+    sealEl.classList.add("stamp-in");
+
+    timer = setTimeout(() => {
+      index = (index + 1) % QUESTIONS.length;
+      ask(QUESTIONS[index]);
+    }, 6500);
+  }
+
+  document.querySelectorAll("#demoChips .chip").forEach((chip) =>
+    chip.addEventListener("click", () => {
+      index = QUESTIONS.indexOf(chip.textContent.trim());
+      if (index < 0) index = 0;
+      ask(QUESTIONS[index]);
+    })
+  );
+
+  ask(QUESTIONS[0]);
+
+  /* ---- 2. click a swatch to copy its hex ---- */
+  const toast = document.getElementById("toast");
+  let toastTimer = null;
+  function say(msg) {
+    toast.textContent = msg;
+    toast.classList.add("show");
+    clearTimeout(toastTimer);
+    toastTimer = setTimeout(() => toast.classList.remove("show"), 1800);
+  }
+  document.querySelectorAll(".swatch").forEach((btn) =>
+    btn.addEventListener("click", async () => {
+      const hex = btn.dataset.hex;
+      try {
+        await navigator.clipboard.writeText(hex);
+        say("Copied " + hex);
+      } catch (e) {
+        say(hex); /* clipboard blocked — still show the value */
+      }
+    })
+  );
+
+  /* ---- 3. badge cycles through the three confidence states ---- */
+  const STATES = [
+    ["high", "✅ Verified from BIS source"],
+    ["medium", "⚠️ Partial match — confirm with BIS office"],
+    ["low", "❌ Not found in BIS sources"],
+  ];
+  let stateIndex = 0;
+  const badgeRow = document.getElementById("badgeRow");
+  badgeRow.firstElementChild.addEventListener("click", () => {
+    stateIndex = (stateIndex + 1) % STATES.length;
+    badgeRow.firstElementChild.className = "confidence " + STATES[stateIndex][0];
+    badgeRow.firstElementChild.textContent = STATES[stateIndex][1];
+  });
+
+  /* ---- 4. mic pulses, then offers the dictated question ---- */
+  const mic = document.getElementById("micDemo");
+  const micHint = document.getElementById("micHint");
+  mic.addEventListener("click", () => {
+    const on = mic.classList.toggle("recording");
+    micHint.textContent = on
+      ? BIS.t().listening
+      : "Dictated: “Is IS 302 mandatory for home appliances?” — tap again to clear.";
+    if (!on) mic.setAttribute("aria-label", BIS.t().tapMic);
+  });
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,415 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>BIS Sahayak — Mobile App Screens</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/bis.css">
+<style>
+  .intro { max-width: 760px; margin-bottom: 8px; }
+  .rail {
+    display: flex; gap: 26px; overflow-x: auto; padding: 30px 4px 40px;
+    scroll-snap-type: x mandatory;
+  }
+  .frame-wrap { flex: none; width: 320px; scroll-snap-align: center; text-align: center; }
+  .frame-label { font-size: var(--fs-14); font-weight: 700; margin-bottom: 10px; }
+  .frame-label span { display: block; font-weight: 400; color: var(--text-dim); font-size: var(--fs-12); }
+
+  /* phone body */
+  .phone {
+    width: 320px; height: 660px; background: #0B0F17; border-radius: 42px;
+    padding: 10px; box-shadow: var(--shadow); margin: 0 auto;
+  }
+  .screen {
+    width: 100%; height: 100%; border-radius: 34px; overflow: hidden;
+    background: var(--bg); color: var(--text);
+    display: flex; flex-direction: column; position: relative;
+    font-size: 14px;
+  }
+  .statusbar {
+    display: flex; justify-content: space-between; padding: 12px 20px 4px;
+    font-size: 11px; font-weight: 700; flex: none;
+  }
+  .notch { width: 96px; height: 22px; background: #0B0F17; border-radius: 0 0 14px 14px; position: absolute; top: 0; left: 50%; transform: translateX(-50%); z-index: 5; }
+  .screen-body { flex: 1; overflow-y: auto; padding: 14px 16px 8px; }
+  .screen-body::-webkit-scrollbar { width: 0; }
+
+  /* tab bar (§5.1) */
+  .tabbar {
+    flex: none; display: flex; border-top: 1px solid var(--line);
+    background: color-mix(in srgb, var(--bg) 94%, transparent);
+    backdrop-filter: blur(8px); padding: 6px 4px 14px;
+  }
+  .tabbar a {
+    flex: 1; text-align: center; text-decoration: none; color: var(--text-dim);
+    font-size: 9.5px; font-weight: 600; display: flex; flex-direction: column; gap: 2px;
+    padding: 4px 0;
+  }
+  .tabbar a .ic { font-size: 18px; line-height: 1.2; }
+  .tabbar a[aria-current="page"] { color: var(--bis-navy); }
+  @media (prefers-color-scheme: dark) { .tabbar a[aria-current="page"] { color: var(--bis-saffron); } }
+
+  /* onboarding dots */
+  .dots { display: flex; gap: 6px; justify-content: center; margin: 12px 0; }
+  .dots i { width: 7px; height: 7px; border-radius: 50%; background: var(--line); }
+  .dots i.on { background: var(--bis-saffron); width: 20px; border-radius: 99px; }
+
+  .opt {
+    display: block; width: 100%; text-align: left; font: inherit; font-size: 13.5px;
+    background: var(--surface); border: 1.5px solid var(--line); border-radius: 12px;
+    padding: 13px 14px; margin-bottom: 9px; color: var(--text); cursor: pointer;
+  }
+  .opt[aria-pressed="true"] { border-color: var(--bis-navy); background: color-mix(in srgb, var(--bis-navy) 8%, var(--bg)); }
+  .opt b { display: block; }
+  .opt span { font-size: 11.5px; color: var(--text-dim); }
+
+  .greet { font-size: 19px; font-weight: 800; letter-spacing: -.01em; }
+  .greet + p { color: var(--text-dim); font-size: 12.5px; margin: 2px 0 14px; }
+
+  .qa-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 9px; }
+  .qa-card {
+    background: var(--surface); border: 1px solid var(--line); border-radius: 14px;
+    padding: 13px 12px; font-size: 12.5px; font-weight: 700; color: var(--text);
+    text-align: left; cursor: pointer; min-height: 78px; display: flex; flex-direction: column; justify-content: space-between;
+  }
+  .qa-card .ic { font-size: 20px; }
+  .qa-card:hover { border-color: var(--bis-saffron); }
+
+  .list-head { font-size: 11px; font-weight: 800; letter-spacing: .1em; text-transform: uppercase; color: var(--text-dim); margin: 18px 0 8px; }
+  .recent {
+    display: flex; gap: 10px; align-items: center; width: 100%; text-align: left;
+    background: transparent; border: 0; border-bottom: 1px solid var(--line);
+    padding: 11px 2px; font: inherit; font-size: 13px; color: var(--text); cursor: pointer;
+  }
+  .recent .dot { width: 8px; height: 8px; border-radius: 50%; background: var(--bis-green); flex: none; }
+
+  /* chat screen */
+  .chat-head { display: flex; align-items: center; justify-content: space-between; padding: 4px 2px 10px; border-bottom: 1px solid var(--line); }
+  .chat-head b { font-size: 15px; }
+  .chat-head .sub { display: block; font-size: 10.5px; color: var(--text-dim); font-weight: 400; }
+  .mini-chat { padding-top: 12px; }
+  .mini-chat .bubble { max-width: 86%; font-size: 13px; padding: 9px 12px; }
+  .mini-chat .citation { font-size: 10px; padding: 3px 8px; margin-top: 6px; }
+  .mini-chat .confidence { font-size: 10px; padding: 4px 9px; }
+  .mini-composer {
+    flex: none; display: flex; gap: 8px; align-items: center;
+    padding: 10px 12px 14px; border-top: 1px solid var(--line);
+  }
+  .mini-composer .fake-input {
+    flex: 1; background: var(--surface); border: 1px solid var(--line);
+    border-radius: 999px; padding: 9px 14px; font-size: 12.5px; color: var(--text-dim);
+  }
+  .mini-mic {
+    width: 46px; height: 46px; border-radius: 50%; border: 0; flex: none;
+    background: var(--bis-navy); color: #fff; font-size: 17px; cursor: pointer;
+    box-shadow: var(--shadow-sm);
+  }
+
+  /* voice mode */
+  .voice-screen { background: var(--bis-navy); color: #fff; }
+  .voice-screen .statusbar { color: #fff; }
+  .voice-body { flex: 1; display: flex; flex-direction: column; align-items: center; justify-content: center; padding: 20px; text-align: center; }
+  .voice-body h3 { color: #fff; font-size: 17px; margin: 18px 0 4px; }
+  .voice-body .state { color: #B9CBE6; font-size: 12.5px; margin: 0; }
+  .wave { display: flex; gap: 5px; align-items: center; height: 56px; margin-top: 26px; }
+  .wave i { width: 5px; border-radius: 99px; background: var(--bis-saffron); animation: w 1s ease-in-out infinite; }
+  .wave i:nth-child(1){height:16px;animation-delay:0s}
+  .wave i:nth-child(2){height:34px;animation-delay:.12s}
+  .wave i:nth-child(3){height:50px;animation-delay:.24s}
+  .wave i:nth-child(4){height:28px;animation-delay:.36s}
+  .wave i:nth-child(5){height:44px;animation-delay:.48s}
+  .wave i:nth-child(6){height:20px;animation-delay:.6s}
+  .wave i:nth-child(7){height:38px;animation-delay:.72s}
+  @keyframes w { 0%,100% { transform: scaleY(.5); } 50% { transform: scaleY(1); } }
+  .transcript {
+    background: rgba(255,255,255,.1); border: 1px solid rgba(255,255,255,.18);
+    border-radius: 14px; padding: 14px 16px; font-size: 14px; margin-top: 26px;
+    width: 100%; text-align: left; min-height: 70px;
+  }
+  .transcript .who { display: block; font-size: 10.5px; letter-spacing: .1em; text-transform: uppercase; color: var(--bis-saffron); margin-bottom: 6px; }
+  .voice-stop {
+    width: 66px; height: 66px; border-radius: 50%; border: 0; margin-top: 24px;
+    background: var(--bis-red-alert); color: #fff; font-size: 22px; cursor: pointer;
+    animation: pulse2 1.3s ease-out infinite;
+  }
+  @keyframes pulse2 { 0% { box-shadow: 0 0 0 0 rgba(255,255,255,.4); } 100% { box-shadow: 0 0 0 24px rgba(255,255,255,0); } }
+
+  /* standard detail */
+  .std-hero { background: var(--surface); border-bottom: 1px solid var(--line); padding: 14px 16px; }
+  .std-hero .no { font-size: 22px; font-weight: 800; color: var(--bis-navy); }
+  @media (prefers-color-scheme: dark) { .std-hero .no { color: #9CC0F2; } }
+  .std-hero .t { font-size: 13px; color: var(--text-dim); }
+  .clause {
+    background: var(--surface); border-left: 3px solid var(--bis-green);
+    border-radius: 0 10px 10px 0; padding: 12px 13px; font-size: 13px; margin: 12px 0;
+  }
+  .clause b { display: block; font-size: 11px; letter-spacing: .06em; text-transform: uppercase; color: var(--bis-green); margin-bottom: 5px; }
+  .icon-actions { display: flex; gap: 8px; margin-top: 6px; }
+  .icon-btn {
+    flex: 1; background: var(--surface); border: 1px solid var(--line); border-radius: 10px;
+    padding: 9px; font: 600 12px/1 var(--font-body); color: var(--text); cursor: pointer;
+  }
+  .followup { width: 100%; margin-top: 12px; }
+
+  .perm {
+    display: flex; gap: 10px; align-items: flex-start; background: var(--surface);
+    border: 1px solid var(--line); border-radius: 12px; padding: 12px; margin-bottom: 9px;
+  }
+  .perm .ic { font-size: 18px; }
+  .perm b { font-size: 13px; display: block; }
+  .perm span { font-size: 11.5px; color: var(--text-dim); }
+  .cta { width: 100%; padding: 13px; font-size: 14.5px; margin-top: 8px; }
+  .skip { display: block; text-align: center; font-size: 12.5px; color: var(--text-dim); margin-top: 12px; text-decoration: none; }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <a class="logo" href="../index.html"><span class="logo-mark">IS</span> BIS Sahayak</a>
+  <nav aria-label="Primary">
+    <a href="../website/index.html">Website</a>
+    <a href="index.html" aria-current="page">App</a>
+    <a href="../whatsapp/index.html">WhatsApp</a>
+  </nav>
+  <div class="lang-switch" role="group" aria-label="Language">
+    <button data-lang="en" lang="en">English</button>
+    <button data-lang="hi" lang="hi">हिंदी</button>
+    <button data-lang="mr" lang="mr">मराठी</button>
+  </div>
+</header>
+
+<main class="page" style="max-width:1480px">
+  <div class="intro">
+    <h1>Mobile App — key screens</h1>
+    <p class="muted">Android &amp; iOS · 5-tab bottom navigation · offline-first (last 20 answers cached) · deep-link scheme <code>bissahayak://chat?q=…</code></p>
+  </div>
+
+  <div class="rail" role="list" aria-label="App screens">
+
+    <!-- 1 · Onboarding: language -->
+    <div class="frame-wrap" role="listitem">
+      <div class="frame-label">01 · Onboarding 1/3 <span>Language selection</span></div>
+      <div class="phone"><div class="screen">
+        <div class="notch"></div>
+        <div class="statusbar"><span>9:41</span><span aria-hidden="true">📶 🔋</span></div>
+        <div class="screen-body">
+          <div style="text-align:center;margin-top:14px"><span class="seal" style="margin:0 auto"><span class="tick">✓</span>BIS<br>sahayak</span></div>
+          <h3 style="text-align:center;margin-top:14px">Choose your language</h3>
+          <p class="muted" style="text-align:center;font-size:12.5px;margin-bottom:16px"><span lang="mr">आपणी भाषा निवडा</span> · <span lang="hi">अपनी भाषा चुनें</span></p>
+          <button class="opt" aria-pressed="true"><b>English</b><span>Read and type in English</span></button>
+          <button class="opt" aria-pressed="false"><b lang="hi">हिंदी</b><span lang="hi">हिंदी में पढ़ें और लिखें</span></button>
+          <button class="opt" aria-pressed="false"><b lang="mr">मराठी</b><span lang="mr">मराठीत वाचा आणि लिहा</span></button>
+          <button class="opt" aria-pressed="false"><b>More languages</b><span lang="ta">தமிழ்</span> · <span lang="bn">বাংলা</span> · <span lang="te">తెలుగు</span> · <span lang="pa">ਪੰਜਾਬੀ</span></button>
+          <div class="dots"><i class="on"></i><i></i><i></i></div>
+          <button class="btn btn-accent cta">Continue</button>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- 2 · Onboarding: user type -->
+    <div class="frame-wrap" role="listitem">
+      <div class="frame-label">02 · Onboarding 2/3 <span>User type — shapes quick actions</span></div>
+      <div class="phone"><div class="screen">
+        <div class="notch"></div>
+        <div class="statusbar"><span>9:41</span><span aria-hidden="true">📶 🔋</span></div>
+        <div class="screen-body">
+          <h3 style="margin-top:18px">Who are you?</h3>
+          <p class="muted" style="font-size:12.5px">We'll put your most-used tools on the home screen.</p>
+          <button class="opt" aria-pressed="true"><b>🏭 MSME / Manufacturer</b><span>Certification steps, lab tests, CRS status</span></button>
+          <button class="opt" aria-pressed="false"><b>🎓 Student / Researcher</b><span>Standards Q&amp;A, citation exports</span></button>
+          <button class="opt" aria-pressed="false"><b>🛍️ Consumer</b><span>Hallmark check, complaint drafting</span></button>
+          <button class="opt" aria-pressed="false"><b>🚀 Startup</b><span>Fast-track guidance, recommender</span></button>
+          <div class="dots"><i></i><i class="on"></i><i></i></div>
+          <button class="btn btn-accent cta">Continue</button>
+          <a class="skip" href="#permissions">Skip for now</a>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- 3 · Onboarding: permissions -->
+    <div class="frame-wrap" id="permissions" role="listitem">
+      <div class="frame-label">03 · Onboarding 3/3 <span>Permissions — explained before the OS asks</span></div>
+      <div class="phone"><div class="screen">
+        <div class="notch"></div>
+        <div class="statusbar"><span>9:41</span><span aria-hidden="true">📶 🔋</span></div>
+        <div class="screen-body">
+          <h3 style="margin-top:18px">Two quick permissions</h3>
+          <p class="muted" style="font-size:12.5px">Ask in your own voice, find labs near you.</p>
+          <div class="perm"><span class="ic">🎙️</span><div><b>Microphone</b><span>For voice questions — powered by Sarvam Saaras v3. Recording pulses red and stops with one tap.</span></div></div>
+          <div class="perm"><span class="ic">📍</span><div><b>Location</b><span>To rank BIS-recognised labs by distance. Never stored after the session.</span></div></div>
+          <div class="perm"><span class="ic">📥</span><div><b>Offline cache</b><span>Saves your last 20 answers so they're readable with no signal. On by default.</span></div></div>
+          <div class="dots"><i></i><i></i><i class="on"></i></div>
+          <button class="btn btn-accent cta">Allow &amp; start</button>
+        </div>
+      </div></div>
+    </div>
+
+    <!-- 4 · Home -->
+    <div class="frame-wrap" id="home" role="listitem">
+      <div class="frame-label">04 · Home <span>Greeting · quick actions · recents</span></div>
+      <div class="phone"><div class="screen">
+        <div class="notch"></div>
+        <div class="statusbar"><span>9:41</span><span aria-hidden="true">📶 🔋</span></div>
+        <div class="screen-body">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <div><div class="greet" lang="hi">नमस्ते, Anjali 👋</div><p>Your LED driver CRS query was answered 2h ago</p></div>
+            <span class="seal" style="width:44px;height:44px;font-size:7px"><span class="tick" style="font-size:13px">✓</span>stamped</span>
+          </div>
+          <div class="qa-grid">
+            <button class="qa-card"><span class="ic">🔎</span>Find my standard</button>
+            <button class="qa-card"><span class="ic">📜</span>Certification steps</button>
+            <button class="qa-card"><span class="ic">💍</span>Check hallmark</button>
+            <button class="qa-card"><span class="ic">🔬</span>Find a lab</button>
+          </div>
+          <div class="list-head">Recent queries</div>
+          <button class="recent"><span class="dot"></span>Is IS 302 mandatory for home appliances?</button>
+          <button class="recent"><span class="dot"></span>CRS licence timeline for LED drivers</button>
+          <button class="recent"><span class="dot" style="background:var(--bis-amber)"></span>Steel rebar grades — IS 15489</button>
+          <div class="list-head">Offline ready</div>
+          <p class="muted" style="font-size:12px;margin:0">📥 20 answers cached · last synced 9:12 AM</p>
+        </div>
+        <nav class="tabbar" aria-label="Tabs — Home screen">
+          <a href="#home" aria-current="page"><span class="ic" aria-hidden="true">🏠</span>Home</a>
+          <a href="#chat"><span class="ic" aria-hidden="true">💬</span>Chat</a>
+          <a href="#standards"><span class="ic" aria-hidden="true">📋</span>My Standards</a>
+          <a href="../website/lab-finder.html"><span class="ic" aria-hidden="true">🔬</span>Labs</a>
+          <a href="#notes"><span class="ic" aria-hidden="true">⚙️</span>More</a>
+        </nav>
+      </div></div>
+    </div>
+
+    <!-- 5 · Chat -->
+    <div class="frame-wrap" id="chat" role="listitem">
+      <div class="frame-label">05 · Chat <span>Citation + confidence · mic thumb-reachable</span></div>
+      <div class="phone"><div class="screen">
+        <div class="notch"></div>
+        <div class="statusbar"><span>9:41</span><span aria-hidden="true">📶 🔋</span></div>
+        <div class="screen-body" style="display:flex;flex-direction:column">
+          <div class="chat-head">
+            <div><b>BIS Sahayak</b><span class="sub">● online · answers cited from BIS sources</span></div>
+            <div class="lang-switch" style="transform:scale(.82);transform-origin:right">
+              <button data-lang="en" lang="en">EN</button><button data-lang="hi" lang="hi">हिं</button><button data-lang="mr" lang="mr">मरा</button>
+            </div>
+          </div>
+          <div class="mini-chat" style="flex:1;overflow-y:auto">
+            <div class="msg user"><div class="bubble">Is IS 302 mandatory for home appliances?</div></div>
+            <div class="msg ai"><div class="bubble">
+              Yes — household appliances fall under IS 302 (Part 1) and need CRS registration before sale in India. Clause 4.2 covers protection against electric shock.
+              <div><a class="citation" href="../website/chat.html?q=Is%20IS%20302%20mandatory%20for%20home%20appliances%3F">📄 IS 302 Part 1, Clause 4.2</a></div>
+              <span class="confidence high">✅ Verified from BIS source</span>
+              <span class="meta">🔊 Listen · cached offline</span>
+            </div></div>
+            <div class="msg user"><div class="bubble">What's the certification timeline?</div></div>
+            <div class="msg ai"><div class="bubble">
+              Typical CRS timeline is 4–6 weeks: application → lab test → inspection → licence.
+              <div><a class="citation" href="../website/recommender.html#cert">📄 BIS CRS Reg. 2018, Reg. 5</a></div>
+              <span class="confidence high">✅ Verified from BIS source</span>
+            </div></div>
+            <div class="quick-chips" style="padding-bottom:6px">
+              <button class="chip" style="font-size:11px;padding:6px 10px">Find a lab</button>
+              <button class="chip" style="font-size:11px;padding:6px 10px">View scheme</button>
+              <button class="chip" style="font-size:11px;padding:6px 10px">Talk to BIS</button>
+            </div>
+          </div>
+        </div>
+        <div class="mini-composer">
+          <div class="fake-input" role="textbox" aria-readonly="true" tabindex="0" aria-label="Message input (mock)">Ask a follow-up…</div>
+          <button class="mini-mic" aria-label="Voice input">🎙️</button>
+        </div>
+        <nav class="tabbar" aria-label="Tabs — Chat screen">
+          <a href="#home"><span class="ic" aria-hidden="true">🏠</span>Home</a>
+          <a href="#chat" aria-current="page"><span class="ic" aria-hidden="true">💬</span>Chat</a>
+          <a href="#standards"><span class="ic" aria-hidden="true">📋</span>My Standards</a>
+          <a href="../website/lab-finder.html"><span class="ic" aria-hidden="true">🔬</span>Labs</a>
+          <a href="#notes"><span class="ic" aria-hidden="true">⚙️</span>More</a>
+        </nav>
+      </div></div>
+    </div>
+
+    <!-- 6 · Standard detail -->
+    <div class="frame-wrap" id="standards" role="listitem">
+      <div class="frame-label">06 · Standard detail <span>Full clause · follow-up · share</span></div>
+      <div class="phone"><div class="screen">
+        <div class="notch"></div>
+        <div class="statusbar"><span>9:41</span><span aria-hidden="true">📶 🔋</span></div>
+        <div class="std-hero">
+          <div style="display:flex;justify-content:space-between;align-items:center">
+            <span style="font-size:16px">←</span>
+            <div class="icon-actions" style="width:110px;margin:0">
+              <button class="icon-btn">↗ Share</button>
+              <button class="icon-btn">⤓ PDF</button>
+            </div>
+          </div>
+          <div class="no" style="margin-top:8px">IS 302 (Part 1)</div>
+          <div class="t">Safety of household and similar electrical appliances · General requirements · Clause 4.2</div>
+        </div>
+        <div class="screen-body">
+          <span class="confidence high" style="margin-top:10px">✅ Verified from BIS source</span>
+          <div class="clause">
+            <b>Clause 4.2 — Protection against electric shock</b>
+            Protection shall be provided against electric shock even in the case of damage to the appliance, such as breakage of a component, deterioration of insulation or deposit of dust… accessible live parts shall not be present under single fault conditions.
+          </div>
+          <div class="clause" style="border-left-color:var(--bis-saffron)">
+            <b style="color:var(--bis-saffron)">Related clause — Marking (8.1)</b>
+            The appliance shall be marked with the manufacturer's name or trade mark, the rated voltage, and the IS number where CRS applies.
+          </div>
+          <div><a class="citation" href="../website/chat.html?q=Is%20IS%20302%20mandatory%20for%20home%20appliances%3F">📄 IS 302 Part 1, Clause 4.2</a><a class="citation" href="../website/chat.html?q=What%20does%20IS%20302%20Clause%208.1%20require%3F">📄 IS 302 Part 1, Clause 8.1</a></div>
+          <button class="btn btn-primary followup">Ask a follow-up about this clause</button>
+        </div>
+        <nav class="tabbar" aria-label="Tabs — Standard detail screen">
+          <a href="#home"><span class="ic" aria-hidden="true">🏠</span>Home</a>
+          <a href="#chat"><span class="ic" aria-hidden="true">💬</span>Chat</a>
+          <a href="#standards" aria-current="page"><span class="ic" aria-hidden="true">📋</span>My Standards</a>
+          <a href="../website/lab-finder.html"><span class="ic" aria-hidden="true">🔬</span>Labs</a>
+          <a href="#notes"><span class="ic" aria-hidden="true">⚙️</span>More</a>
+        </nav>
+      </div></div>
+    </div>
+
+    <!-- 7 · Voice mode -->
+    <div class="frame-wrap" role="listitem">
+      <div class="frame-label">07 · Voice mode <span>Full-screen · Saaras v3 waveform + live transcript</span></div>
+      <div class="phone"><div class="screen voice-screen">
+        <div class="notch"></div>
+        <div class="statusbar"><span>9:41</span><span style="color:#fff" aria-hidden="true">📶 🔋</span></div>
+        <div class="voice-body">
+          <div class="wave" aria-hidden="true"><i></i><i></i><i></i><i></i><i></i><i></i><i></i></div>
+          <h3 lang="hi">सुन रहा है…</h3>
+          <p class="state">Sarvam Saaras v3 · <span lang="hi">हिंदी</span> · tap ■ to stop</p>
+          <div class="transcript">
+            <span class="who">Live transcript</span>
+            <span lang="hi">“क्या हॉलमार्क जाँचने के लिए HUID ज़रूरी है?”</span>
+          </div>
+          <button class="voice-stop" aria-label="Stop recording">■</button>
+        </div>
+      </div></div>
+    </div>
+
+  </div>
+
+  <section id="notes" style="max-width:900px">
+    <h2>Platform notes (§5.3)</h2>
+    <div class="specs" style="display:grid;gap:14px;grid-template-columns:repeat(auto-fit,minmax(220px,1fr))">
+      <div class="card"><b>Offline-first</b><p class="muted small" style="margin:4px 0 0">Last 20 answers cached locally so low-connectivity MSME users can re-read them.</p></div>
+      <div class="card"><b>Gesture &amp; safe areas</b><p class="muted small" style="margin:4px 0 0">Android back-gesture returns source drawer → chat → home; iOS notch/pill respected via safe-area insets.</p></div>
+      <div class="card"><b>Deep links</b><p class="muted small" style="margin:4px 0 0"><code>bissahayak://chat?q=…</code> — BIS Care app can deep-link straight into a question.</p></div>
+      <div class="card"><b>TTS / STT</b><p class="muted small" style="margin:4px 0 0">Saaras v3 transcribes voice notes; Bulbul v3 speaks answers back with the citation line.</p></div>
+    </div>
+  </section>
+</main>
+
+<script src="../assets/js/bis.js"></script>
+<script>
+  // selectable options in onboarding frames
+  document.querySelectorAll(".opt").forEach((o) =>
+    o.addEventListener("click", () => {
+      o.parentElement.querySelectorAll(".opt").forEach((x) => x.setAttribute("aria-pressed", "false"));
+      o.setAttribute("aria-pressed", "true");
+    })
+  );
+</script>
+</body>
+</html>

@@ -1,0 +1,488 @@
+/* ============================================================
+   BIS Sahayak — Shared Design System (§2 of design spec)
+   Used identically by: Website portal, widget, app, WhatsApp mock
+   ============================================================ */
+
+:root {
+  /* §2.2 Color palette */
+  --bis-navy: #0B2D5B;
+  --bis-saffron: #FF9933;
+  --bis-green: #128807;
+  --bis-white: #FFFFFF;
+  --bis-slate-100: #F4F6F9;
+  --bis-slate-600: #5A6B85;
+  --bis-red-alert: #D32F2F;
+  --bis-amber: #B26A00;
+
+  /* semantic (light mode defaults) */
+  --bg: var(--bis-white);
+  --surface: var(--bis-slate-100);
+  --surface-2: #E9EDF3;
+  --text: #101A2C;
+  --text-dim: var(--bis-slate-600);
+  --line: #DCE3EC;
+  --shadow: 0 10px 30px rgba(11, 45, 91, 0.10);
+  --shadow-sm: 0 2px 8px rgba(11, 45, 91, 0.08);
+  --ai-bubble: var(--bis-slate-100);
+
+  /* §2.3 type */
+  --font-body: "Inter", "Noto Sans", "Noto Sans Devanagari", system-ui, sans-serif;
+  --font-deva: "Noto Sans Devanagari", "Inter", system-ui, sans-serif;
+  --fs-12: 12px;
+  --fs-14: 14px;
+  --fs-16: 16px;
+  --fs-20: 20px;
+  --fs-24: 24px;
+  --fs-32: 32px;
+}
+
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #0A1626;
+    --surface: #12233C;
+    --surface-2: #1A3050;
+    --text: #EAF0F8;
+    --text-dim: #93A3BC;
+    --line: #22395C;
+    --shadow: 0 10px 30px rgba(0, 0, 0, 0.45);
+    --shadow-sm: 0 2px 8px rgba(0, 0, 0, 0.4);
+    --ai-bubble: #16294385;
+    --bis-slate-100: #162943;
+    --bis-white: #0A1626;
+  }
+}
+
+* { box-sizing: border-box; }
+
+html, body {
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: var(--font-body);
+  font-size: var(--fs-16);
+  line-height: 1.5;
+  color: var(--text);
+  background: var(--bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+h1, h2, h3, h4 { line-height: 1.25; margin: 0 0 0.5em; }
+h1 { font-size: var(--fs-32); letter-spacing: -0.02em; }
+h2 { font-size: var(--fs-24); letter-spacing: -0.01em; }
+h3 { font-size: var(--fs-20); }
+p  { margin: 0 0 1em; }
+a  { color: var(--bis-navy); }
+@media (prefers-color-scheme: dark) { a { color: #8FB6EE; } }
+
+:focus-visible {
+  outline: 3px solid var(--bis-saffron);
+  outline-offset: 2px;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  *, *::before, *::after {
+    animation-duration: 0.001ms !important;
+    transition-duration: 0.001ms !important;
+  }
+}
+
+/* ---------- Buttons ---------- */
+.btn {
+  font: inherit;
+  font-weight: 600;
+  font-size: var(--fs-14);
+  border-radius: 8px;
+  padding: 10px 18px;
+  cursor: pointer;
+  border: 1px solid transparent;
+  transition: transform 0.12s ease, box-shadow 0.12s ease, background 0.12s ease;
+}
+.btn:active { transform: translateY(1px); }
+.btn-primary { background: var(--bis-navy); color: #fff; }
+.btn-primary:hover { box-shadow: var(--shadow-sm); }
+.btn-accent { background: var(--bis-saffron); color: #3A2200; }
+.btn-accent:hover { box-shadow: 0 6px 18px rgba(255, 153, 51, 0.35); }
+.btn-ghost {
+  background: transparent;
+  color: var(--bis-navy);
+  border-color: var(--line);
+}
+@media (prefers-color-scheme: dark) { .btn-ghost { color: var(--text); } }
+.btn-ghost:hover { background: var(--surface); }
+
+/* ---------- §2.4(5) Language switcher — text pills, no flags ---------- */
+.lang-switch {
+  display: inline-flex;
+  gap: 2px;
+  padding: 3px;
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+}
+.lang-switch button {
+  font: inherit;
+  font-size: var(--fs-12);
+  font-weight: 600;
+  border: 0;
+  background: transparent;
+  color: var(--text-dim);
+  padding: 5px 12px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+.lang-switch button[aria-pressed="true"] {
+  background: var(--bis-navy);
+  color: #fff;
+}
+.lang-switch [lang="mr"], .lang-switch [lang="hi"] { font-family: var(--font-deva); }
+
+/* ---------- §2.4(1)(2) Chat bubbles ---------- */
+.msg { display: flex; margin-bottom: 14px; }
+.msg.user { justify-content: flex-end; }
+.bubble {
+  max-width: min(78%, 560px);
+  padding: 12px 16px;
+  border-radius: 16px;
+  font-size: var(--fs-16);
+}
+.msg.user .bubble {
+  background: var(--bis-navy);
+  color: #fff;
+  border-bottom-right-radius: 4px;
+}
+.msg.ai .bubble {
+  background: var(--ai-bubble);
+  color: var(--text);
+  border-bottom-left-radius: 4px;
+}
+.bubble .meta {
+  display: block;
+  font-size: var(--fs-12);
+  color: var(--text-dim);
+  margin-top: 6px;
+}
+
+/* ---------- §2.4(3) Citation chip ---------- */
+.citation {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-12);
+  font-weight: 600;
+  color: var(--bis-navy);
+  background: var(--bg);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 4px 10px;
+  margin: 8px 6px 0 0;
+  text-decoration: none;
+  cursor: pointer;
+}
+.citation:hover { border-color: var(--bis-saffron); }
+@media (prefers-color-scheme: dark) { .citation { color: #BBD3F5; } }
+
+/* ---------- §2.4(4) Confidence badge + seal-of-trust stamp ---------- */
+.confidence {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-size: var(--fs-12);
+  font-weight: 700;
+  padding: 5px 12px;
+  border-radius: 999px;
+  margin-top: 10px;
+}
+.confidence.high   { color: #0B5C04; background: #E4F5E2; border: 1px solid #A9DDA5; }
+.confidence.medium { color: var(--bis-amber); background: #FFF3E0; border: 1px solid #FFD699; }
+.confidence.low    { color: var(--bis-red-alert); background: #FDECEC; border: 1px solid #F3B8B8; }
+@media (prefers-color-scheme: dark) {
+  .confidence.high   { color: #8FE087; background: #10320D; border-color: #1E5C19; }
+  .confidence.medium { color: #FFC46B; background: #3A2A0C; border-color: #6B4A10; }
+  .confidence.low    { color: #FF9B9B; background: #3A1414; border-color: #6B2424; }
+}
+
+/* the "stamped certificate" seal — signature element of the system */
+.seal {
+  position: relative;
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 58px;
+  height: 58px;
+  flex: none;
+  border-radius: 50%;
+  border: 2px solid var(--bis-green);
+  color: var(--bis-green);
+  font-size: 8px;
+  font-weight: 800;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  text-align: center;
+  transform: rotate(-8deg);
+  line-height: 1.15;
+  opacity: 0.92;
+}
+.seal .tick { font-size: 16px; line-height: 1; }
+.seal.amber { border-color: var(--bis-amber); color: var(--bis-amber); }
+
+/* ---------- §2.4(6) Voice mic button ---------- */
+.mic {
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  border: 0;
+  background: var(--bis-navy);
+  color: #fff;
+  font-size: 22px;
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: var(--shadow);
+  position: relative;
+}
+.mic.recording { background: var(--bis-red-alert); animation: mic-pulse 1.2s ease-out infinite; }
+@keyframes mic-pulse {
+  0%   { box-shadow: 0 0 0 0 rgba(211, 47, 47, 0.55); }
+  100% { box-shadow: 0 0 0 22px rgba(211, 47, 47, 0); }
+}
+
+/* ---------- §2.4(7) Quick-action chips ---------- */
+.quick-chips { display: flex; flex-wrap: wrap; gap: 8px; }
+.chip {
+  font: inherit;
+  font-size: var(--fs-14);
+  font-weight: 600;
+  background: var(--bg);
+  color: var(--text);
+  border: 1px solid var(--line);
+  border-radius: 999px;
+  padding: 8px 14px;
+  cursor: pointer;
+}
+.chip:hover { border-color: var(--bis-saffron); background: #FFF6EC; }
+@media (prefers-color-scheme: dark) { .chip:hover { background: #33270F; } }
+
+/* ---------- §2.4(8) Source drawer ---------- */
+.source-drawer h3 { font-size: var(--fs-14); text-transform: uppercase; letter-spacing: 0.08em; color: var(--text-dim); }
+.source-excerpt {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-left: 3px solid var(--bis-green);
+  border-radius: 8px;
+  padding: 12px 14px;
+  font-size: var(--fs-14);
+  margin-bottom: 12px;
+}
+.source-excerpt .doc { display: block; font-weight: 700; margin-bottom: 4px; font-size: var(--fs-12); letter-spacing: 0.04em; color: var(--bis-navy); }
+@media (prefers-color-scheme: dark) { .source-excerpt .doc { color: #8FB6EE; } }
+
+/* ---------- Top nav (§4.2) ---------- */
+.topnav {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 12px 24px;
+  background: color-mix(in srgb, var(--bg) 88%, transparent);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--line);
+}
+.topnav .logo {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-weight: 800;
+  font-size: var(--fs-16);
+  color: var(--text);
+  text-decoration: none;
+  letter-spacing: -0.01em;
+}
+.logo-mark {
+  width: 30px;
+  height: 30px;
+  border-radius: 7px;
+  background: var(--bis-navy);
+  color: var(--bis-saffron);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 15px;
+  font-weight: 900;
+}
+.topnav nav { display: flex; gap: 4px; flex: 1; }
+.topnav nav a {
+  font-size: var(--fs-14);
+  font-weight: 600;
+  color: var(--text-dim);
+  text-decoration: none;
+  padding: 7px 12px;
+  border-radius: 8px;
+}
+.topnav nav a:hover { background: var(--surface); color: var(--text); }
+.topnav nav a[aria-current="page"] { color: var(--bis-navy); background: var(--surface); }
+@media (prefers-color-scheme: dark) { .topnav nav a[aria-current="page"] { color: #fff; background: var(--bis-navy); } }
+
+@media (max-width: 768px) {
+  .topnav { flex-wrap: wrap; gap: 8px; padding: 10px 14px; }
+  .topnav nav { order: 3; width: 100%; overflow-x: auto; }
+}
+
+.page { max-width: 1280px; margin: 0 auto; padding: 32px 24px 72px; }
+
+.card {
+  background: var(--surface);
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 20px;
+}
+
+.muted { color: var(--text-dim); }
+.small { font-size: var(--fs-14); }
+.center { text-align: center; }
+.sr-only {
+  position: absolute; width: 1px; height: 1px; padding: 0; margin: -1px;
+  overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap; border: 0;
+}
+
+/* ============================================================
+   §2.5 — "certified document" layer
+   Shared furniture every surface can drop in: certification
+   stripe, engineering-grid paper, stamped seal, scroll reveal.
+   Additive only — the §2.2/§2.4 components above are untouched.
+   ============================================================ */
+
+:root {
+  /* utility face for data: IS numbers, clause tags, HUIDs, hexes, timestamps */
+  --font-mono: ui-monospace, "Cascadia Mono", "SF Mono", Menlo, Consolas, monospace;
+  /* the certification stripe — saffron · white · green, fading at the edges */
+  --stripe: linear-gradient(
+    90deg,
+    rgba(255, 153, 51, 0) 0%,
+    #FF9933 14%,
+    #FFFFFF 50%,
+    #128807 86%,
+    rgba(18, 136, 7, 0) 100%
+  );
+}
+
+/* 3px tricolour band: sits under the top nav / at the top of a hero */
+.stripe-rule { display: block; height: 3px; background: var(--stripe); width: 100%; }
+.topnav::after {
+  content: "";
+  position: absolute;
+  left: 0; right: 0; bottom: -1px;
+  height: 3px;
+  background: var(--stripe);
+  opacity: .9;
+}
+
+/* eyebrow — a labelled section header, not decoration */
+.eyebrow {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-mono);
+  font-size: var(--fs-12);
+  font-weight: 700;
+  letter-spacing: .16em;
+  text-transform: uppercase;
+  color: var(--text-dim);
+  margin: 0 0 14px;
+}
+.eyebrow::before {
+  content: "";
+  width: 26px;
+  height: 2px;
+  background: var(--bis-saffron);
+  flex: none;
+}
+.eyebrow.plain::before { display: none; }
+
+/* engineering-grid paper — the drawing sheet the standards are drafted on */
+.grid-paper {
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--text) 7%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--text) 7%, transparent) 1px, transparent 1px);
+  background-size: 34px 34px;
+}
+.grid-paper-fade { position: relative; isolation: isolate; }
+.grid-paper-fade::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  background-image:
+    linear-gradient(to right, color-mix(in srgb, var(--text) 14%, transparent) 1px, transparent 1px),
+    linear-gradient(to bottom, color-mix(in srgb, var(--text) 14%, transparent) 1px, transparent 1px);
+  background-size: 34px 34px;
+  -webkit-mask-image: radial-gradient(130% 95% at 50% 0%, #000 34%, transparent 82%);
+  mask-image: radial-gradient(130% 95% at 50% 0%, #000 34%, transparent 82%);
+}
+
+/* display type — hero statements keep the §2.3 family, just more presence */
+.display {
+  font-size: clamp(32px, 5.6vw, 56px);
+  line-height: 1.08;
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+
+/* the stamp: the seal lands like a rubber stamp, ring turning slowly */
+.seal::before {
+  content: "";
+  position: absolute;
+  inset: -6px;
+  border-radius: 50%;
+  border: 1px dashed currentColor;
+  opacity: .55;
+  animation: seal-turn 26s linear infinite;
+}
+@keyframes seal-turn { to { transform: rotate(360deg); } }
+.stamp-in { animation: stamp-in .55s cubic-bezier(.18, 1.5, .42, 1) both; }
+@keyframes stamp-in {
+  from { opacity: 0; transform: rotate(-14deg) scale(1.7); }
+  to   { opacity: .92; transform: rotate(-8deg) scale(1); }
+}
+
+/* cards lift toward the reader */
+.card, .std-card, .feature, .lab {
+  transition: transform .18s ease, box-shadow .18s ease, border-color .18s ease;
+}
+.card:hover, .std-card:hover, .lab:hover {
+  transform: translateY(-2px);
+  box-shadow: var(--shadow);
+  border-color: color-mix(in srgb, var(--bis-saffron) 55%, var(--line));
+}
+
+/* mono data face */
+.mono { font-family: var(--font-mono); font-variant-numeric: tabular-nums; }
+
+/* scroll reveal — one orchestrated entrance, not scattered effects */
+.reveal { opacity: 0; transform: translateY(16px); }
+html.js .reveal { transition: opacity .55s ease, transform .55s ease; }
+.reveal.in { opacity: 1; transform: none; }
+html:not(.js) .reveal { opacity: 1; transform: none; }
+
+/* chat entrance + typing indicator */
+.msg.ai { animation: msg-in .38s cubic-bezier(.2, .8, .3, 1) both; }
+.source-excerpt { animation: msg-in .45s ease both; }
+@keyframes msg-in { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+
+.typing-dots { display: inline-flex; gap: 5px; align-items: center; padding: 4px 2px; }
+.typing-dots i {
+  width: 7px; height: 7px; border-radius: 50%;
+  background: var(--text-dim);
+  animation: typing 1.15s ease-in-out infinite;
+}
+.typing-dots i:nth-child(2) { animation-delay: .16s; }
+.typing-dots i:nth-child(3) { animation-delay: .32s; }
+@keyframes typing {
+  0%, 60%, 100% { transform: translateY(0); opacity: .45; }
+  30%           { transform: translateY(-5px); opacity: 1; }
+}

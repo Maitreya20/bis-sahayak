@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Hallmark Verification — BIS Sahayak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/bis.css">
+<style>
+  .verify-wrap { max-width: 640px; margin: 0 auto; text-align: center; }
+  .verify-wrap .seal { margin: 0 auto 18px; }
+  .huid-form { display: flex; gap: 10px; margin: 26px auto 10px; max-width: 480px; }
+  .huid-form input {
+    flex: 1; font: inherit; font-size: var(--fs-20); letter-spacing: .14em;
+    text-transform: uppercase; text-align: center; color: var(--text);
+    background: var(--bg); border: 2px solid var(--line); border-radius: 12px; padding: 14px;
+  }
+  .huid-form input:focus { border-color: var(--bis-navy); outline: none; }
+  .hint { font-size: var(--fs-14); color: var(--text-dim); }
+  .result {
+    margin-top: 30px; border-radius: 16px; padding: 26px 24px; text-align: left;
+    display: none;
+  }
+  .result.show { display: block; animation: rise .3s ease; }
+  @keyframes rise { from { opacity: 0; transform: translateY(8px); } to { opacity: 1; transform: none; } }
+  .result.verified { background: #F1FAF0; border: 1.5px solid var(--bis-green); }
+  .result.failed { background: #FDF1F1; border: 1.5px solid var(--bis-red-alert); }
+  @media (prefers-color-scheme: dark) {
+    .result.verified { background: #0E2A0C; }
+    .result.failed { background: #2E1212; }
+  }
+  .result .head { display: flex; gap: 14px; align-items: center; margin-bottom: 14px; }
+  .result .head .big { font-size: 30px; }
+  .result h2 { margin: 0; }
+  .kv { display: grid; grid-template-columns: 140px 1fr; gap: 6px 14px; font-size: var(--fs-14); }
+  .kv dt { color: var(--text-dim); }
+  .kv dd { margin: 0; font-weight: 600; }
+  .four-signs { display: grid; gap: 12px; grid-template-columns: repeat(auto-fit, minmax(150px, 1fr)); margin-top: 34px; text-align: left; }
+  .sign { background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 14px 16px; }
+  .sign .n { font-size: var(--fs-12); font-weight: 800; color: var(--bis-saffron); letter-spacing: .1em; }
+  .sign b { display: block; margin-top: 4px; font-size: var(--fs-14); }
+  .sign span { font-size: var(--fs-14); color: var(--text-dim); }
+  .actions { display: flex; gap: 10px; flex-wrap: wrap; margin-top: 18px; }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <a class="logo" href="index.html"><span class="logo-mark">IS</span> BIS Sahayak</a>
+  <nav aria-label="Primary">
+    <a href="chat.html">Ask AI</a>
+    <a href="recommender.html">Standards</a>
+    <a href="recommender.html#cert">Certification</a>
+    <a href="lab-finder.html">Labs</a>
+  </nav>
+  <div class="lang-switch" role="group" aria-label="Language">
+    <button data-lang="en" lang="en">English</button>
+    <button data-lang="hi" lang="hi">हिंदी</button>
+    <button data-lang="mr" lang="mr">मराठी</button>
+  </div>
+</header>
+
+<main class="page">
+  <div class="verify-wrap">
+    <span class="seal"><span class="tick">✓</span>BIS<br>hallmark</span>
+    <h1>Hallmark Verification</h1>
+    <p class="muted">Enter the HUID (Hallmark Unique ID) printed on your jewellery receipt — 6 alphanumerics after the assay centre mark.</p>
+
+    <form class="huid-form" id="huidForm">
+      <label class="sr-only" for="huid">HUID number</label>
+      <input id="huid" placeholder="e.g. AB1C23" maxlength="6" autocomplete="off" spellcheck="false">
+      <button class="btn btn-accent" type="submit">Verify</button>
+    </form>
+    <p class="hint">Demo: try <button class="chip" type="button" data-demo="AB1C23">AB1C23</button> (valid) or <button class="chip" type="button" data-demo="XX9999">XX9999</button> (not found)</p>
+
+    <div class="result" id="result" role="status" aria-live="polite"></div>
+  </div>
+
+  <section style="margin-top:56px">
+    <h2 class="center" style="margin-bottom:4px">The four signs of a genuine hallmark</h2>
+    <p class="center muted small" style="margin-bottom:0">IS 1417 requires all four on every gold article (§ Clause 5)</p>
+    <div class="four-signs">
+      <div class="sign"><span class="n">SIGN 01</span><b>BIS logo</b><span>The Bureau of Indian Standards mark.</span></div>
+      <div class="sign"><span class="n">SIGN 02</span><b>Purity grade</b><span>916 = 22K, 750 = 18K, parts per thousand.</span></div>
+      <div class="sign"><span class="n">SIGN 03</span><b>Assay centre mark</b><span>Identifier of the centre that tested it.</span></div>
+      <div class="sign"><span class="n">SIGN 04</span><b>HUID</b><span>Unique ID — the one you verify here.</span></div>
+    </div>
+  </section>
+</main>
+
+<div id="widget-root"></div>
+
+<script src="../assets/js/bis.js"></script>
+<script src="widget/bis-widget.js"></script>
+<script>
+  const result = document.getElementById("result");
+  const input = document.getElementById("huid");
+
+  document.querySelectorAll("[data-demo]").forEach((b) =>
+    b.addEventListener("click", () => { input.value = b.dataset.demo; document.getElementById("huidForm").requestSubmit(); })
+  );
+
+  document.getElementById("huidForm").addEventListener("submit", (e) => {
+    e.preventDefault();
+    const huid = input.value.trim().toUpperCase();
+    if (huid.length < 4) {
+      result.className = "result failed show";
+      result.innerHTML = `<div class="head"><span class="big">⚠️</span><div><h2>Enter the full HUID</h2><p class="muted small" style="margin:0">A HUID is 6 characters from the receipt or the jewellery piece.</p></div></div>`;
+      return;
+    }
+    const ok = huid === "AB1C23";
+    result.className = "result " + (ok ? "verified" : "failed") + " show";
+    if (ok) {
+      result.innerHTML = `
+        <div class="head">
+          <span class="big">✅</span>
+          <div><h2>Hallmark verified</h2><span class="confidence high">✅ Verified from BIS source</span></div>
+        </div>
+        <dl class="kv">
+          <dt>HUID</dt><dd>${BIS.escapeHtml(huid)}</dd>
+          <dt>Article</dt><dd>Gold ring, 22K (916)</dd>
+          <dt>Assay centre</dt><dd>Pune HC · Licence HC-4471</dd>
+          <dt>Purity</dt><dd>916.5 ‰ (tested)</dd>
+          <dt>Date of assay</dt><dd>12 Aug 2026</dd>
+        </dl>
+        <div>${BIS.citationChips([{ doc: "IS 1417", clause: "5", url: "#is1417" }])}</div>
+        <div class="actions">
+          <a class="btn btn-primary" style="text-decoration:none" href="chat.html?q=How do I verify a gold hallmark HUID?">Ask a follow-up</a>
+          <button class="btn btn-ghost" type="button" onclick="alert('Certificate downloaded (demo)')">Download certificate</button>
+        </div>`;
+    } else {
+      result.innerHTML = `
+        <div class="head">
+          <span class="big">❌</span>
+          <div><h2>Not found in BIS records</h2><span class="confidence low">❌ Not found in BIS sources</span></div>
+        </div>
+        <p class="small" style="margin:12px 0 0">This HUID doesn't return a match. Don't complete the purchase — take it to the nearest BIS Branch Office or raise it in the BIS Care app. I can draft the complaint for you.</p>
+        <div class="actions">
+          <a class="btn btn-primary" style="text-decoration:none" href="chat.html?q=My HUID is not found in BIS records, who do I contact?">Contact BIS office</a>
+          <button class="btn btn-ghost" type="button" onclick="alert('Complaint drafted (demo)')">Draft complaint</button>
+        </div>`;
+    }
+    result.scrollIntoView({ behavior: "smooth", block: "nearest" });
+  });
+
+  BISWidget.mount(document.getElementById("widget-root"));
+</script>
+</body>
+</html>

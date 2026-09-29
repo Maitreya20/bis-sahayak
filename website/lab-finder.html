@@ -1,0 +1,182 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Lab Finder — BIS Sahayak</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;800&family=Noto+Sans+Devanagari:wght@400;600;700&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="../assets/css/bis.css">
+<style>
+  .lab-layout { display: grid; grid-template-columns: 280px 1fr; gap: 26px; align-items: start; }
+  .filters { background: var(--surface); border: 1px solid var(--line); border-radius: 14px; padding: 20px; position: sticky; top: 74px; }
+  .filters h2 { font-size: var(--fs-16); }
+  .filters label { display: block; font-size: var(--fs-14); font-weight: 700; margin: 16px 0 6px; }
+  .filters select {
+    width: 100%; font: inherit; font-size: var(--fs-14); color: var(--text);
+    background: var(--bg); border: 1.5px solid var(--line); border-radius: 8px; padding: 9px 10px;
+  }
+  .filters .count { font-size: var(--fs-12); color: var(--text-dim); margin-top: 16px; }
+
+  .map {
+    height: 240px; border-radius: 14px; border: 1px solid var(--line);
+    background:
+      linear-gradient(rgba(11,45,91,.05) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(11,45,91,.05) 1px, transparent 1px),
+      var(--surface);
+    background-size: 28px 28px, 28px 28px, auto;
+    position: relative; overflow: hidden; margin-bottom: 18px;
+  }
+  .map .india {
+    position: absolute; inset: 18px; border: 2px dashed color-mix(in srgb, var(--bis-navy) 40%, transparent);
+    border-radius: 40% 55% 45% 60% / 50% 45% 55% 50%;
+    background: color-mix(in srgb, var(--bis-navy) 7%, transparent);
+  }
+  .pin {
+    position: absolute; width: 26px; height: 26px; border-radius: 50% 50% 50% 4px;
+    background: var(--bis-saffron); border: 2px solid var(--bis-navy);
+    transform: rotate(-45deg); cursor: pointer; box-shadow: var(--shadow-sm);
+  }
+  .pin::after {
+    content: ""; position: absolute; inset: 6px; background: var(--bis-navy); border-radius: 50%;
+  }
+  .map .caption {
+    position: absolute; left: 12px; bottom: 10px; font-size: var(--fs-12);
+    background: var(--bg); border: 1px solid var(--line); border-radius: 999px; padding: 4px 12px;
+    font-weight: 600;
+  }
+
+  .lab-list { display: grid; gap: 14px; }
+  .lab {
+    display: flex; gap: 16px; align-items: flex-start; justify-content: space-between;
+    background: var(--surface); border: 1px solid var(--line); border-radius: 12px; padding: 16px 18px;
+    flex-wrap: wrap;
+  }
+  .lab h3 { margin: 0 0 3px; font-size: var(--fs-16); }
+  .lab .where { font-size: var(--fs-14); color: var(--text-dim); margin: 0; }
+  .lab .scope { display: flex; gap: 6px; flex-wrap: wrap; margin-top: 10px; }
+  .lab .scope span {
+    font-size: var(--fs-12); font-weight: 600; background: var(--bg);
+    border: 1px solid var(--line); border-radius: 999px; padding: 3px 10px;
+  }
+  .lab .right { text-align: right; margin-left: auto; }
+  .lab .right .dist { font-size: var(--fs-12); color: var(--text-dim); display: block; margin-top: 6px; }
+
+  @media (max-width: 768px) {
+    .lab-layout { grid-template-columns: 1fr; }
+    .filters { position: static; }
+    .lab .right { text-align: left; }
+  }
+</style>
+</head>
+<body>
+
+<header class="topnav">
+  <a class="logo" href="index.html"><span class="logo-mark">IS</span> BIS Sahayak</a>
+  <nav aria-label="Primary">
+    <a href="chat.html">Ask AI</a>
+    <a href="recommender.html">Standards</a>
+    <a href="recommender.html#cert">Certification</a>
+    <a href="lab-finder.html" aria-current="page">Labs</a>
+  </nav>
+  <div class="lang-switch" role="group" aria-label="Language">
+    <button data-lang="en" lang="en">English</button>
+    <button data-lang="hi" lang="hi">हिंदी</button>
+    <button data-lang="mr" lang="mr">मराठी</button>
+  </div>
+</header>
+
+<main class="page">
+  <div style="max-width:720px;margin-bottom:26px">
+    <h1>Lab Finder</h1>
+    <p class="muted">BIS-recognised third-party test laboratories. Filter by product category and location, then call ahead to confirm the clause testing you need is in scope.</p>
+  </div>
+
+  <div class="lab-layout">
+    <aside class="filters" aria-label="Filters">
+      <h2>Filters</h2>
+      <label for="cat">Product category</label>
+      <select id="cat">
+        <option value="">All categories</option>
+        <option>Electronics &amp; IT</option>
+        <option>Food &amp; Agriculture</option>
+        <option>Metals &amp; Steel</option>
+        <option>Chemicals &amp; Plastics</option>
+        <option>Textiles</option>
+      </select>
+      <label for="state">State / City</label>
+      <select id="state">
+        <option value="">All India</option>
+        <option>Maharashtra</option>
+        <option>Karnataka</option>
+        <option>Delhi NCR</option>
+        <option>Gujarat</option>
+        <option>Tamil Nadu</option>
+      </select>
+      <p class="count" id="count"></p>
+    </aside>
+
+    <section>
+      <div class="map" role="img" aria-label="Map of India with recognised lab locations marked">
+        <div class="india"></div>
+        <button class="pin" style="left:28%;top:44%"  title="Ahmedabad" aria-label="Lab in Ahmedabad"></button>
+        <button class="pin" style="left:34%;top:60%"  title="Pune" aria-label="Lab in Pune"></button>
+        <button class="pin" style="left:40%;top:66%"  title="Bengaluru" aria-label="Lab in Bengaluru"></button>
+        <button class="pin" style="left:46%;top:36%"  title="Delhi NCR" aria-label="Lab in Delhi NCR"></button>
+        <button class="pin" style="left:44%;top:78%"  title="Chennai" aria-label="Lab in Chennai"></button>
+        <button class="pin" style="left:37%;top:53%"  title="Hyderabad" aria-label="Lab in Hyderabad"></button>
+        <span class="caption">📍 6 recognised labs · schematic map</span>
+      </div>
+
+      <div class="lab-list" id="labs"></div>
+    </section>
+  </div>
+</main>
+
+<div id="widget-root"></div>
+
+<script src="../assets/js/bis.js"></script>
+<script src="widget/bis-widget.js"></script>
+<script>
+  const LABS = [
+    { name: "ETL Test Labs (BIS recognised)", city: "Pune, Maharashtra", cat: ["Electronics & IT"], scope: ["IS 302", "IS 16107", "EMC"], dist: "4.2 km from Chakan MIDC" },
+    { name: "Intertek India Pvt Ltd", city: "Bengaluru, Karnataka", cat: ["Electronics & IT", "Chemicals & Plastics"], scope: ["CRS electronics", "RoHS"], dist: "11 km from Whitefield" },
+    { name: "BIS Regional Testing Centre", city: "Delhi NCR", cat: ["Metals & Steel", "Electronics & IT"], scope: ["IS 15489", "IS 302", "FMCS"], dist: "Okhla Phase II" },
+    { name: "SGS India — Food Lab", city: "Ahmedabad, Gujarat", cat: ["Food & Agriculture"], scope: ["IS 16547", "Microbiology", "Nutrition panel"], dist: "Sanand" },
+    { name: "TVS &amp; Sons Quality Control", city: "Chennai, Tamil Nadu", cat: ["Metals & Steel", "Textiles"], scope: ["IS 15489", "Textile azo dyes"], dist: "Guindy" },
+    { name: "CIPET — Centre for Polymer Testing", city: "Hyderabad, Telangana", cat: ["Chemicals & Plastics"], scope: ["Food contact", "IS 15735"], dist: "Balnagar" },
+  ];
+
+  const list = document.getElementById("labs");
+  const cat = document.getElementById("cat");
+  const state = document.getElementById("state");
+
+  function render() {
+    const rows = LABS.filter(
+      (l) => (!cat.value || l.cat.includes(cat.value)) && (!state.value || l.city.includes(state.value.split(" ")[0]))
+    );
+    document.getElementById("count").textContent = `${rows.length} of ${LABS.length} labs shown`;
+    list.innerHTML = rows.length
+      ? rows.map((l) => `
+        <article class="lab">
+          <div>
+            <h3>${l.name}</h3>
+            <p class="where">📍 ${l.city}</p>
+            <div class="scope">${l.scope.map((s) => `<span>${s}</span>`).join("")}</div>
+          </div>
+          <div class="right">
+            <a class="btn btn-primary" style="text-decoration:none" href="chat.html?q=How do I book a test at ${encodeURIComponent(l.name.replace(/&amp;/g, "&"))}?">Ask Sahayak</a>
+            <span class="dist">${l.dist}</span>
+          </div>
+        </article>`).join("")
+      : `<p class="muted">No labs match these filters yet — <a href="chat.html?q=Which BIS lab tests my product?">ask Sahayak</a> to find the nearest recognised lab.</p>`;
+  }
+  cat.addEventListener("change", render);
+  state.addEventListener("change", render);
+  render();
+
+  BISWidget.mount(document.getElementById("widget-root"));
+</script>
+</body>
+</html>

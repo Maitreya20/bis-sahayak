@@ -11,7 +11,7 @@ Open **`index.html`** as the entry point, or jump straight to a surface.
 |---|---|---|
 | §2 | Shared design system (tokens, bubbles, citation chip, confidence badge, seal, language switcher, mic, quick chips, source drawer) | `assets/css/bis.css` |
 | — | Supabase data layer (optional — chat persistence, labs, standards) | `assets/js/supabase.js` |
-| — | Supabase schema, RLS policies and seed data | `supabase/schema.sql` |
+| — | Supabase schema, RLS policies and seed data | `supabase/migrations/*.sql` |
 | §4.1B | Portal — landing page (ask bar + 4 feature cards) | `website/index.html` |
 | §4.1B | Portal — chat page, 3-column (history \| chat \| live source drawer) | `website/chat.html` |
 | §4.1B | Standard Recommender (form → cards with confidence + citation) | `website/recommender.html` |
@@ -35,24 +35,35 @@ Open **`index.html`** as the entry point, or jump straight to a surface.
 
 ## Supabase
 
-The site runs entirely on local fixtures until you point it at a project — zero
-network calls, which is what `tools/verify.mjs` asserts. Connecting is two steps:
+The site runs entirely on local fixtures until it is pointed at a project — zero
+network calls. `assets/js/supabase.js` ships already configured for the linked
+project, so cloning the repo gives you a working connection immediately.
 
-1. **Create the schema.** Paste `supabase/schema.sql` into Supabase → SQL Editor
-   and run it. It creates `chat_messages`, `labs` and `standards`, turns on Row
-   Level Security, and seeds the labs and standards the UI already ships with.
-2. **Add your credentials.** Open `assets/js/supabase.js` and fill in the config
-   block at the top:
+**Point it at your own project** (Supabase CLI, via `npx` so nothing global is
+installed):
 
-   ```js
-   window.BIS_SUPABASE_URL      = "https://YOUR-PROJECT.supabase.co";
-   window.BIS_SUPABASE_ANON_KEY = "eyJ...";
-   ```
+```bash
+npx supabase login                       # browser flow, or --token <access token>
+npx supabase init                        # creates supabase/config.toml
+npx supabase link --project-ref <ref>
+npx supabase db push                     # applies supabase/migrations/*.sql
+```
 
-   Both values come from Supabase → Project Settings → API. The anon key is
-   public by design — it is meant to ship in the browser and is guarded by the
-   RLS policies in `schema.sql`, so committing it is expected. Leave the block
-   empty and nothing changes.
+The migration creates `chat_messages`, `labs` and `standards`, turns on Row
+Level Security, and seeds the labs and standards the UI already ships with.
+No CLI? Paste the same file into Supabase → SQL Editor instead.
+
+Then put your values in the config block at the top of `assets/js/supabase.js`
+(the only place they live):
+
+```js
+window.BIS_SUPABASE_URL      = "https://YOUR-PROJECT.supabase.co";
+window.BIS_SUPABASE_ANON_KEY = "eyJ...";
+```
+
+The anon key is public by design — it ships in the browser and is guarded by the
+RLS policies in the migration, so committing it is expected. **Never commit the
+`service_role` key.** Leave both values empty and nothing changes.
 
 Once configured:
 

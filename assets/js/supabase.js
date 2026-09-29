@@ -25,17 +25,23 @@
    ============================================================ */
 
 /* ---- project credentials — the ONE place they live ------------
-   Paste the values from Supabase → Project Settings → API.
-   The anon key is public by design: it is meant to ship in the
-   browser and is guarded by the Row Level Security policies in
-   supabase/schema.sql. Nothing here is a secret.
-   Leave both empty and the site runs entirely on local fixtures
-   with zero network calls (that is what tools/verify.mjs expects).
-   A page can override them by setting window.BIS_SUPABASE_URL /
-   window.BIS_SUPABASE_ANON_KEY before this tag, or via data-url /
-   data-anon-key attributes on the script element. */
-window.BIS_SUPABASE_URL = window.BIS_SUPABASE_URL || "";
-window.BIS_SUPABASE_ANON_KEY = window.BIS_SUPABASE_ANON_KEY || "";
+   Project URL + anon public key (Supabase → Project Settings → API, or
+   `supabase projects api-keys --project-ref <ref>`).
+
+   The anon key is public by design: it ships in the browser and is
+   guarded by the Row Level Security policies in
+   supabase/migrations/*.sql. Never put the service_role key here —
+   that one is a server-side secret.
+
+   Leave both empty and the site runs entirely on local fixtures with
+   zero network calls. A page can override them by setting
+   window.BIS_SUPABASE_URL / window.BIS_SUPABASE_ANON_KEY before this
+   tag, or via data-url / data-anon-key attributes on the element. */
+window.BIS_SUPABASE_URL =
+  window.BIS_SUPABASE_URL || "https://llnwamcvygyzernemmop.supabase.co";
+window.BIS_SUPABASE_ANON_KEY =
+  window.BIS_SUPABASE_ANON_KEY ||
+  "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6ImxsbndhbWN2eWd5emVybmVtbW9wIiwicm9sZSI6ImFub24iLCJpYXQiOjE3OTA2OTkzOTcsImV4cCI6MjEwNjI3NTM5N30.HQSVlsoV4kMV0rG9HWL2JfJsAMaq_Aa6I80f-H7VVDg";
 
 const BISSupa = (() => {
   const script = document.currentScript;

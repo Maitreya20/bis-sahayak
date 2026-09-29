@@ -93,9 +93,10 @@
 <div id="widget-root"></div>
 
 <script src="../assets/js/bis.js"></script>
+<script src="../assets/js/supabase.js"></script>
 <script src="widget/bis-widget.js"></script>
 <script>
-  const DB = [
+  let DB = [
     { no: "IS 1417", title: "Gold jewellery &amp; gold artefacts — fineness", why: "Applies to 22K/18K gold articles; defines purity grades and marking.", conf: "high", cites: [{ doc: "IS 1417", clause: "5", url: "#is1417" }] },
     { no: "IS 302 (Part 1)", title: "Safety of household electrical appliances", why: "Base safety standard for mains-powered appliances and their drivers.", conf: "high", cites: [{ doc: "IS 302 Part 1", clause: "4.2", url: "#is302" }] },
     { no: "IS 16107 (Part 2/Sec 11)", title: "LED modules — performance &amp; safety", why: "Matches LED bulb/driver performance requirements under CRS.", conf: "high", cites: [{ doc: "IS 16107", clause: "7", url: "#is16107" }] },
@@ -112,6 +113,16 @@
   ];
 
   const results = document.getElementById("results");
+
+  /* Standards live in Supabase once a project is configured; the canned DB
+     above renders immediately and stays put if the read fails or is empty. */
+  if (typeof BISSupa !== "undefined" && BISSupa.configured) {
+    BISSupa.fetchStandards().then((rows) => {
+      if (!rows || !rows.length) return;
+      DB = rows;
+      if (!results.hidden) document.getElementById("recoForm").dispatchEvent(new Event("submit", { cancelable: true }));
+    });
+  }
 
   document.querySelectorAll("[data-ex]").forEach((b) =>
     b.addEventListener("click", () => (document.getElementById("prod").value = b.dataset.ex))

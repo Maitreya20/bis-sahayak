@@ -20,6 +20,39 @@ const BIS = (() => {
     window.BIS_API_BASE ||
     "";
 
+  /* ---- Supabase persistence (optional, see assets/js/supabase.js) ----
+     A conversation gets one id per page load, so a session can be read
+     back later with BISSupa.loadMessages(). Never blocks and never
+     throws: if Supabase is unconfigured or unreachable the UI simply
+     carries on with local fixtures. */
+  let sessionId = null;
+  function session() {
+    if (sessionId) return sessionId;
+    try {
+      sessionId = localStorage.getItem("bis-session");
+    } catch (e) { /* private mode */ }
+    if (!sessionId) {
+      sessionId = "sess-" + Math.random().toString(36).slice(2, 10) + Date.now().toString(36).slice(-4);
+      try { localStorage.setItem("bis-session", sessionId); } catch (e) { /* private mode */ }
+    }
+    return sessionId;
+  }
+
+  function persist(role, content, extra) {
+    if (!content || typeof BISSupa === "undefined" || !BISSupa) return;
+    try {
+      const p = BISSupa.saveMessage({
+        session_id: session(),
+        role,
+        content,
+        language: lang,
+        confidence: extra && extra.confidence,
+        citations: extra && extra.citations,
+      });
+      if (p && typeof p.catch === "function") p.catch(() => {});
+    } catch (e) { /* persistence must never break the answer */ }
+  }
+
   const i18n = {
     en: {
       askPlaceholder: "Ask about any Indian Standard… e.g. “IS 302 for home appliances”",
@@ -163,6 +196,7 @@ const BIS = (() => {
       Returns a Promise either way, so the UI never has to know. */
   async function chat(message) {
     const q = (message || "").trim();
+    persist("user", q);
 
     if (API_BASE) {
       try {
@@ -173,7 +207,9 @@ const BIS = (() => {
         });
         if (!res.ok) throw new Error("HTTP " + res.status);
         const data = await res.json();
-        return { suggested_actions: [], audio_url: null, ...data, session_id: data.session_id || "sess-live" };
+        const out = { suggested_actions: [], audio_url: null, ...data, session_id: data.session_id || "sess-live" };
+        persist("assistant", out.answer, out);
+        return out;
       } catch (err) {
         console.warn("[BIS] /chat unreachable (" + err.message + ") — serving offline fixtures", err);
       }
@@ -201,7 +237,9 @@ const BIS = (() => {
       res.answer = res.answer[lang] || res.answer.en;
     }
     res.session_id = "sess-demo";
-    return new Promise((resolve) => setTimeout(() => resolve(res), 450 + Math.random() * 400));
+    await new Promise((resolve) => setTimeout(resolve, 450 + Math.random() * 400));
+    persist("assistant", res.answer, res);
+    return res;
   }
 
   /* ---- UI factories (§2.4) ---- */
@@ -360,5 +398,6 @@ const BIS = (() => {
     setLanguage,
     getLanguage,
     reveal,
+    sessionId: session,
   };
 })();

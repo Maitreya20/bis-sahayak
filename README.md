@@ -10,6 +10,8 @@ Open **`index.html`** as the entry point, or jump straight to a surface.
 | Spec § | Deliverable | File(s) |
 |---|---|---|
 | §2 | Shared design system (tokens, bubbles, citation chip, confidence badge, seal, language switcher, mic, quick chips, source drawer) | `assets/css/bis.css` |
+| — | Supabase data layer (optional — chat persistence, labs, standards) | `assets/js/supabase.js` |
+| — | Supabase schema, RLS policies and seed data | `supabase/schema.sql` |
 | §4.1B | Portal — landing page (ask bar + 4 feature cards) | `website/index.html` |
 | §4.1B | Portal — chat page, 3-column (history \| chat \| live source drawer) | `website/chat.html` |
 | §4.1B | Standard Recommender (form → cards with confidence + citation) | `website/recommender.html` |
@@ -30,3 +32,40 @@ Open **`index.html`** as the entry point, or jump straight to a surface.
 - **Typography:** Inter + Noto Sans Devanagari fallback so Marathi/Hindi never renders as tofu (§2.3).
 - **Responsive:** 375 / 768 / 1280 breakpoints (§4.2).
 - Everything is static HTML/CSS/JS — no build step, no dependencies (fonts load from Google Fonts with system fallbacks).
+
+## Supabase
+
+The site runs entirely on local fixtures until you point it at a project — zero
+network calls, which is what `tools/verify.mjs` asserts. Connecting is two steps:
+
+1. **Create the schema.** Paste `supabase/schema.sql` into Supabase → SQL Editor
+   and run it. It creates `chat_messages`, `labs` and `standards`, turns on Row
+   Level Security, and seeds the labs and standards the UI already ships with.
+2. **Add your credentials.** Open `assets/js/supabase.js` and fill in the config
+   block at the top:
+
+   ```js
+   window.BIS_SUPABASE_URL      = "https://YOUR-PROJECT.supabase.co";
+   window.BIS_SUPABASE_ANON_KEY = "eyJ...";
+   ```
+
+   Both values come from Supabase → Project Settings → API. The anon key is
+   public by design — it is meant to ship in the browser and is guarded by the
+   RLS policies in `schema.sql`, so committing it is expected. Leave the block
+   empty and nothing changes.
+
+Once configured:
+
+| Surface | What Supabase does |
+|---|---|
+| Chat (portal, app, WhatsApp, entry demo) | Every turn is written to `chat_messages` with the session id (`BIS.sessionId()`), language, confidence and citations. Read it back with `BISSupa.loadMessages(sessionId)`. |
+| Lab Finder | Reads `labs` and swaps them in over the six fixtures once they arrive. |
+| Recommender | Reads `standards`; re-renders results if you had already searched. |
+
+Three properties hold everywhere, so nothing can regress: the fixtures render
+first and stay visible until data lands, a failed or empty read silently falls
+back to fixtures, and `BISSupa` never rejects or logs a console *error*.
+
+> Seeding note: `tools/verify.mjs` asserts the seeded baseline (6 labs; the LED
+> rule resolving to 3 standards). If you add rows to `labs` or `standards`,
+> update those two expectations alongside them.

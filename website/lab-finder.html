@@ -137,9 +137,10 @@
 <div id="widget-root"></div>
 
 <script src="../assets/js/bis.js"></script>
+<script src="../assets/js/supabase.js"></script>
 <script src="widget/bis-widget.js"></script>
 <script>
-  const LABS = [
+  let LABS = [
     { name: "ETL Test Labs (BIS recognised)", city: "Pune, Maharashtra", cat: ["Electronics & IT"], scope: ["IS 302", "IS 16107", "EMC"], dist: "4.2 km from Chakan MIDC" },
     { name: "Intertek India Pvt Ltd", city: "Bengaluru, Karnataka", cat: ["Electronics & IT", "Chemicals & Plastics"], scope: ["CRS electronics", "RoHS"], dist: "11 km from Whitefield" },
     { name: "BIS Regional Testing Centre", city: "Delhi NCR", cat: ["Metals & Steel", "Electronics & IT"], scope: ["IS 15489", "IS 302", "FMCS"], dist: "Okhla Phase II" },
@@ -175,6 +176,18 @@
   cat.addEventListener("change", render);
   state.addEventListener("change", render);
   render();
+
+  /* Upgrade to Supabase when a project is configured. The fixtures above
+     stay on screen until the rows land — and remain the fallback if the
+     read fails or the table is empty — so this page never shows a spinner
+     and never loses the 6-lab baseline asserted by tools/verify.mjs. */
+  if (typeof BISSupa !== "undefined" && BISSupa.configured) {
+    BISSupa.fetchLabs().then((rows) => {
+      if (!rows || !rows.length) return;
+      LABS = rows;
+      render();
+    });
+  }
 
   BISWidget.mount(document.getElementById("widget-root"));
 </script>

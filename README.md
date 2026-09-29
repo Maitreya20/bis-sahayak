@@ -1,17 +1,105 @@
-# BIS Sahayak — UI Deliverables
+# BIS Sahayak
 
-Generated from `../bis-sahayak-design-spec.md` (SIH26107 · Team Hack Horizon).
-One design system, three surfaces — *"Same RAG backend, same citations, three doors in."*
+**Evidence-gated AI assistant for Indian Standards and BIS services**
 
-Open **`index.html`** as the entry point, or jump straight to a surface.
+> *Cites the clause or escalates to a human. Never guessed.*
+
+| | |
+|---|---|
+| Problem statement | **SIH26107** — AI-powered conversational assistant for Indian Standards and BIS services |
+| Organisation | Bureau of Indian Standards (BIS) |
+| Theme · Category | Smart Automation · Software |
+| Team | **Hack Forge** — ID 125600 |
+
+The pitch deck — **`BIS_Sahayak_SIH2026_Final_v2.pptx`** (6 slides: idea →
+technical approach → feasibility → impact → research) — is the source of truth
+for this submission. The three things it sets out, and where each one lives in
+this repo, are below.
+
+---
+
+## 1 · The problem *(deck, slide 2)*
+
+Finding the right Indian Standard, certification scheme or recognised laboratory
+means searching thousands of separate documents — the catalogue alone holds
+**14,000+ standards**, alongside schemes, QCO notices and a laboratory
+directory. And a wrong answer carries real compliance risk.
+
+- **Fragmented discovery.** Standards, schemes, labs and hallmark rules each
+  live in their own place; a manufacturer needs all four to ship a product.
+- **Easy to cite the wrong thing.** Amendments and QCO notices make an outdated
+  standard easy to miss, and nothing in a PDF search tells you *which clause*
+  applies to your product.
+- **Language gap.** MSMEs and consumers ask in Hindi and Marathi; most
+  reference material does not answer in those languages, and certainly not by
+  voice.
+- **Helpdesk load.** Repetitive information queries reach a human officer who
+  could be spending that time on real cases.
+
+## 2 · The solution *(deck, slides 2–3)*
+
+**One assistant, four surfaces, three languages** — web portal, mobile app,
+WhatsApp and an embeddable widget, in English, Hindi and Marathi — covering
+standards lookup and recommendation, schemes, certification steps, consumer
+queries, hallmarking and lab suggestions from a single knowledge base. Every
+surface returns the same answer with the same clause citation.
+
+A single evidence-gated pipeline:
+
+```
+   ASK          →  UNDERSTAND   →  RETRIEVE         →  ANSWER              →  ACT
+ text or voice     product,         hybrid search       reply + clause         scheme, lab,
+ web / app /       intent, user     over the BIS        citation +             hallmark check
+ WhatsApp          language         knowledge base      confidence badge       or human handoff
+```
+
+**What makes it different**
+
+- **Cite the clause or refuse.** An answer is released only if a retrieved
+  clause supports it — never a guessed standard.
+- **Confidence triage.** Every reply carries a `high / medium / low` badge;
+  low confidence hands off to a human officer with a ticket (target: one
+  working day).
+- **Made-in-India voice.** Sarvam Saaras v3 (speech-to-text) and Bulbul v3
+  (text-to-speech), used in the prototype; BHASHINI and AI4Bharat extend from
+  3 towards 22 languages.
+- **Version-aware.** Amendments and QCO notices are re-indexed on schedule so
+  answers follow the current standard.
+
+## 3 · How the prototype works *(deck, slides 3–4)*
+
+What exists today is the **UI and the contract**, built with zero dependencies —
+static HTML/CSS/JS, no build step.
+
+| Stage | How the prototype handles it |
+|---|---|
+| **Ask** | Chat bars on the portal, app and WhatsApp, plus quick-chip prompts. Language switcher follows the reader across surfaces (`en` / `hi` / `mr`). |
+| **Understand** | Intent is matched against a client-side knowledge base; language is carried on every request. |
+| **Retrieve → Answer** | `BIS.chat()` returns `{ answer, citations[], confidence, suggested_actions[], audio_url }` — the fixed **`POST /chat`** contract (§3 of the spec). |
+| **Act** | Standard recommender, Lab Finder, HUID hallmark check, and suggested next-step actions. |
+| **Escalate** | `low` confidence renders a refusal plus escalation affordances instead of a fabricated answer. |
+
+Two properties make the swap to a real backend painless:
+
+- **Fixtures first.** Every response is a canned client-side fixture shaped
+  exactly like the live contract, so the UI is complete with no server. On
+  network failure it falls back to fixtures rather than failing.
+- **One attribute flips it live:** `data-api="https://your-api"` on the
+  `bis.js` script tag (or `window.BIS_API_BASE`). Without it, the only network
+  call is Google Fonts.
+
+**Evidence today** — `node tools/verify.mjs` drives headless Chrome across all
+surfaces and asserts the contract: **11 automated checks pass, zero console
+errors.** Answer accuracy on the curated BIS question set is the next gate
+(validation plan on slide 6 of the deck).
+
+---
 
 ## What's inside
 
 | Spec § | Deliverable | File(s) |
 |---|---|---|
 | §2 | Shared design system (tokens, bubbles, citation chip, confidence badge, seal, language switcher, mic, quick chips, source drawer) | `assets/css/bis.css` |
-| — | Supabase data layer (optional — chat persistence, labs, standards) | `assets/js/supabase.js` |
-| — | Supabase schema, RLS policies and seed data | `supabase/migrations/*.sql` |
 | §4.1B | Portal — landing page (ask bar + 4 feature cards) | `website/index.html` |
 | §4.1B | Portal — chat page, 3-column (history \| chat \| live source drawer) | `website/chat.html` |
 | §4.1B | Standard Recommender (form → cards with confidence + citation) | `website/recommender.html` |
@@ -23,15 +111,22 @@ Open **`index.html`** as the entry point, or jump straight to a surface.
 | §7 | Cross-surface consistency checklist (self-review results) | `CONSISTENCY.md` |
 | — | Audit: endpoint inventory + fixed/open issue list | `AUDIT.md` |
 | — | Regression checks (dependency-free, exits non-zero on failure) | `tools/verify.mjs` |
+| — | Supabase data layer (optional — chat persistence, labs, standards) | `assets/js/supabase.js` |
+| — | Supabase schema, RLS policies and seed data | `supabase/migrations/*.sql` |
 
-## Notes
+## Running it
 
-- **Mock data:** all chat/recommender/hallmark responses are canned client-side fixtures shaped exactly like the `POST /chat` contract in §3 (`answer`, `citations[]`, `confidence`, `suggested_actions[]`, `audio_url`) — swap in the real API without touching the UI.
-- **Point it at the real backend:** add `data-api="https://your-api"` to the `bis.js` script tag (or set `window.BIS_API_BASE` before it) and `BIS.chat()` starts doing a real `POST {base}/chat` with `{ message, language }`, falling back to fixtures if the request fails. Without it, zero network calls are made besides Google Fonts.
-- **Dark mode:** follows `prefers-color-scheme` via CSS variables (§2.2).
-- **Typography:** Inter + Noto Sans Devanagari fallback so Marathi/Hindi never renders as tofu (§2.3).
-- **Responsive:** 375 / 768 / 1280 breakpoints (§4.2).
-- Everything is static HTML/CSS/JS — no build step, no dependencies (fonts load from Google Fonts with system fallbacks).
+Open `index.html` as the entry point, or jump straight to a surface — there is
+no build and no install.
+
+```bash
+node tools/verify.mjs   # needs Node 22+ and Chrome or Edge; exit 0 = all good
+```
+
+- **Dark mode** follows `prefers-color-scheme` via CSS variables (§2.2).
+- **Typography** is Inter + Noto Sans Devanagari, so Marathi/Hindi never
+  renders as tofu (§2.3).
+- **Responsive** at 375 / 768 / 1280 breakpoints (§4.2).
 
 ## Supabase
 
@@ -65,8 +160,6 @@ The anon key is public by design — it ships in the browser and is guarded by t
 RLS policies in the migration, so committing it is expected. **Never commit the
 `service_role` key.** Leave both values empty and nothing changes.
 
-Once configured:
-
 | Surface | What Supabase does |
 |---|---|
 | Chat (portal, app, WhatsApp, entry demo) | Every turn is written to `chat_messages` with the session id (`BIS.sessionId()`), language, confidence and citations. Read it back with `BISSupa.loadMessages(sessionId)`. |
@@ -80,3 +173,17 @@ back to fixtures, and `BISSupa` never rejects or logs a console *error*.
 > Seeding note: `tools/verify.mjs` asserts the seeded baseline (6 labs; the LED
 > rule resolving to 3 standards). If you add rows to `labs` or `standards`,
 > update those two expectations alongside them.
+
+## Research & references
+
+- Retrieval grounds answers in evidence, but retrieval alone does not eliminate
+  hallucinations — Magesh et al., *Journal of Empirical Legal Studies*, 2025.
+- Standards-applicability research retrieves candidate standards from a
+  free-text description and infers applicability — Han, Ceross & Bergmann,
+  arXiv:2506.18511, 2025.
+- Design implication: evidence checks **plus refusal** are essential for
+  high-stakes standards guidance.
+- Data sources: BIS Indian Standards catalogue (14,000+ standards), schemes,
+  QCOs, laboratory directory; BHASHINI (MeitY), AI4Bharat, Sarvam AI.
+
+*Guidance only — not legal advice.*

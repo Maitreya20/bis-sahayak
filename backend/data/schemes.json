@@ -1,0 +1,150 @@
+{
+  "meta": {
+    "note": "BIS scheme process summaries for the prototype. Sources: bis.gov.in scheme pages, MANAK portal, Hallmarking QCO coverage (public). Steps paraphrased for the demo.",
+    "version": "proto-v1"
+  },
+  "schemes": [
+    {
+      "id": "crs",
+      "name_en": "Compulsory Registration Scheme (CRS)",
+      "name_hi": "अनिवार्य पंजीकरण योजना (CRS)",
+      "name_mr": "बंधनकारक नोंदणी योजना (CRS)",
+      "authority": "BIS ·.Manakonline portal (MANAK)",
+      "products_en": "Electronics & IT goods: LED lamps and drivers, mobile phones, power banks, adapters, TVs, watches, toys (electric), etc.",
+      "products_hi": "इलेक्ट्रॉनिक्स व IT सामान: LED लैंप/ड्राइवर, मोबाइल, पावर बैंक, अडैप्टर, टीवी, घड़ियाँ, बिजली वाले खिलौने आदि।",
+      "products_mr": "इलेक्ट्रॉनिक्स व IT वस्तू: LED दिवे/ड्रायव्हर, मोबाईल, पावर बँक, ॲडॉप्टर, टीव्ही, घड्याळे, विद्युत खेळणी इ.",
+      "keywords": ["crs", "compulsory registration", "registration scheme", "self-declaration", "manak", "electronics certification", "toy certification", "led certification", "सीआरएस", "पंजीकरण योजना", "इलेक्ट्रॉनिक्स प्रमाणन", "सीआरएस", "नोंदणी योजना", "इलेक्ट्रॉनिक्स प्रमाणन"],
+      "mandatory": true,
+      "steps_en": [
+        "Confirm your product is on the CRS schedule and identify the applicable Indian Standard(s) (e.g., IS 16108 for LED bulbs).",
+        "Get the product tested at a BIS-recognised lab; the lab uploads results directly to the BIS portal.",
+        "Apply online on the MANAK portal with test reports, factory proof and brand documents; pay the fee.",
+        "BIS scrutinises the file; a CRS registration number (R-xxxxxxx) is granted — typically 4–6 weeks.",
+        "Mark every packed unit with the CRS registration number before sale."
+      ],
+      "steps_hi": [
+        "देखें कि आपका उत्पाद CRS सूची में है और लागू भारतीय मानक पहचानें (जैसे LED बल्ब के लिए IS 16108)।",
+        "BIS-मान्यता प्राप्त लैब से उत्पाद का परीक्षण कराएँ; लैब रिपोर्ट सीधे BIS पोर्टल पर अपलोड करती है।",
+        "MANAK पोर्टल पर टेस्ट रिपोर्ट, फ़ैक्ट्री व ब्रांड दस्तावेज़ के साथ ऑनलाइन आवेदन करें और शुल्क भरें।",
+        "BIS जाँच के बाद CRS पंजीकरण संख्या (R-xxxxxxx) देता है — आमतौर पर 4–6 सप्ताह।",
+        "बिक्री से पहले हर पैक पर CRS पंजीकरण संख्या अंकित करें।"
+      ],
+      "steps_mr": [
+        "तुमचे उत्पाद CRS यादीत आहे का ते पहा आणि लागू भारतीय मानक ओळखा (उदा. LED बल्बसाठी IS 16108).",
+        "BIS-मान्यताप्राप्त लॅबमध्ये उत्पादाची चाचणी करा; लॅब अहवाल थेट BIS पोर्टलवर अपलोड करते.",
+        "MANAK पोर्टलवर चाचणी अहवाल, कारखाना व ब्रँड कागदपत्रांसह ऑनलाइन अर्ज करा आणि शुल्क भरा.",
+        "BIS तपासणीनंतर CRS नोंदणी क्रमांक (R-xxxxxxx) देते — सामान्यतः 4–6 आठवडे.",
+        "विक्रीपूर्वी प्रत्येक पॅकवर CRS नोंदणी क्रमांक छापा."
+      ],
+      "timeline_en": "Typically 4–6 weeks end-to-end (test booking is the long pole).",
+      "timeline_hi": "आमतौर पर कुल 4–6 सप्ताह (लैब स्लॉट मिलना सबसे लंबा चरण है)।",
+      "timeline_mr": "सामान्यतः एकूण 4–6 आठवडे (लॅब स्लॉट मिळणे सर्वात जास्त वेळ घेते)."
+    },
+    {
+      "id": "isi",
+      "name_en": "ISI Mark Licence (Product Certification)",
+      "name_hi": "ISI मार्क लाइसेंस (उत्पाद प्रमाणन)",
+      "name_mr": "ISI मार्क परवाना (उत्पाद प्रमाणन)",
+      "authority": "BIS · Product Certification (Factory-based)",
+      "products_en": "Cement, steel bars, PVC cables/wires, LPG cylinders, helmets, food-grade items and 350+ notified goods.",
+      "products_hi": "सीमेंट, स्टील बार, PVC केबल/तार, LPG सिलेंडर, हेलमेट, खाद्य-ग्रेड वस्तुएँ और 350+ अधिसूचित सामान।",
+      "products_mr": "सिमेंट, स्टील बार, PVC केबल/वायर, LPG सिलिंडर, हेल्मेट, खाद्य-ग्रेड वस्तू आणि 350+ अधिसूचित वस्तू.",
+      "keywords": ["isi", "isi mark", "product certification", "factory licence", "cement licence", "steel licence", "cable licence", "आईएसआई", "आईएसआई मार्क", "उत्पाद प्रमाणन", "आयएसआय", "आयएसआय मार्क", "उत्पाद प्रमाणन"],
+      "mandatory": true,
+      "steps_en": [
+        "Check the product is under mandatory certification and identify the relevant IS (e.g., IS 1786 for rebar).",
+        "Apply on the BIS portal with factory details, machinery list, test equipment and quality-control setup.",
+        "A BIS officer inspects the factory and draws samples for independent testing.",
+        "Clear the inspection report and test results; pay the licence fee and advance marking fee.",
+        "Licence granted — the ISI mark may then be applied under a registered marking schedule."
+      ],
+      "steps_hi": [
+        "देखें कि उत्पाद अनिवार्य प्रमाणन में है और संबंधित IS पहचानें (जैसे सरिया के लिए IS 1786)।",
+        "BIS पोर्टल पर फ़ैक्ट्री विवरण, मशीनरी, टेस्ट उपकरण व क्वालिटी-कंट्रोल सेटअप के साथ आवेदन करें।",
+        "BIS अधिकारी फ़ैक्टरी का निरीक्षण करता है और स्वतंत्र परीक्षण के लिए नमूने लेता है।",
+        "निरीक्षण रिपोर्ट व टेस्ट रिज़ल्ट क्लियर करें; लाइसेंस शुल्क व मार्किंग शुल्क भरें।",
+        "लाइसेंस मिलने के बाद रजिस्टर्ड मार्किंग शेड्यूल के तहत ISI मार्क लगाया जा सकता है।"
+      ],
+      "steps_mr": [
+        "उत्पाद बंधनकारक प्रमाणनात आहे का पहा आणि संबंधित IS ओळखा (उदा. सळईसाठी IS 1786).",
+        "BIS पोर्टलवर कारखाना तपशील, मशिनरी, चाचणी उपकरण व क्वालिटी-कंट्रोल मांडणीसह अर्ज करा.",
+        "BIS अधिकारी कारखान्याची पाहणी करतो आणि स्वतंत्र चाचणीसाठी नमुने घेतो.",
+        "पाहणी अहवाल व चाचणी निकाल पूर्ण करा; परवाना शुल्क व मार्किंग शुल्क भरा.",
+        "परवाना मिळाल्यावर नोंदणीकृत मार्किंग वेळापत्रकानुसार ISI मार्क लावता येतो."
+      ],
+      "timeline_en": "Roughly 6–8 months for new domestic applicants (inspection + clearance queue).",
+      "timeline_hi": "नए घरेलू आवेदकों के लिए लगभग 6–8 महीने (निरीक्षण + स्पष्टीकरण की प्रक्रिया)।",
+      "timeline_mr": "नवीन देशी अर्जदारांसाठी सुमारे 6–8 महिने (पाहणी + स्पष्टीकरणाची वाट)."
+    },
+    {
+      "id": "hallmark",
+      "name_en": "Hallmarking Scheme (gold & silver)",
+      "name_hi": "हॉलमार्किंग योजना (सोना व चांदी)",
+      "name_mr": "हॉलमार्किंग योजना (सोने व चांदी)",
+      "authority": "BIS · Recognised Assay Centres",
+      "products_en": "Gold jewellery/artefacts (mandatory in notified districts) and silver articles (voluntary).",
+      "products_hi": "सोने के आभूषण (अधिसूचित ज़िलों में अनिवार्य) और चांदी की वस्तुएँ (स्वैच्छिक)।",
+      "products_mr": "सोन्याचे दागिने (अधिसूचित जिल्ह्यांत बंधनकारक) आणि चांदीच्या वस्तू (स्वैच्छिक).",
+      "keywords": ["hallmark", "hallmarking", "huid", "assay", "jeweller registration", "gold purity", "916", "925", "हॉलमार्क", "हॉलमार्किंग", "एचयूआईडी", "सोने की शुद्धता", "हॉलमार्क", "हॉलमार्किंग", "एचयूआयडी", "सोन्याची शुद्धता"],
+      "mandatory": true,
+      "mandatory_note_en": "Mandatory for gold in notified districts; silver hallmarking is voluntary.",
+      "steps_en": [
+        "Register the jewellery business as a BIS-recognised jeweller on the BIS portal (per-bank/per-outlet registration).",
+        "Send unsold gold jewellery to a BIS-recognised assay centre for purity testing and hallmarking.",
+        "Each hallmarked article gets the BIS logo, fineness (916 for 22K), assay-centre ID and a 6-digit HUID.",
+        "Sell only hallmarked stock from notified districts; verify HUID in the BIS Care app before sale to customers.",
+        "Re-hallmark returned/old gold accepted as exchange before reselling it."
+      ],
+      "steps_hi": [
+        "BIS पोर्टल पर ज्वेलर व्यवसाय को BIS-मान्यता प्राप्त ज्वेलर के रूप में पंजीकृत करें (प्रति आउटलेट)।",
+        "बिना बिका सोना शुद्धता जाँच व हॉलमार्किंग के लिए BIS-मान्यता प्राप्त असाय केंद्र भेजें।",
+        "हर हॉलमार्क वाले आभूषण पर BIS लोगो, शुद्धता (22K के लिए 916), असाय केंद्र ID व 6-अंकीय HUID होता है।",
+        "अधिसूचित ज़िलों में केवल हॉलमार्क वाला स्टॉक बेचें; बिक्री से पहले BIS Care ऐप में HUID जाँचें।",
+        "एक्सचेंज में मिला पुराना सोना दोबारा बेचने से पहले फिर से हॉलमार्क कराएँ।"
+      ],
+      "steps_mr": [
+        "BIS पोर्टलवर दागिने व्यवसाय BIS-मान्यताप्राप्त ज्वेलर म्हणून नोंदवा (प्रत्येक दुकानासाठी).",
+        "न विकलेले सोने शुद्धता तपासणी व हॉलमार्किंगसाठी BIS-मान्यताप्राप्त असे केंद्राकडे पाठवा.",
+        "प्रत्येक हॉलमार्क दागिन्यावर BIS लोगो, शुद्धता (22K साठी 916), असे केंद्र ID व 6-अंकी HUID असते.",
+        "अधिसूचित जिल्ह्यांत फक्त हॉलमार्क केलेला माल विका; विक्रीपूर्वी BIS Care ॲपमध्ये HUID तपासा.",
+        "एक्सचेंजमध्ये आलेले जुने सोने पुन्हा विकण्यापूर्वी पुन्हा हॉलमार्क करा."
+      ],
+      "timeline_en": "Jeweller registration: days. Assay turnaround: typically same day to 48 hours per lot.",
+      "timeline_hi": "ज्वेलर पंजीकरण: कुछ दिन। असाय: प्रति लॉट आमतौर पर उसी दिन से 48 घंटे।",
+      "timeline_mr": "ज्वेलर नोंदणी: काही दिवस. असे: प्रति लॉट सामान्यतः त्याच दिवशी ते 48 तासांत."
+    },
+    {
+      "id": "fmcs",
+      "name_en": "Foreign Manufacturers Certification Scheme (FMCS)",
+      "name_hi": "विदेशी निर्माता प्रमाणन योजना (FMCS)",
+      "name_mr": "परदेशी निर्माता प्रमाणन योजना (FMCS)",
+      "authority": "BIS · Foreign certification branch",
+      "products_en": "Overseas manufacturers selling notified goods into India (same IS standards as domestic ISI/CRS lists).",
+      "products_hi": "भारत में अधिसूचित सामान बेचने वाले विदेशी निर्माता (घरेलू ISI/CRS सूची जैसे ही मानक)।",
+      "products_mr": "भारतात अधिसूचित वस्तू विकणारे परदेशी निर्माते (देशांतर्गत ISI/CRS यादीप्रमाणेच मानके).",
+      "keywords": ["fmcs", "foreign manufacturer", "import certification", "importer", "एफएमसीएस", "विदेशी निर्माता", "आयात प्रमाणन", "एफएमसीएस", "परदेशी निर्माता", "आयात प्रमाणन"],
+      "mandatory": true,
+      "steps_en": [
+        "Appoint an Indian Authorised Representative and file on the BIS portal from the overseas factory.",
+        "Host a BIS factory inspection at the overseas plant; samples are drawn for testing in India.",
+        "Clear test results and inspection observations; pay the licence fee.",
+        "Receive the ISI-mark licence; renewal and marking-fee cycles apply like domestic licences."
+      ],
+      "steps_hi": [
+        "भारतीय अधिकृत प्रतिनिधि नियुक्त करें और विदेशी फ़ैक्टरी से BIS पोर्टल पर आवेदन करें।",
+        "विदेशी प्लांट में BIS निरीक्षण कराएँ; नमूने भारत में परीक्षण के लिए लिए जाते हैं।",
+        "टेस्ट रिज़ल्ट व निरीक्षण टिप्पणियाँ क्लियर करें; लाइसेंस शुल्क भरें।",
+        "ISI-मार्क लाइसेंस मिलता है; नवीनीकरण व मार्किंग शुल्क चक्र घरेलू लाइसेंस जैसे ही हैं।"
+      ],
+      "steps_mr": [
+        "भारतीय अधिकृत प्रतिनिधी नेमा आणि परदेशातील कारखान्यातून BIS पोर्टलवर अर्ज करा.",
+        "परदेशातील प्लँटमध्ये BIS पाहणी करा; नमुने भारतात चाचणीसाठी आणले जातात.",
+        "चाचणी निकाल व पाहणी निरीक्षणे पूर्ण करा; परवाना शुल्क भरा.",
+        "ISI-मार्क परवाना मिळतो; नूतनीकरण व मार्किंग शुल्क रकाने देशी परवान्यांसारखेच."
+      ],
+      "timeline_en": "Commonly 6–9 months depending on inspection travel and clearance.",
+      "timeline_hi": "आमतौर पर 6–9 महीने (निरीक्षण यात्रा व स्पष्टीकरण पर निर्भर)।",
+      "timeline_mr": "बहुधा 6–9 महिने (पाहणीचा प्रवास व स्पष्टीकरणावर अवलंबून)."
+    }
+  ]
+}

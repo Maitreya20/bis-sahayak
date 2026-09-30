@@ -73,6 +73,28 @@ no `XMLHttpRequest` besides the single opt-in `fetch` in #1.
 
 ---
 
+## §2.4 Prototype backend status (backend/, post-integration)
+
+The FastAPI backend in `backend/` now serves every page with
+`window.BIS_API_BASE` injected into `<head>` (no UI file edits), so `BIS.chat()`
+switches from fixtures to live `POST /chat` automatically. Status of the
+previously-open items:
+
+| Previously open | Status now |
+|---|---|
+| Widget's live endpoint commented out | **Unchanged for the embeddable widget** (its Shadow-DOM fixtures still demo); host pages served by the backend get live `/chat` via `BIS.chat()`. Give the widget a `data-api` when embedding externally. |
+| Fixture citation URLs are fragments | **Resolved in live mode** — `/chat` returns absolute/`/website/…` URLs; fixtures untouched for offline demo. |
+| Lab finder / recommender fixture-only | **Partially resolved** — `GET /labs` (category/state filters) and `GET /standards/search` (hybrid BM25+vector+rerank) exist; pages still render fixtures until wired (by design: zero UI edits for SIH). |
+| `audio_url` placeholder | Still `null`/demo keyless; fills via `SARVAM_API_KEY` env hook. |
+| No CSP headers | Unchanged (dev prototype); add at deploy time. |
+
+Keyless by default: answers are composed from the clause-level corpus
+(19 standards / 44 clauses, en/hi/mr) with citations + confidence + low-confidence
+fallback to BIS Branch Office referral. Verified: 11/11 demo questions pass the
+§3 contract over HTTP (`answer/citations/confidence/suggested_actions/audio_url/session_id`).
+
+---
+
 ## §3 How to re-verify
 
 ```powershell

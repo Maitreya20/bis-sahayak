@@ -1,0 +1,660 @@
+{
+  "meta": {
+    "note": "Verified standard numbers from public BIS/CRS sources; clause text is prototype-grade paraphrase (clearly not verbatim BIS text). Replace/extend from official BIS drafts before production.",
+    "version": "proto-v1"
+  },
+  "standards": [
+    {
+      "id": "is302p1",
+      "no": "IS 302 (Part 1)",
+      "title_en": "Household and similar electrical appliances — Safety — Part 1: General requirements",
+      "title_hi": "घरेलू एवं समरूप वैद्युत उपकरण — सुरक्षा — भाग 1: सामान्य आवश्यकताएँ",
+      "title_mr": "गृहोपयोगी व समरूप विद्युत उपकरणे — सुरक्षा — भाग 1: सामान्य आवश्यकता",
+      "domain": "Electronics & IT",
+      "scheme": "CRS",
+      "mandatory": true,
+      "keywords": [
+        "household appliance", "home appliance", "electrical appliance", "general safety",
+        "गृह उपकरण", "विद्युत उपकरण", "घरेलू उपकरण",
+        "गृहोपयोगी उपकरण", "विद्युत उपकरणे", "सुरक्षा"
+      ],
+      "clauses": [
+        {
+          "clause": "1",
+          "topic_en": "Scope — household and similar appliances, single/three-phase up to 480 V",
+          "topic_hi": "क्षेत्र — घरेलू व समरूप उपकरण, 480 वोल्ट तक",
+          "topic_mr": "व्याप्ती — गृहोपयोगी व समरूप उपकरणे, 480 वोल्टांपर्यंत",
+          "excerpt_en": "Applies to safety of household and similar electrical appliances for persons and surroundings, single-phase up to 250 V and other supplies up to 480 V.",
+          "excerpt_hi": "यह मानक 250 वोल्ट (एक-फ़ेज़) और 480 वोल्ट तक के घरेलू वैद्युत उपकरणों की सुरक्षा के लिए है।",
+          "excerpt_mr": "हा मानक 250 वोल्ट (एक-फेज) आणि 480 वोल्टांपर्यंतच्या गृहोपयोगी विद्युत उपकरणांच्या सुरक्षेसाठी आहे."
+        },
+        {
+          "clause": "8.1",
+          "topic_en": "Protection against access to live parts",
+          "topic_hi": "जीवित भागों की स्पर्श-सुरक्षा",
+          "topic_mr": "जीवित भागांपासून संरक्षण",
+          "excerpt_en": "The construction shall ensure that live parts are not accessible during normal operation; a jointed test finger must not touch live parts.",
+          "excerpt_hi": "सामान्य उपयोग में जीवित (करंट वाले) भाग स्पर्श करने योग्य नहीं होने चाहिए; परीक्षण उँगली को करंट वाले भाग नहीं छूने चाहिए।",
+          "excerpt_mr": "सामान्य वापरीत जीवित भाग स्पर्श करता येणार नाहीत; चाचणी बोटाला करंट असलेले भाग स्पर्श करता आले पाहिजेत नाही."
+        },
+        {
+          "clause": "11",
+          "topic_en": "Heating appliances — temperature limits",
+          "topic_hi": "तापन उपकरण — तापमान सीमाएँ",
+          "topic_mr": "तापन उपकरणे — तापमान मर्यादा",
+          "excerpt_en": "Temperature-rises of accessible parts and surroundings shall not exceed limits in Table 3 so that no fire hazard or scalding occurs in normal use.",
+          "excerpt_hi": "सामान्य उपयोग में छूने योग्य भागों का तापमान तालिका-3 की सीमा से अधिक नहीं होना चाहिए ताकि आग या झुलसने का खतरा न हो।",
+          "excerpt_mr": "सामान्य वापरीत स्पर्शयोग्य भागांचे तापमान तक्ता-3 मधील मर्यादेपेक्षा जास्त होणार नाही, म्हणजे आग किंवा उकळत्या धोत्र्याचा धोका नाही."
+        },
+        {
+          "clause": "13",
+          "topic_en": "Leakage current and electric strength at operating temperature",
+          "topic_hi": "ऑपरेटिंग तापमान पर लीकेज करंट व विद्युत सामर्थ्य",
+          "topic_mr": "कार्यकाळातील तापमानावर लीकेज करंट व विद्युत सामर्थ्य",
+          "excerpt_en": "Leakage current shall not exceed defined limits and insulation shall withstand a high-voltage test at operating temperature without breakdown.",
+          "excerpt_hi": "लीकेज करंट निर्धारित सीमा से अधिक नहीं होना चाहिए और ऑपरेटिंग तापमान पर इन्सुलेशन हाई-वोल्टेज टेस्ट पास करे।",
+          "excerpt_mr": "लीकेज करंट मर्यादेपेक्षा जास्त नसावा आणि कार्यकाळातील तापमानावर इन्सुलेशन हाय-व्होल्टेज चाचणी उतीर्ण करावी."
+        },
+        {
+          "clause": "16",
+          "topic_en": "Transformer and associated circuit overload protection",
+          "topic_hi": "ट्रांसफ़ॉर्मर व संबंधित सर्किट ओवरलोड सुरक्षा",
+          "topic_mr": "ट्रान्सफॉर्मर व संबंधित सर्किट ओव्हरलोड संरक्षण",
+          "excerpt_en": "Circuits with transformers shall withstand overload; short-circuit/overload protective devices shall operate correctly.",
+          "excerpt_hi": "ट्रांसफ़ॉर्मर वाले सर्किट ओवरलोड सहन करें; शॉर्ट-सर्किट/ओवरलोड सुरक्षा उपकरण ठीक से काम करें।",
+          "excerpt_mr": "ट्रान्सफॉर्मर असलेली सर्किट ओव्हरलोड सहन करावीत; शॉर्ट-सर्किट/ओव्हरलोड संरक्षण यंत्रे योग्यरित्या काम करावीत."
+        },
+        {
+          "clause": "19",
+          "topic_en": "Abnormal operation — reversed capacitor, blocked motor, stuck controls",
+        "topic_hi": "असामान्य संचालन — उलटा कैपेसिटर, अवरोधित मोटर",
+          "topic_mr": "असामान्य कार्य — उलटा कॅपॅसिटर, अडलेली मोटर",
+          "excerpt_en": "Appliances shall not emit fire, molten metal or hazardous deformation under abnormal operation such as stalled motors or blocked ventilation.",
+          "excerpt_hi": "असामान्य स्थिति (मोटर अटकना, वेंट बंद होना) में उपकरण से आग, पिघला धातु या खतरनाक विकृति नहीं होनी चाहिए।",
+          "excerpt_mr": "असामान्य स्थितीत (मोटर अडली, व्हेंट बंद) उपकरणातून आग, वितळलेली धातू किंवा धोकादायक विकृती निघणार नाही."
+        },
+        {
+          "clause": "22",
+          "topic_en": "Construction — switches, capacitors, fixings, handles",
+          "topic_hi": "संरचना — स्विच, कैपेसिटर, फ़िक्सिंग, हैंडल",
+          "topic_mr": "बांधणी — स्विच, कॅपॅसिटर, फिक्सिंग, हँडल",
+          "excerpt_en": "Construction shall ensure safe assembly, adequate fixings, and that external handles/knobs stay cool and secure in normal use.",
+          "excerpt_hi": "संरचना ऐसी हो कि सुरक्षित असेंबली हो, फ़िक्सिंग मजबूत हों, और हैंडल/नॉब सामान्य उपयोग में ठंडे व सुरक्षित रहें।",
+          "excerpt_mr": "बांधणी अशी की सुरक्षित जोडणी होईल, फिक्सिंग मजबूत असतील आणि हँडल/नॉब सामान्य वापरात थंड व सुरक्षित राहतील."
+        },
+        {
+          "clause": "24",
+          "topic_en": "Stability and mechanical hazards",
+          "topic_hi": "स्थिरता व यांत्रिक खतरे",
+          "topic_mr": "स्थिरता व यांत्रिक धोके",
+          "excerpt_en": "Appliances shall have adequate stability; moving parts shall be enclosed or positioned to avoid injury in normal use.",
+          "excerpt_hi": "उपकरण स्थिर रहे; घूमने वाले भाग ढके हों या ऐसे हों कि सामान्य उपयोग में चोट न लगे।",
+          "excerpt_mr": "उपकरण स्थिर राहील; फिरणारे भाग झाकलेले किंवा असे की सामान्य वापरात दुखापत होणार नाही."
+        },
+        {
+          "clause": "30",
+          "topic_en": "Resistance to heat and fire — non-metallic materials",
+          "topic_hi": "गर्मी व आग प्रतिरोध — अधातु सामग्री",
+          "topic_mr": "उष्णता व आग प्रतिकार — अधातु सामग्री",
+          "excerpt_en": "Non-metallic parts shall resist heat (ball-pressure) and parts near live parts shall be glow-wire resistant; ignition sources shall not propagate flame.",
+          "excerpt_hi": "अधातु भाग गर्मी (बॉल-प्रेशर) सहें; जीवित भागों के पास के भाग ग्लो-वायर परीक्षण सहें; आग फैलनी न चाहिए।",
+          "excerpt_mr": "अधातु भाग उष्णता (बॉल-प्रेशर) सहावेत; जीवित भागांजवळील भाग ग्लो-वायर चाचणी सहावेत; आग पसरणार नाही."
+        }
+      ]
+    },
+    {
+      "id": "is302p2s7",
+      "no": "IS 302 (Part 2/Sec 7)",
+      "title_en": "Household appliances — Safety — Part 2/Section 7: Washing machines",
+      "title_hi": "घरेलू उपकरण — सुरक्षा — भाग 2/खंड 7: वाशिंग मशीन",
+      "title_mr": "गृह उपकरणे — सुरक्षा — भाग 2/विभाग 7: वॉशिंग मशीन",
+      "domain": "Electronics & IT",
+      "scheme": "CRS",
+      "mandatory": true,
+      "keywords": ["washing machine", "washer", "laundry", "वाशिंग मशीन", "वाशिंग मशीन"],
+      "clauses": [
+        {
+          "clause": "11",
+          "topic_en": "Heating — water-heating washing machines temperature limits",
+          "topic_hi": "तापन — पानी गरम करने वाली मशीन की तापमान सीमा",
+          "topic_mr": "तापन — पाणी गरम करणाऱ्या मशीनची तापमान मर्यादा",
+          "excerpt_en": "For washing machines that heat water, temperature limits of Part 1 apply with modifications for water temperature at program end.",
+          "excerpt_hi": "पानी गरम करने वाली वाशिंग मशीन के लिए भाग 1 की तापमान सीमाएँ, प्रोग्राम अंत में पानी के तापमान में बदलाव के साथ लागू होती हैं।",
+          "excerpt_mr": "पाणी गरम करणाऱ्या वॉशिंग मशीनसाठी भाग 1 च्या तापमान मर्यादा, प्रोग्राम शेवटी पाण्याच्या तापमानातील बदलासह लागू होतात."
+        },
+        {
+          "clause": "15.2",
+          "topic_en": "Moisture resistance — foaming and rinsing under oversudsing",
+          "topic_hi": "नमी प्रतिरोध — अधिक झाग की स्थिति में",
+          "topic_mr": "आर्द्रता प्रतिकार — जास्त फेने पसरल्यावर",
+          "excerpt_en": "Insulation shall remain effective when tested under oversudsing conditions with the specified saline solution.",
+          "excerpt_hi": "अधिक झाग और नमक के घोल की स्थिति में भी इन्सुलेशन प्रभावी रहे।",
+          "excerpt_mr": "जास्त फेने व मीठ पाण्याच्या परिस्थितीतही इन्सुलेशन प्रभावी राहील."
+        },
+        {
+          "clause": "19.7",
+          "topic_en": "Abnormal operation — motor stalled or capacitor fault",
+          "topic_hi": "असामान्य संचालन — मोटर अटकना या कैपेसिटर दोष",
+          "topic_mr": "असामान्य कार्य — मोटर अडली किंवा कॅपॅसिटर दोष",
+          "excerpt_en": "With motor stalled or motor capacitors short-circuited, the machine shall not emit flame, molten metal or excessive deformation.",
+          "excerpt_hi": "मोटर अटकने या कैपेसिटर शॉर्ट होने पर मशीन से आग, पिघली धातु या अत्यधिक विकृति नहीं होनी चाहिए।",
+          "excerpt_mr": "मोटर अडली किंवा कॅपॅसिटर शॉर्ट झाल्यास मशीनमधून आग, वितळलेली धातू किंवा जास्त विकृती निघणार नाही."
+        }
+      ]
+    },
+    {
+      "id": "is302p2s24",
+      "no": "IS 302 (Part 2/Sec 24)",
+      "title_en": "Household appliances — Safety — Part 2/Section 24: Refrigerating appliances",
+      "title_hi": "घरेलू उपकरण — सुरक्षा — भाग 2/खंड 24: प्रशीतन उपकरण",
+      "title_mr": "गृह उपकरणे — सुरक्षा — भाग 2/विभाग 24: प्रशीतन उपकरणे",
+      "domain": "Electronics & IT",
+      "scheme": "CRS",
+      "mandatory": true,
+      "keywords": ["refrigerator", "fridge", "freezer", "cooling", "प्रशीतन", "फ्रिज", "रेफ्रिजरेटर", "फ्रीज", "फ्रिज", "प्रशीतन उपकरण"],
+      "clauses": [
+        {
+          "clause": "22.111",
+          "topic_en": "Construction — protection against refrigerant leakage",
+          "topic_hi": "संरचना — रेफ्रिजरेंट रिसाव से सुरक्षा",
+          "topic_mr": "बांधणी — रेफ्रिजरंट गळतीपासून संरक्षण",
+          "excerpt_en": "Refrigerant circuits shall be protected against leakage; pipework shall be guarded against damage in normal use.",
+        "excerpt_hi": "रेफ्रिजरेंट सर्किट रिसाव से सुरक्षित हों; पाइपिंग सामान्य उपयोग में क्षतिग्रस्त न हो।",
+          "excerpt_mr": "रेफ्रिजरंट सर्किट गळतीपासून सुरक्षित असावेत; पाइपिंग सामान्य वापरात खराब होणार नाही."
+        },
+        {
+          "clause": "32",
+          "topic_en": "Resistance to heat and fire for plastic parts of refrigerators",
+          "topic_hi": "प्लास्टिक भागों की गर्मी व आग प्रतिरोध",
+          "topic_mr": "प्लास्टिक भागांचा उष्णता व आग प्रतिकार",
+          "excerpt_en": "Plastic evaporator/duct parts shall meet glow-wire requirements; the liner shall not be readily ignitible.",
+          "excerpt_hi": "प्लास्टिक इवेपरेटर/डक्ट भाग ग्लो-वायर आवश्यकता पूरी करें; लाइनर आसानी से आग पकड़े नहीं।",
+          "excerpt_mr": "प्लास्टिक इव्हपरेटर/डक्ट भाग ग्लो-वायर आवश्यकता पूर्ण करावेत; लायनर सहज आग पकडणार नाही."
+        }
+      ]
+    },
+    {
+      "id": "is302p2s23",
+      "no": "IS 302 (Part 2/Sec 23)",
+      "title_en": "Household appliances — Safety — Part 2/Section 23: Appliances for skin and hair care",
+      "title_hi": "घरेलू उपकरण — सुरक्षा — भाग 2/खंड 23: त्वचा व बाल देखभाल उपकरण",
+      "title_mr": "गृह उपकरणे — सुरक्षा — भाग 2/विभाग 23: त्वचा व केस तयारी उपकरणे",
+      "domain": "Electronics & IT",
+      "scheme": "CRS",
+      "mandatory": true,
+      "keywords": ["hair dryer", "hair straightener", "skin care", "hair care appliance", "हेयर ड्रायर", "बाल सुखाने", "हेअर ड्रायर", "केस वाळवणे", "स्किन केअर"],
+      "clauses": [
+        {
+          "clause": "11.8",
+          "topic_en": "Heating — radiators/hair-care appliances surface temperature",
+          "topic_hi": "तापन — हेयर-केयर उपकरण की सतह का तापमान",
+          "topic_mr": "तापन — हेअर-केअर उपकरणाच्या पृष्ठभागाचे तापमान",
+          "excerpt_en": "Surface temperature of hair-care appliances shall not exceed the limits of Table 3 measured at the specified points.",
+          "excerpt_hi": "हेयर-केयर उपकरण की सतह का तापमान तालिका-3 की सीमा से अधिक नहीं होना चाहिए।",
+          "excerpt_mr": "हेअर-केअर उपकरणाच्या पृष्ठभागाचे तापमान तक्ता-3 मधील मर्यादेपेक्षा जास्त नसावे."
+        },
+        {
+          "clause": "19.2",
+          "topic_en": "Abnormal operation — hair dryer airflow blocked",
+          "topic_hi": "असामानy संचालन — हेयर ड्रायर का वायुप्रवाह अवरोध",
+          "topic_mr": "असामान्य कार्य — हेअर ड्रायरचा वायुप्रवाह अडवल्यास",
+          "excerpt_en": "Hair dryers operated with intake/outlet blocked shall not emit flame or molten material; thermal cut-outs shall operate.",
+        "excerpt_hi": "इनलेट/आउटलेट बंद करके चलाने पर हेयर ड्रायर से आग या पिघली सामग्री नहीं निकलनी चाहिए; थर्मल कट-आउट काम करें।",
+          "excerpt_mr": "इनलेट/आउटलेट बंद करून चालवल्यास हेअर ड्रायरमधून आग किंवा वितळलेली सामग्री निघणार नाही; थर्मल कट-आउट काम करावेत."
+        }
+      ]
+    },
+    {
+      "id": "is1293",
+      "no": "IS 1293",
+      "title_en": "Plugs and socket-outlets up to 16 A — safety requirements",
+      "title_hi": "16 एम्पियर तक के प्लग व सॉकेट — सुरक्षा आवश्यकताएँ",
+      "title_mr": "16 अ‍ॅम्पिअरपर्यंतचे प्लग व सॉकेट — सुरक्षा आवश्यकता",
+      "domain": "Electronics & IT",
+      "scheme": "CRS",
+      "mandatory": true,
+      "keywords": ["plug", "socket", "16A", "plug top", "प्लग", "सॉकेट", "प्लग", "सॉकेट"],
+      "clauses": [
+        {
+          "clause": "9",
+          "topic_en": "Construction — non-reversible pins, earther contact makes first",
+          "topic_hi": "संरचना — अपरिवर्तनीय पिन, अर्थ कॉन्टैक्ट पहले जुड़े",
+          "topic_mr": "बांधणी — अपरिवर्तनीय पिन, अर्थ कॉन्टॅक्ट आधी जोडले जातील",
+          "excerpt_en": "Plugs shall be non-reversible; the earthing contact shall make before, and break after, the current-carrying contacts.",
+          "excerpt_hi": "प्लग उलटे न लगने वाले हों; अर्थ कॉन्टैक्ट करंट वाले कॉन्टैक्ट से पहले जुड़े और बाद में खुलें।",
+          "excerpt_mr": "प्लग उलटे बसणार नाहीत; अर्थ कॉन्टॅक्ट करंट कॉन्टॅक्टच्या आधी जोडले जातील व नंतर तुटतील."
+        },
+        {
+          "clause": "19",
+          "topic_en": "Resistance to heat and ageing — plug body materials",
+          "topic_hi": "गर्मी व एजिंग प्रतिरोध — प्लग बॉडी सामग्री",
+          "topic_mr": "उष्णता व एजिंग प्रतिकार — प्लग बॉडी सामग्री",
+          "excerpt_en": "Insulating material of plug/socket bodies shall resist heat and ageing; ball-pressure at 75 °C (or higher) shall show no impression affecting safety.",
+          "excerpt_hi": "प्लग/सॉकेट की इन्सुलेटिंग सामग्री गर्मी व एजिंग सहे; 75°C बॉल-प्रेशर पर सुरक्षा प्रभावित करने वाला निशान न बने।",
+          "excerpt_mr": "प्लग/सॉकेटची इन्सुलेटिंग सामग्री उष्णता व एजिंग सहावी; 75°C बॉल-प्रेशरमध्ये सुरक्षेवर परिणाम करणारा ठसा निघणार नाही."
+        },
+        {
+          "clause": "20",
+          "topic_en": "Screws and connections — current-carrying parts",
+          "topic_hi": "पेंच व जोड़ — करंट वाले भाग",
+          "topic_mr": "स्क्रू व जोडण्या — करंट असलेले भाग",
+          "excerpt_en": "Screws clamping current-carrying parts shall engage into metal; connections shall be secured against loosening.",
+          "excerpt_hi": "करंट वाले भाग कसने वाले पेंच धातु में फँसे हों; जोड़ ढीले होने से सुरक्षित हों।",
+          "excerpt_mr": "करंट असलेले भाग घट्ट करणारे स्क्रू धातूत गुंफलेले असावेत; जोडण्या ढिल्या होण्यापासून सुरक्षित असाव्यात."
+        }
+      ]
+    },
+    {
+      "id": "is16108",
+      "no": "IS 16108",
+      "title_en": "Self-ballasted LED lamps for general lighting services — safety",
+      "title_hi": "सामान्य प्रकाश सेवा हेतु सेल्फ-बैलास्टेड LED लैंप — सुरक्षा",
+      "title_mr": "सामान्य प्रकाश सेवेसाठी सेल्फ-बॅलास्टेड LED दिवे — सुरक्षा",
+      "domain": "Electronics & IT",
+      "scheme": "CRS",
+      "mandatory": true,
+      "keywords": ["led bulb", "led lamp", "self-ballasted", "एलईडी बल्ब", "एलईडी दिवा", "एलईडी दिवा"],
+      "clauses": [
+        {
+          "clause": "5",
+          "topic_en": "Marks — mandatory markings on lamp and pack",
+          "topic_hi": "चिह्न — लैंप व पैक पर अनिवार्य मार्किंग",
+          "topic_mr": "खूण — दिवा व पॅकवरील अनिवार्य मार्किंग",
+          "excerpt_en": "Lamps shall be marked with rated voltage/wattage, manufacturer/trademark, and CRS registration number on the pack.",
+          "excerpt_hi": "लैंप पर रेटेड वोल्टेज/वाट, निर्माता/ट्रेडमार्क, और पैक पर CRS पंजीकरण संख्या अंकित हो।",
+          "excerpt_mr": "दिव्यावर रेटेड व्होल्टेज/वॉट, निर्माता/ट्रेडमार्क, आणि पॅकवर CRS नोंदणी क्रमांक असावा."
+        },
+        {
+          "clause": "8",
+          "topic_en": "Protection against electric shock after normal use",
+          "topic_hi": "सामान्य उपयोग के बाद बिजली के झटके से सुरक्षा",
+          "topic_mr": "सामान्य वापरानंतर विद्युत झटक्यापासून संरक्षण",
+          "excerpt_en": "After conditioning, live parts shall remain inaccessible; the cap and housing shall provide shock protection per the lamp cap standard.",
+          "excerpt_hi": "कंडीशनिंग के बाद भी करंट वाले भाग स्पर्श-रोधी रहें; कैप व हाउसिंग शॉक-सुरक्षा दे।",
+          "excerpt_mr": "कंडिशनिंगनंतरही जीवित भाग स्पर्श-रोधक राहावेत; कॅप व हाउसिंग शॉक-संरक्षण द्यावे."
+        },
+        {
+          "clause": "12",
+          "topic_en": "Resistance to heat and fire — lamp housing",
+          "topic_hi": "गर्मी व आग प्रतिरोध — लैंप हाउसिंग",
+          "topic_mr": "उष्णता व आग प्रतिकार — दिव्याचे हाउसिंग",
+          "excerpt_en": "Parts providing insulation shall be heat- and fire-resistant; glow-wire 650 °C (850 °C for parts carrying current).",
+          "excerpt_hi": "इन्सुलेशन देने वाले भाग गर्मी व आग-रोधी हों; ग्लो-वायर 650°C (करंट वाले भाग 850°C)।",
+          "excerpt_mr": "इन्सुलेशन देणारे भाग उष्णता व आग-प्रतिकारक असावेत; ग्लो-वायर 650°C (करंट असलेले भाग 850°C)."
+        }
+      ]
+    },
+    {
+      "id": "is16107",
+      "no": "IS 16107",
+      "title_en": "LED modules for general lighting — safety requirements",
+      "title_hi": "सामान्य प्रकाश हेतु LED मॉड्यूल — सुरक्षा आवश्यकताएँ",
+      "title_mr": "सामान्य प्रकाशासाठी LED मॉड्यूल — सुरक्षा आवश्यकता",
+      "domain": "Electronics & IT",
+      "scheme": "CRS",
+      "mandatory": true,
+      "keywords": ["led module", "led driver", "led light engine", "एलईडी मॉड्यूल", "एलईडी ड्राइवर", "एलईडी मॉड्यूल", "एलईडी ड्रायव्हर"],
+      "clauses": [
+        {
+          "clause": "8",
+          "topic_en": "Protection against electric shock — live parts separation",
+          "topic_hi": "बिजली के झटके से सुरक्षा — जीवित भागों का पृथक्करण",
+          "topic_mr": "विद्युत झटक्यापासून संरक्षण — जीवित भागांचे वेगळेपण",
+          "excerpt_en": "Live parts shall be separated from accessible parts by basic insulation, or double/reinforced insulation where SELD equivalent applies.",
+          "excerpt_hi": "जीवित भागों को स्पर्श-योग्य भागों से बेसिक इन्सुलेशन या डबल/रीइन्फ़ोर्स्ड इन्सुलेशन से अलग रखें।",
+          "excerpt_mr": "जीवित भाग स्पर्शयोग्य भागांपासून बेसिक इन्सुलेशन किंवा डबल/रीइन्फोर्स्ड इन्सुलेशनने वेगळे ठेवावेत."
+        },
+        {
+          "clause": "12",
+          "topic_en": "Creepage and clearance distances inside LED modules",
+          "topic_hi": "LED मॉड्यूल में क्रीपेज व क्लीयरेंस दूरियाँ",
+          "topic_mr": "LED मॉड्यूलमधील क्रीपेज व क्लिअरन्स अंतर",
+          "excerpt_en": "Creepage and clearance distances shall meet values per working voltage and pollution degree to prevent tracking/breakdown.",
+          "excerpt_hi": "कार्य वोल्टेज व प्रदूषण स्तर के अनुसार क्रीपेज/क्लीयरेंस दूरियाँ पूरी हों ताकि ट्रैकिंग/ब्रेकडाउन न हो।",
+          "excerpt_mr": "कार्य व्होल्टेज व प्रदूषण स्तरानुसार क्रीपेज/क्लिअरन्स अंतर पूर्ण व्हावेत, म्हणजे ट्रॅकिंग/ब्रेकडाउन होणार नाही."
+        }
+      ]
+    },
+    {
+      "id": "is15885",
+      "no": "IS 15885 (Part 2)",
+      "title_en": "Self-ballasted lamps — Part 2: Safety requirements (CFL/LED general)",
+      "title_hi": "सेल्फ-बैलास्टेड लैंप — भाग 2: सुरक्षा आवश्यकताएँ",
+      "title_mr": "सेल्फ-बॅलास्टेड दिवे — भाग 2: सुरक्षा आवश्यकता",
+      "domain": "Electronics & IT",
+      "scheme": "CRS",
+      "mandatory": true,
+      "keywords": ["self-ballasted lamp", "cfl", "general lighting lamp", "सेल्फ-बैलास्टेड लैंप", "सीएफएल", "सेल्फ-बॅलास्टेड दिवा", "सीएफएल"],
+      "clauses": [
+        {
+          "clause": "B.3",
+          "topic_en": "Annex — interchangeability and lamp-cap security",
+          "topic_hi": "परिशिष्ट — अदला-बदली व लैंप-कैप सुरक्षा",
+          "topic_mr": "अनुबंध — अदलाबदल व दिवा-कॅप सुरक्षा",
+          "excerpt_en": "Lamp caps shall be securely fixed and interchange with equivalent caps per relevant lamp-cap standards.",
+          "excerpt_hi": "लैंप कैप मजबूती से लगे हों और समतुल्य कैप मानकों के अनुसार अदला-बदली कर सकें।",
+          "excerpt_mr": "दिवा-कॅप घट्ट बसवलेले असावेत व समतुल्य कॅप मानकांनुसार अदलाबदल होऊ शकावेत."
+        }
+      ]
+    },
+    {
+      "id": "is9873",
+      "no": "IS 9873 (Part 1)",
+      "title_en": "Safety of toys — Part 1: Safety aspects related to mechanical and physical properties",
+      "title_hi": "खिलौनों की सुरक्षा — भाग 1: यांत्रिक व भौतिक गुण संबंधी सुरक्षा",
+      "title_mr": "खेळण्यांची सुरक्षा — भाग 1: यांत्रिक व भौतिक गुणधर्म संबंधी सुरक्षा",
+      "domain": "Electronics & IT",
+      "scheme": "CRS",
+      "mandatory": true,
+      "keywords": ["toy", "toys", "mechanical", "physical", "खिलौना", "खिलौने", "खेळणी", "खेळण्यांची सुरक्षा"],
+      "clauses": [
+        {
+          "clause": "5",
+          "topic_en": "Materials — clean, hygienic, no hazardous contact",
+          "topic_hi": "सामग्री — स्वच्छ, स्वास्थ्यप्रद, खतरनाक संपर्क नहीं",
+          "topic_mr": "साहित्य — स्वच्छ, निरोगी, धोकादायक संपर्क नाही",
+          "excerpt_en": "Toys shall be clean and hygienic; materials shall be visually free of pests; paints shall not be soluble-toxic (Part 3 applies).",
+          "excerpt_hi": "खिलौने स्वच्छ हों; रंगों में घुलनशील विषाक्त तत्व न हों (भाग 3 लागू)।",
+          "excerpt_mr": "खेळणी स्वच्छ असावीत; रंगांत विरघळणारे विषारी घटक नसावेत (भाग 3 लागू)."
+        },
+        {
+          "clause": "8",
+          "topic_en": "Shape and size — small parts, spheres, cords",
+          "topic_hi": "आकार व माप — छोटे भाग, गोले, डोर",
+          "topic_mr": "आकार व माप — लहान भाग, गोळे, दोरखंड",
+          "excerpt_en": "Small parts shall not fit the small-parts cylinder for under-3 toys; cords on pull-along toys shall not exceed specified lengths.",
+          "excerpt_hi": "3 साल से छोटे बच्चों के खिलौनों के छोटे भाग स्मॉल-पार्ट्स सिलेंडर में न फिटें; खिंचाव वाले खिलौनों की डोर सीमित हो।",
+          "excerpt_mr": "3 वर्षांखालील खेळण्यांचे लहान भाग स्मॉल-पार्ट्स सिलिंडरमध्ये बसणार नाहीत; ओढण्याच्या खेळण्यांचा दोरखंड मर्यादित असावा."
+        },
+        {
+          "clause": "12",
+          "topic_en": "Edges — no accessible hazardous sharp edges",
+          "topic_hi": "किनारे — स्पर्श-योग्य खतरनाक तीक्ष्ण किनारे नहीं",
+          "topic_mr": "कडा — स्पर्शयोग्य धोकादायक तीक्ष्ण कडा नाहीत",
+          "excerpt_en": "Accessible edges shall not be hazardous sharp; metal wire ends shall be protected or folded.",
+          "excerpt_hi": "छूने योग्य किनारे खतरनाक तीखे न हों; धातु तारों के सिरे सुरक्षित/मुड़े हों।",
+          "excerpt_mr": "स्पर्शयोग्य कडा धोकादायक तीख्या नसाव्यात; धातूच्या तारांचे टोके सुरक्षित/वाकडे केलेले असावेत."
+        }
+      ]
+    },
+    {
+      "id": "is15644",
+      "no": "IS 15644",
+      "title_en": "Electric toys — Safety requirements",
+      "title_hi": "विद्युत खिलौने — सुरक्षा आवश्यकताएँ",
+      "title_mr": "विद्युत खेळणी — सुरक्षा आवश्यकता",
+      "domain": "Electronics & IT",
+      "scheme": "CRS",
+      "mandatory": true,
+      "keywords": ["electric toy", "battery toy", "transformer toy", "विद्युत खिलौना", "बैटरी खिलौना", "विद्युत खेळणी", "बॅटरी खेळणी"],
+      "clauses": [
+        {
+          "clause": "9",
+          "topic_en": "Toys supplied by batteries — compartment security",
+          "topic_hi": "बैटरी वाले खिलौने — बैटरी डिब्बा सुरक्षा",
+          "topic_mr": "बॅटरी असलेल्या खेळण्या — बॅटरी कोषाची सुरक्षा",
+          "excerpt_en": "Battery compartments shall prevent short-circuiting and require a tool or defined force to open.",
+          "excerpt_hi": "बैटरी डिब्बा ऐसा हो कि शॉर्ट-सर्किट न हो और औज़ार/निर्धारित बल से ही खुले।",
+          "excerpt_mr": "बॅटरी कोष असा की शॉर्ट-सर्किट होणार नाही आणि टूल किंवा ठराविक दाबानेच उघडणार."
+        },
+        {
+          "clause": "14",
+          "topic_en": "Protection against short circuits and overcharge",
+          "topic_hi": "शॉर्ट सर्किट व ओवरचार्ज से सुरक्षा",
+          "topic_mr": "शॉर्ट सर्किट व ओव्हरचार्जपासून संरक्षण",
+          "excerpt_en": "Toys with rechargeable batteries shall prevent overcharge and reverse polarity; wiring shall withstand expected stresses.",
+          "excerpt_hi": "रिचार्जेबल बैटरी वाले खिलौने ओवरचार्ज व उलटी पोलैरिटी रोकें; वायरिंग दबाव सहे।",
+          "excerpt_mr": "रिचार्जेबल बॅटरीची खेळणी ओव्हरचार्ज व उलटी पोलॅरिटी टाळतील; वायरिंग ताण सहन करेल."
+        }
+      ]
+    },
+    {
+      "id": "is694",
+      "no": "IS 694",
+      "title_en": "PVC insulated cables up to 1100 V — specification",
+      "title_hi": "1100 वोल्ट तक के PVC इन्सुलेटेड केबल — विनिर्देश",
+      "title_mr": "1100 व्होल्टांपर्यंत PVC इन्सुलेटेड केबल — विनिर्देश",
+      "domain": "Electronics & IT",
+      "scheme": "ISI",
+      "mandatory": true,
+      "keywords": ["cable", "wire", "pvc", "house wiring", "केबल", "तार", "वायर", "केबल", "वायर", "घरगुती वायरिंग"]
+      ,
+      "clauses": [
+        {
+          "clause": "12",
+          "topic_en": "Tests — insulation resistance at 70 °C conductor temperature",
+          "topic_hi": "परीक्षण — 70°C कंडक्टर तापमान पर इन्सुलेशन प्रतिरोध",
+          "topic_mr": "चाचण्या — 70°C कंडक्टर तापमानावर इन्सुलेशन रेझिस्टन्स",
+          "excerpt_en": "Insulation resistance shall be measured at conductor temperature 70 °C and not fall below specified values per size.",
+          "excerpt_hi": "70°C कंडक्टर तापमान पर इन्सुलेशन रेजिस्टेंस नापी जाए और निर्धारित मान से कम न हो।",
+          "excerpt_mr": "70°C कंडक्टर तापमानावर इन्सुलेशन रेझिस्टन्स मोजावी आणि ठराविक मूल्यापेक्षा कमी नसावी."
+        }
+      ]
+    },
+    {
+      "id": "is1554",
+      "no": "IS 1554 (Part 1)",
+      "title_en": "PVC insulated cables for working voltages up to 1100 V — Part 1: 600/1000 V",
+      "title_hi": "1100 वोल्ट तक PVC इन्सुलेटेड केबल — भाग 1: 600/1000 वोल्ट",
+      "title_mr": "1100 व्होल्टांपर्यंत PVC इन्सुलेटेड केबल — भाग 1: 600/1000 व्होल्ट",
+      "domain": "Electronics & IT",
+      "scheme": "ISI",
+      "mandatory": true,
+      "keywords": ["pvc cable", "power cable", "600/1000", "पीवीसी केबल", "पावर केबल", "पीव्हीसी केबल", "पावर केबल"]
+      ,
+      "clauses": [
+        {
+          "clause": "16",
+          "topic_en": "Routine tests — high-voltage withstand on every drum length",
+          "topic_hi": "रूटीन परीक्षण — हर ड्रम पर हाई-वोल्टेज परीक्षण",
+          "topic_mr": "रूटीन चाचण्या — प्रत्येक ड्रमवर हाय-व्होल्टेज चाचणी",
+          "excerpt_en": "Every manufactured length shall pass the routine high-voltage withstand test before despatch.",
+          "excerpt_hi": "हर बने केबल लंबाई को डिस्पैच से पहले रूटीन हाई-वोल्टेज परीक्षण पास करना होगा।",
+          "excerpt_mr": "प्रत्येक तयार केबल लांबी पाठवण्यापूर्वी रूटीन हाय-व्होल्टेज चाचणी उतीर्ण करेल."
+        }
+      ]
+    },
+    {
+      "id": "is1417",
+      "no": "IS 1417",
+      "title_en": "Gold and gold alloys, jewellery/artefacts — fineness and marking",
+      "title_hi": "सोना व सोने की मिश्रधातु, आभूषण/कलाकृति — शुद्धता व मार्किंग",
+      "title_mr": "सोने व सोन्याची मिश्रधातू, दागिने/कलाकृती — शुद्धता व खूण",
+      "domain": "Metals & Jewellery",
+      "scheme": "Hallmarking",
+      "mandatory": true,
+      "keywords": ["gold", "jewellery", "fineness", "hallmark", "karat", "22K", "18K", "24K", "सोना", "गहना", "आभूषण", "हॉलमार्क", "सोने", "दागिना", "दागिने", "हॉलमार्क", "करॅट", "कैरट"]
+      ,
+      "clauses": [
+        {
+          "clause": "5",
+          "topic_en": "Fineness grades — 916 (22K), 750 (18K), 995/999 (24K-grade bullion)",
+          "topic_hi": "शुद्धता ग्रेड — 916 (22K), 750 (18K), 995/999",
+          "topic_mr": "शुद्धता ग्रेड — 916 (22K), 750 (18K), 995/999",
+          "excerpt_en": "Standard fineness grades: 999, 995, 916, 875, 750, 708, 585, 375; 916 = 22 carat is the common jewellery grade.",
+          "excerpt_hi": "मानक शुद्धता ग्रेड: 999, 995, 916, 875, 750, 708, 585, 375; 916 = 22 कैरट सामान्य है।",
+          "excerpt_mr": "मानक शुद्धता ग्रेड: 999, 995, 916, 875, 750, 708, 585, 375; 916 = 22 कॅरेट सामान्य आहे."
+        },
+        {
+          "clause": "7",
+          "topic_en": "Marking — BIS logo, purity, assay centre, HUID",
+          "topic_hi": "मार्किंग — BIS लोगो, शुद्धता, असेy केंद्र, HUID",
+          "topic_mr": "खूण — BIS लोगो, शुद्धता, अस्से केंद्र, HUID",
+          "excerpt_en": "Hallmark consists of BIS logo, fineness number, six-digit HUID, and assay-centre mark, laser/etched on the article.",
+          "excerpt_hi": "हॉलमार्क में BIS लोगो, शुद्धता संख्या, छह-अंकीय HUID और असाय केंद्र चिह्न होते हैं।",
+          "excerpt_mr": "हॉलमार्कमध्ये BIS लोगो, शुद्धता क्रमांक, सहा-अंकी HUID आणि असे केंद्राची खूण असते."
+        },
+        {
+          "clause": "8",
+          "topic_en": "Responsibilities — registered jeweller obligations",
+          "topic_hi": "जिम्मेदारियाँ — पंजीकृत ज्वेलर के दायित्व",
+          "topic_mr": "जबाबदाऱ्या — नोंदणीकृत ज्वेलरची कर्तव्ये",
+          "excerpt_en": "Only BIS-registered jewellers may sell hallmarked gold jewellery; they shall ensure hallmarking via recognised assay centres.",
+          "excerpt_hi": "केवल BIS पंजीकृत ज्वेलर ही हॉलमार्क वाले सोने बेच सकते हैं; मान्यता-प्राप्त असाय केंद्र से हॉलमार्किंग करानी होगी।",
+          "excerpt_mr": "फक्त BIS नोंदणीकृत ज्वेलर हालमार्क केलेले सोने विकू शकतात; मान्यताप्राप्त असे केंद्राकडून हॉलमार्किंग करावी."
+        }
+      ]
+    },
+    {
+      "id": "is1418",
+      "no": "IS 1418",
+      "title_en": "Silver and silver alloys, jewellery/artefacts — fineness and marking",
+      "title_hi": "चांदी व चांदी की मिश्रधातु, आभूषण — शुद्धता व मार्किंग",
+      "title_mr": "चांदी व चांदीची मिश्रधातू, दागिने — शुद्धता व खूण",
+      "domain": "Metals & Jewellery",
+      "scheme": "Hallmarking",
+      "mandatory": false,
+      "mandatory_note": "Silver hallmarking is voluntary as of 2026 — HUID marks available at assay centres.",
+      "keywords": ["silver", "silver jewellery", "fineness silver", "925", "चांदी", "चांदी गहना", "चांदी", "दागिने", "925"],
+      "clauses": [
+        {
+          "clause": "5",
+          "topic_en": "Fineness grades for silver — 925, 900, 835, 800",
+          "topic_hi": "चांदी के शुद्धता ग्रेड — 925, 900, 835, 800",
+          "topic_mr": "चांदीचे शुद्धता ग्रेड — 925, 900, 835, 800",
+          "excerpt_en": "Silver fineness grades: 925 (sterling), 900, 835, 800; 925 is the common jewellery grade.",
+          "excerpt_hi": "चांदी ग्रेड: 925 (स्टर्लिंग), 900, 835, 800; 925 सामान्य है।",
+          "excerpt_mr": "चांदी ग्रेड: 925 (स्टर्लिंग), 900, 835, 800; 925 सामान्य आहे."
+        },
+        {
+          "clause": "7",
+          "topic_en": "Marking — BIS logo, fineness, assay centre, HUID (voluntary)",
+          "topic_hi": "मार्किंग — BIS लोगो, शुद्धता, असाय केंद्र, HUID (स्वैच्छिक)",
+          "topic_mr": "खूण — BIS लोगो, शुद्धता, असे केंद्र, HUID (स्वैच्छिक)",
+          "excerpt_en": "Silver hallmarks carry the same four marks as gold; hallmarking silver is currently voluntary.",
+          "excerpt_hi": "चांदी के हॉलमार्क में सोने जैसे चार चिह्न होते हैं; अभी यह स्वैच्छिक है।",
+          "excerpt_mr": "चांदीच्या हॉलमार्कमध्ये सोन्यासारख्या चार खूणा असतात; सध्या हे स्वैच्छिक आहे."
+        }
+      ]
+    },
+    {
+      "id": "is2112",
+      "no": "IS 2112",
+      "title_en": "Hallmarking of silver jewellery/artefacts — grades and marking procedure",
+      "title_hi": "चांदी की हॉलमार्किंग — ग्रेड व मार्किंग प्रक्रिया",
+      "title_mr": "चांदीचे हॉलमार्किंग — ग्रेड व खूण प्रक्रिया",
+      "domain": "Metals & Jewellery",
+      "scheme": "Hallmarking",
+      "mandatory": false,
+      "mandatory_note": "Voluntary scheme; marks applied at BIS-recognised assay centres.",
+      "keywords": ["silver hallmarking", "silver grades", "चांदी हॉलमार्क", "चांदी हॉलमार्किंग"],
+      "clauses": [
+        {
+          "clause": "4",
+          "topic_en": "Grades of silver fineness and marking procedure",
+          "topic_hi": "चांदी की शुद्धता ग्रेड व मार्किंग प्रक्रिया",
+          "topic_mr": "चांदीची शुद्धता ग्रेड व खूण प्रक्रिया",
+          "excerpt_en": "Specifies grades and procedure for hallmarking silver articles at assay centres, including sampling and marking rules.",
+          "excerpt_hi": "असाय केंद्रों पर चांदी की हॉलमार्किंग के ग्रेड व प्रक्रिया, सैंपलिंग व मार्किंग नियम सहित।",
+          "excerpt_mr": "असे केंद्रांवर चांदीचे हॉलमार्किंगचे ग्रेड व प्रक्रिया, सॅम्पलिंग व खूण नियमांसह."
+        }
+      ]
+    },
+    {
+      "id": "is3095",
+      "no": "IS 3095",
+      "title_en": "Gold solder alloys for jewellery — specification",
+      "title_hi": "आभूषण हेतु सोने की सोल्डर मिश्रधातु — विनिर्देश",
+      "title_mr": "दागिन्यांसाठी सोन्याची सोल्डर मिश्रधातू — विनिर्देश",
+      "domain": "Metals & Jewellery",
+      "scheme": "Hallmarking",
+      "mandatory": false,
+      "keywords": ["gold solder", "solder", "सोल्डर", "जोड़ने वाला सोना", "सोल्डर"],
+      "clauses": [
+        {
+          "clause": "4",
+          "topic_en": "Composition — solder fineness not below declared grade",
+          "topic_hi": "संरचना — सोल्डर शुद्धता घोषित ग्रेड से कम नहीं",
+          "topic_mr": "संयोजन — सोल्डर शुद्धता घोषित ग्रेडपेक्षा कमी नाही",
+          "excerpt_en": "Gold solders shall match declared fineness grades; solders used in hallmarked jewellery shall not degrade the article below its fineness grade.",
+          "excerpt_hi": "सोने की सोल्डर घोषित शुद्धता ग्रेड से मेल खाए; हॉलमार्क वाले आभूषण में सोल्डर ग्रेड न गिराए।",
+          "excerpt_mr": "सोन्याची सोल्डर घोषित शुद्धता ग्रेडशी जुळावी; हॉलमार्क दागिन्यात सोल्डर ग्रेड खाली आणणार नाही."
+        }
+      ]
+    },
+    {
+      "id": "is15489",
+      "no": "IS 15489",
+      "title_en": "High strength deformed steel bars and sections for concrete reinforcement — specification",
+      "title_hi": "कंक्रीट सुदृढ़ीकरण हेतु उच्च-सामर्थ्य डिफ़ॉर्म्ड स्टील बार — विनिर्देश",
+      "title_mr": "कॉन्क्रीट बुरुजांसाठी उच्च-सामर्थ्य डिफॉर्म्ड स्टील बार — विनिर्देश",
+      "domain": "Metals & Steel",
+      "scheme": "ISI",
+      "mandatory": true,
+      "keywords": ["steel", "rebar", "tmt", "reinforcement", "sariya", "सरिया", "स्टील", "रीबार", "टीएमटी", "सरिया", "स्टील", "रीबार", "टीएमटी", "सळई"],
+      "clauses": [
+        {
+          "clause": "6.1",
+          "topic_en": "Mechanical properties — 0.2% proof stress ≥ 500 N/mm² (Fe 500)",
+          "topic_hi": "यांत्रिक गुण — Fe 500 का 0.2% प्रूफ स्ट्रेस ≥ 500 N/mm²",
+          "topic_mr": "यांत्रिक गुणधर्म — Fe 500 साठी 0.2% प्रूफ स्ट्रेस ≥ 500 N/mm²",
+          "excerpt_en": "For Fe 500, 0.2 percent proof stress shall be at least 500 N/mm²; elongation and tensile ratio requirements apply.",
+          "excerpt_hi": "Fe 500 के लिए 0.2% प्रूफ स्ट्रेस कम से कम 500 N/mm²; लंबाई व टेन्साइल अनुपात की शर्तें भी लागू।",
+          "excerpt_mr": "Fe 500 साठी 0.2% प्रूफ स्ट्रेस कमीत कमी 500 N/mm²; लांबी व टेन्साइल गुणोत्तर अटीही लागू."
+        },
+        {
+          "clause": "7",
+          "topic_en": "Testing — tensile, bend and re-bend on sampled bars",
+          "topic_hi": "परीक्षण — नमूना बार पर टेन्साइल, बेंड व री-बेंड",
+          "topic_mr": "चाचण्या — नमुना बारवर टेन्साइल, बेंड व री-बेंड",
+          "excerpt_en": "Each lot shall be tested for tensile, bend and re-bend; chemical composition (C, S, P) shall meet grade limits.",
+          "excerpt_hi": "हर लॉट पर टेन्साइल, बेंड व री-बेंड परीक्षण; कार्बन, सल्फर, फॉस्फोरस सीमा में।",
+          "excerpt_mr": "प्रत्येक लॉटवर टेन्साइल, बेंड व री-बेंड चाचणी; कार्बन, सल्फर, फॉस्फरस मर्यादेत."
+        }
+      ]
+    },
+    {
+      "id": "is1786",
+      "no": "IS 1786",
+      "title_en": "High strength deformed steel bars for concrete reinforcement — Fe 415/500/550 D grades",
+      "title_hi": "कंक्रीट सुदृढ़ीकरण हेतु उच्च-सामर्थ्य डिफ़ॉर्म्ड स्टील बार — Fe 415/500/550 D",
+      "title_mr": "कॉन्क्रीट सळईसाठी उच्च-सामर्थ्य डिफॉर्म्ड स्टील बार — Fe 415/500/550 D",
+      "domain": "Metals & Steel",
+      "scheme": "ISI",
+      "mandatory": true,
+      "keywords": ["fe415", "fe500", "fe550", "tmt rebar", "sariya", "fe 500", "एफई 500", "सरिया", "एफई 500", "सरिया"],
+      "clauses": [
+        {
+          "clause": "6.2",
+          "topic_en": "D-grade ductility — elongation ≥ 14.5% (Fe 500D)",
+          "topic_hi": "D-ग्रेड डक्टिलिटी — Fe 500D की लंबाई ≥ 14.5%",
+          "topic_mr": "D-ग्रेड डक्टिलिटी — Fe 500D ची लांबी ≥ 14.5%",
+          "excerpt_en": "Fe 500D requires elongation ≥ 14.5% and tensile/proof ratio ≥ 1.08 for earthquake-prone construction.",
+          "excerpt_hi": "Fe 500D में लंबाई ≥ 14.5% व टेन्साइल/प्रूफ अनुपात ≥ 1.08 (भूकंपीय क्षेत्र)।",
+          "excerpt_mr": "Fe 500D साठी लांबी ≥ 14.5% व टेन्साइल/प्रूफ गुणोत्तर ≥ 1.08 (भूकंप क्षेत्रासाठी)."
+        },
+        {
+          "clause": "8",
+          "topic_en": "Marking — grade embossed on bars",
+          "topic_hi": "मार्किंग — बार पर ग्रेड अंकित",
+          "topic_mr": "खूण — बारवर ग्रेड अंकित",
+          "excerpt_en": "Bars shall carry embossed grade marks (e.g., Fe 500D) and manufacturer identification at regular intervals.",
+          "excerpt_hi": "बार पर ग्रेड (जैसे Fe 500D) व निर्माता पहचान नियमित अंतर पर उभरी हो।",
+          "excerpt_mr": "बारवर ग्रेड (उदा. Fe 500D) व निर्माता ओळख नियमित अंतरावर उंचवलेली असावी."
+        }
+      ]
+    },
+    {
+      "id": "is269",
+      "no": "IS 269",
+      "title_en": "Ordinary Portland Cement, 33 grade — specification",
+      "title_hi": "ऑर्डिनरी पोर्टलैंड सीमेंट 33 ग्रेड — विनिर्देश",
+      "title_mr": "ऑर्डिनरी पोर्टलँड सिमेंट 33 ग्रेड — विनिर्देश",
+      "domain": "Metals & Steel",
+      "scheme": "ISI",
+      "mandatory": true,
+      "keywords": ["cement", "opc", "portland", "33 grade", "सीमेंट", "सीमेंट", "सिमेंट"],
+      "clauses": [
+        {
+          "clause": "9",
+          "topic_en": "Physical requirements — fineness, soundness, setting time, strength",
+          "topic_hi": "भौतिक आवश्यकताएँ — फाइननेस, साउंडनेस, सेटिंग टाइम, सामर्थ्य",
+          "topic_mr": "भौतिक आवश्यकता — फायननेस, साउंडनेस, सेटिंग वेळ, सामर्थ्य",
+          "excerpt_en": "OPC 33: fineness ≥ 225 m²/kg (Blaine), initial setting ≥ 30 min, 28-day compressive strength ≥ 33 MPa.",
+          "excerpt_hi": "OPC 33: फाइननेस ≥ 225 m²/kg, प्रारंभिक सेटिंग ≥ 30 मिनट, 28-दिन की कंप्रेसिव सामर्थ्य ≥ 33 MPa।",
+          "excerpt_mr": "OPC 33: फायननेस ≥ 225 m²/kg, प्रारंभिक सेटिंग ≥ 30 मिनिटे, 28-दिवसीय कंप्रेसिव्ह सामर्थ्य ≥ 33 MPa."
+        }
+      ]
+    }
+  ]
+}

@@ -128,6 +128,48 @@ node tools/verify.mjs   # needs Node 22+ and Chrome or Edge; exit 0 = all good
   renders as tofu (§2.3).
 - **Responsive** at 375 / 768 / 1280 breakpoints (§4.2).
 
+## Live backend (prototype API)
+
+The same UI can run against the real FastAPI backend in `backend/` — with zero
+changes to any HTML/JS file. The server injects `window.BIS_API_BASE` into
+every page it serves, and `assets/js/bis.js` automatically switches from
+fixtures to live `POST /chat`:
+
+```bash
+pip install -r backend/requirements.txt
+uvicorn backend.app.main:app --reload --port 8000
+# UI:      http://localhost:8000/            (this landing page)
+# portal:  http://localhost:8000/website/    (chat, recommender, labs, hallmark)
+# app:     http://localhost:8000/app/        mobile surface
+# API:     http://localhost:8000/health      corpus stats + llm/tts status
+```
+
+What `POST /chat` does (§3 contract, kept exactly):
+
+1. **Language** — `hi`/`mr` Devanagari auto-detect, `en` default (header/body wins).
+2. **Intent** — schema question vs procedure vs lab vs product→standard vs smalltalk.
+3. **Hybrid retrieval** — BM25 + vector (TF-IDF style) fused with reciprocal-rank
+   fusion and a coverage reranker over 19 standards / 44 clause-level units in
+   3 domains (Electronics & IT, Metals & Jewellery, Metals & Steel).
+4. **Structured tools** — lab finder (category/state filters matching the Labs
+   page), scheme process lookup (CRS/ISI/Hallmarking/FMCS), product→IS mapping.
+5. **Grounded generation** — answers are composed *only* from retrieved clause
+   excerpts, with `citations[]` (`doc` + `clause` + `url`) always attached.
+6. **Confidence + fallback** — `high`/`medium` with citations, `low` + BIS Branch
+   Office referral when nothing in the corpus matches.
+
+Works **keyless out of the box** (deterministic composer). Optional env hooks:
+
+| Variable | Effect |
+| --- | --- |
+| `BIS_LLM_KEY` + `BIS_LLM_MODEL` (+ `BIS_LLM_BASE` for non-OpenAI) | Grounded LLM phrasing over retrieved clauses |
+| `SARVAM_API_KEY` | Fills `audio_url` via Sarvam TTS |
+| `BIS_PUBLIC_BASE` | API base injected into pages (default `http://localhost:8000`) |
+
+Open a page served by the backend, ask
+"Is IS 302 mandatory for home appliances?" and the answer will come from the
+live corpus — same shape, same confidence badges, same citation chips.
+
 ## Supabase
 
 The site runs entirely on local fixtures until it is pointed at a project — zero

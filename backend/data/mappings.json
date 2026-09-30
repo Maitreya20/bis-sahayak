@@ -1,0 +1,28 @@
+{
+  "meta": {
+    "note": "Product-category → Indian Standard mapping (recommender tool data). Filter values match the UI recommender dropdowns.",
+    "version": "proto-v1"
+  },
+  "mappings": [
+    { "product": "LED bulb / lamp", "is_no": "IS 16108", "scheme": "CRS", "domain": "Electronics & IT", "note_en": "Self-ballasted LED lamps for general lighting — safety." },
+    { "product": "LED module / driver", "is_no": "IS 16107", "scheme": "CRS", "domain": "Electronics & IT", "note_en": "LED modules for general lighting — safety (lm-80 style lifetime data not required for CRS)." },
+    { "product": "Washing machine", "is_no": "IS 302 (Part 2/Sec 7)", "scheme": "CRS", "domain": "Electronics & IT", "read_with": ["IS 302 (Part 1)"], "note_en": "Read with Part 1 general requirements." },
+    { "product": "Refrigerator / freezer", "is_no": "IS 302 (Part 2/Sec 24)", "scheme": "CRS", "domain": "Electronics & IT", "read_with": ["IS 302 (Part 1)"], "note_en": "Read with Part 1 general requirements." },
+    { "product": "Hair dryer / hair-care appliance", "is_no": "IS 302 (Part 2/Sec 23)", "scheme": "CRS", "domain": "Electronics & IT", "read_with": ["IS 302 (Part 1)"], "note_en": "Read with Part 1 general requirements." },
+    { "product": "Plug / socket-outlet (16 A)", "is_no": "IS 1293", "scheme": "CRS", "domain": "Electronics & IT", "note_en": "Plugs and socket-outlets up to 16 A — safety." },
+    { "product": "Household appliance (general)", "is_no": "IS 302 (Part 1)", "scheme": "CRS", "domain": "Electronics & IT", "note_en": "General safety requirements for household appliances." },
+    { "product": "Electric toy", "is_no": "IS 15644", "scheme": "CRS", "domain": "Electronics & IT", "read_with": ["IS 9873 (Part 1)"], "note_en": "Electric toys; mechanical/physical safety via Part 1." },
+    { "product": "Toy (any)", "is_no": "IS 9873 (Part 1)", "scheme": "CRS", "domain": "Electronics & IT", "read_with": ["IS 9873 (Part 3)"], "note_en": "Mechanical & physical safety; chemical safety via Part 3." },
+    { "product": "PVC insulated cable / house wire", "is_no": "IS 694", "scheme": "ISI", "domain": "Electronics & IT", "note_en": "PVC insulated cables up to 1100 V." },
+    { "product": "Power PVC cable (600/1000 V)", "is_no": "IS 1554 (Part 1)", "scheme": "ISI", "domain": "Electronics & IT", "note_en": "PVC insulated cables for 600/1000 V working." },
+    { "product": "Gold jewellery / artefact", "is_no": "IS 1417", "scheme": "Hallmarking", "domain": "Metals & Jewellery", "note_en": "Fineness grades + 4-mark hallmark incl. HUID." },
+    { "product": "Silver jewellery / artefact", "is_no": "IS 1418", "scheme": "Hallmarking", "domain": "Metals & Jewellery", "note_en": "Silver fineness grades; hallmarking voluntary." },
+    { "product": "Steel rebar / TMT bar", "is_no": "IS 1786", "scheme": "ISI", "domain": "Metals & Steel", "read_with": ["IS 15489"], "note_en": "Fe 415/500/550(D) grades; read with IS 15489 for HSD bars." },
+    { "product": "HSD steel bar / section", "is_no": "IS 15489", "scheme": "ISI", "domain": "Metals & Steel", "note_en": "High-strength deformed bars for concrete reinforcement." },
+    { "product": "Ordinary Portland Cement (33 grade)", "is_no": "IS 269", "scheme": "ISI", "domain": "Metals & Steel", "note_en": "OPC 33 physical & chemical requirements." },
+    { "product": "Power bank", "is_no": "IS 13252 (Part 1)", "scheme": "CRS", "domain": "Electronics & IT", "note_en": "IT equipment safety; power banks additionally to IS 16046 battery standard." },
+    { "product": "Mobile phone", "is_no": "IS 13252 (Part 1)", "scheme": "CRS", "domain": "Electronics & IT", "note_en": "IT equipment safety; phone battery via IS 16046." },
+    { "product": "Set-top box / TV / monitor", "is_no": "IS 616", "scheme": "CRS", "domain": "Electronics & IT", "note_en": "Audio/video and similar electronic apparatus — safety." },
+    { "product": "Air conditioner / compressor appliance", "is_no": "IS 302 (Part 2/Sec 8)", "scheme": "CRS", "domain": "Electronics & IT", "read_with": ["IS 302 (Part 1)"], "note_en": "Read with Part 1." }
+  ]
+}

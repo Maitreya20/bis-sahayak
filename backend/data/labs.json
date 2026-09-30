@@ -1,0 +1,56 @@
+{
+  "meta": {
+    "note": "BIS-recognised laboratory seed for the prototype (matches the UI lab-finder fixture contract: name, city, state, categories, tests, phone). Verify current contact details before production use.",
+    "version": "proto-v1"
+  },
+  "labs": [
+    {
+      "name": "ETDC BIS Lab — Pune (Western Region)",
+      "city": "Pune",
+      "state": "Maharashtra",
+      "categories": ["Electronics & IT", "Food & Agriculture"],
+      "tests": ["LED lamps (IS 16108)", "LED modules/drivers (IS 16107)", "Household appliances (IS 302)", "Plugs & sockets (IS 1293)", "Electric toys (IS 15644)"],
+      "phone": "+91-20-2739-2350"
+    },
+    {
+      "name": "ETDC BIS Lab — Bengaluru",
+      "city": "Bengaluru",
+      "state": "Karnataka",
+      "categories": ["Electronics & IT"],
+      "tests": ["LED lamps (IS 16108)", "LED modules/drivers (IS 16107)", "IT equipment safety (IS 13252)", "Batteries (IS 16046)"],
+      "phone": "+91-80-2286-2350"
+    },
+    {
+      "name": "CFL BIS Lab — Delhi (OKHLA)",
+      "city": "Delhi NCR",
+      "state": "Delhi NCR",
+      "categories": ["Electronics & IT", "Metals & Steel", "Food & Agriculture"],
+      "tests": ["Household appliances (IS 302)", "LED lamps (IS 16108)", "Cement (IS 269)", "Steel bars (IS 1786)", "Food labelling (Labelling & Declaration)"],
+      "phone": "+91-11-4160-2350"
+    },
+    {
+      "name": "GTL BIS Lab — Ahmedabad",
+      "city": "Ahmedabad",
+      "state": "Gujarat",
+      "categories": ["Electronics & IT", "Chemicals & Plastics"],
+      "tests": ["PVC cables (IS 694 / IS 1554)", "Plugs & sockets (IS 1293)", "Household appliances (IS 302)", "Toys (IS 9873)"],
+      "phone": "+91-79-2327-2350"
+    },
+    {
+      "name": "SITL BIS Lab — Chennai (Southern hub)",
+      "city": "Chennai",
+      "state": "Tamil Nadu",
+      "categories": ["Electronics & IT", "Textiles"],
+      "tests": ["LED lamps (IS 16108)", "IT equipment (IS 13252)", "Textiles (Labelling & Declaration)", "Household appliances (IS 302)"],
+      "phone": "+91-44-2254-2350"
+    },
+    {
+      "name": "HTL BIS Lab — Hyderabad",
+      "city": "Hyderabad",
+      "state": "Telangana",
+      "categories": ["Electronics & IT"],
+      "tests": ["LED lamps (IS 16108)", "LED drivers (IS 16107)", "IT equipment safety (IS 13252)"],
+      "phone": "+91-40-2312-2350"
+    }
+  ]
+}

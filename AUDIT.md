@@ -84,14 +84,16 @@ previously-open items:
 |---|---|
 | Widget's live endpoint commented out | **Unchanged for the embeddable widget** (its Shadow-DOM fixtures still demo); host pages served by the backend get live `/chat` via `BIS.chat()`. Give the widget a `data-api` when embedding externally. |
 | Fixture citation URLs are fragments | **Resolved in live mode** — `/chat` returns absolute/`/website/…` URLs; fixtures untouched for offline demo. |
-| Lab finder / recommender fixture-only | **Partially resolved** — `GET /labs` (category/state filters) and `GET /standards/search` (hybrid BM25+vector+rerank) exist; pages still render fixtures until wired (by design: zero UI edits for SIH). |
+| Lab finder / recommender fixture-only | **Resolved** — `GET /labs` and `GET /standards/search` exist and both pages now fetch them when served by the backend (mapped onto the fixture shape); fixtures remain the offline fallback. |
 | `audio_url` placeholder | Still `null`/demo keyless; fills via `SARVAM_API_KEY` env hook. |
 | No CSP headers | Unchanged (dev prototype); add at deploy time. |
 
 Keyless by default: answers are composed from the clause-level corpus
 (19 standards / 44 clauses, en/hi/mr) with citations + confidence + low-confidence
-fallback to BIS Branch Office referral. Verified: 11/11 demo questions pass the
-§3 contract over HTTP (`answer/citations/confidence/suggested_actions/audio_url/session_id`).
+fallback to BIS Branch Office referral. Verified: 51 pytest contract tests,
+11/11 demo questions pass the §3 contract over HTTP
+(`answer/citations/confidence/suggested_actions/audio_url/session_id`), and
+11/11 CDP browser checks pass against the live server (`tools/live-check.mjs`).
 
 ---
 

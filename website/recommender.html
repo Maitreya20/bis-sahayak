@@ -128,12 +128,39 @@
     b.addEventListener("click", () => (document.getElementById("prod").value = b.dataset.ex))
   );
 
-  document.getElementById("recoForm").addEventListener("submit", (e) => {
+  /* Live search against the backend when served by it
+     (window.BIS_API_BASE injected into <head> by FastAPI). GET
+     /standards/search?q=… runs the same hybrid retrieval as /chat. Rows are
+     mapped to the exact DB row shape (no/title/why/conf/cites) so the card
+     renderer is untouched; on any failure the local rules engine above still
+     answers, so the demo never breaks. */
+  async function liveSearch(text) {
+    const base = (window.BIS_API_BASE || "").replace(/\/+$/, "");
+    if (!base) return null;
+    try {
+      const r = await fetch(base + "/standards/search?q=" + encodeURIComponent(text));
+      if (!r.ok) return null;
+      const d = await r.json();
+      if (!d.results || !d.results.length) return null;
+      return d.results.map((row) => ({
+        no: row.doc,
+        title: row.topic || (row.kind === "mapping" ? "Applicable standard for your product" : row.kind === "scheme" ? "Certification process" : row.kind === "lab" ? "Recognised testing laboratory" : "Retrieved from the BIS corpus"),
+        why: row.excerpt || (row.product ? "Product→standard match: " + row.product + "." : "Top hybrid-retrieval match for your query."),
+        conf: row.score >= 0.6 ? "high" : row.score >= 0.3 ? "medium" : "low",
+        cites: [{ doc: row.doc, clause: row.clause || "Scope", url: row.doc.startsWith("IS") ? base + "/standards" : base + "/health" }],
+      }));
+      } catch { return null; }
+  }
+
+  document.getElementById("recoForm").addEventListener("submit", async (e) => {
     e.preventDefault();
     const text = document.getElementById("prod").value.trim();
     if (!text) { document.getElementById("prod").focus(); return; }
-    const rule = rules.find((r) => r.re.test(text));
-    const matches = rule ? rule.keys.map((k) => DB.find((d) => d.no === k)) : [DB[0], DB[2]];
+    let matches = await liveSearch(text);
+    if (!matches) {
+      const rule = rules.find((r) => r.re.test(text));
+      matches = rule ? rule.keys.map((k) => DB.find((d) => d.no === k)) : [DB[0], DB[2]];
+    }
     results.hidden = false;
     results.innerHTML = `<p class="muted small" style="grid-column:1/-1;margin:0">${matches.length} standards matched for “${BIS.escapeHtml(text.slice(0, 80))}${text.length > 80 ? "…" : ""}”</p>` +
       matches.map((m) => `

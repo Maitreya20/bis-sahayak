@@ -189,6 +189,30 @@
     });
   }
 
+  /* Upgrade to the live API when the page is served by the backend
+     (window.BIS_API_BASE is injected into <head> by FastAPI). The /labs rows
+     are mapped onto the exact fixture shape above — name/city/cat/scope — so
+     render() and the filters work unchanged. Fixtures stay on screen until
+     rows land and remain the fallback if the fetch fails, so this page never
+     shows a spinner and never loses the 6-lab baseline asserted by
+     tools/verify.mjs. */
+  if (window.BIS_API_BASE) {
+    fetch(window.BIS_API_BASE.replace(/\/+$/, "") + "/labs")
+      .then((r) => (r.ok ? r.json() : null))
+      .then((d) => {
+        if (!d || !d.labs || !d.labs.length) return;
+        LABS = d.labs.map((l) => ({
+          name: l.name,
+          city: l.city + ", " + l.state,
+          cat: l.categories,
+          scope: l.tests,
+          dist: l.phone ? "☎ " + l.phone : "",
+        }));
+        render();
+      })
+      .catch(() => {});
+  }
+
   BISWidget.mount(document.getElementById("widget-root"));
 </script>
 </body>

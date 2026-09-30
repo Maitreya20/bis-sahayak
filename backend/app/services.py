@@ -215,8 +215,14 @@ def _expand(q_toks: list[str]) -> list[str]:
     return out
 
 
+_CONFLICT = {"gold": "silver", "silver": "gold"}  # material-specific demotion
+
+
 def _rerank(q_toks: list[str], cand: list[int]) -> list[int]:
-    """Light cross-encoder-style reranker: phrase + keyword-coverage boosts."""
+    """Light cross-encoder-style reranker: phrase + keyword-coverage boosts,
+    with a demotion when a unit is about the *other* material (a 'silver'
+    question must not surface a gold-only standard just because both are
+    hallmarked)."""
     ql = " ".join(q_toks)
     scored = []
     for i in cand:
@@ -224,7 +230,12 @@ def _rerank(q_toks: list[str], cand: list[int]) -> list[int]:
         cover_ratio = sum(1 for t in set(q_toks) if t in u.toks) / max(1, len(set(q_toks)))
         phrase = 2.0 if ql and ql in u.text.lower() else 0.0
         bonus = 0.15 if u.kind == "clause" else 0.0
-        scored.append((phrase + 1.5 * cover_ratio + bonus, i))
+        penalty = 0.0
+        for t in set(q_toks):
+            other = _CONFLICT.get(t)
+            if other and other in u.text and t not in u.toks:
+                penalty += 0.6
+        scored.append((phrase + 1.5 * cover_ratio + bonus - penalty, i))
     scored.sort(key=lambda x: (-x[0], x[1]))
     return [i for _, i in scored]
 
@@ -475,7 +486,12 @@ def _compose_scheme_answer(sc: dict, lang: str) -> str:
 def _compose_lab_answer(labs: list[dict], lang: str) -> str:
     if not labs:
         return _t(lang, "not_found") + " " + _t(lang, "fallback")
-    items = [f"{l['name']} ({l['city']}) — {'; '.join(l['tests'][:3])}" for l in labs[:3]]
+    items = []
+    for l in labs[:3]:
+        # avoid "…Pune (Western Region) (Pune)" duplication when the name
+        # already carries the city
+        loc = "" if _norm(l["city"])[:8] in _norm(l["name"]) else f" ({l['city']})"
+        items.append(f"{l['name']}{loc} — {'; '.join(l['tests'][:3])}")
     return _t(lang, "labs_label") + " " + " | ".join(items) + ". " + _t(lang, "call_ahead")
 
 
@@ -488,6 +504,33 @@ def _compose_mapping_answer(m: dict, lang: str) -> str:
 
 def _session_id() -> str:
     return "sess-" + uuid.uuid4().hex[:12]
+
+
+_MANDATORY_RE = re.compile(r"\b(mandatory|compulsory|required|required by law|अनिवार्य|बंधनकारक)\b", re.I)
+_TIMELINE_RE = re.compile(r"\b(timeline|how long|duration|weeks?|months?|days?|कितने दिन|कितना समय|किती दिवस|वेळ)\b", re.I)
+
+
+def _mandatory_lead(s: dict, lang: str) -> str:
+    """Direct yes/no lead-in for 'is X mandatory?' questions, grounded in the
+    corpus's scheme + mandatory metadata."""
+    if not s.get("mandatory"):
+        note = s.get("mandatory_note") or s.get("mandatory_note_en")
+        if note:
+            return note + " "
+        return ""
+    scheme_names = {"CRS": {"en": "CRS", "hi": "CRS", "mr": "CRS"},
+                    "ISI": {"en": "ISI", "hi": "ISI", "mr": "ISI"},
+                    "Hallmarking": {"en": "Hallmarking", "hi": "हॉलमार्किंग", "mr": "हॉलमार्किंग"}}
+    sn = scheme_names.get(s.get("scheme", ""), {}).get(lang, s.get("scheme", ""))
+    lead = {"en": f"Yes — {s['no']} is mandatory under the {sn} scheme.",
+            "hi": f"हाँ — {s['no']} {sn} योजना के तहत अनिवार्य है।",
+            "mr": f"हो — {s['no']} {sn} योजनेअंतर्गत बंधनकारक आहे."}
+    return lead.get(lang, lead["en"]) + " "
+
+
+def _timeline_note(sc: dict, lang: str) -> str:
+    tl = sc.get(f"timeline_{lang}") or sc.get("timeline_en")
+    return (" " + tl) if tl else ""
 
 
 def _cites_from_hits(hits: list[tuple[Unit, float]]) -> list[dict]:
@@ -548,6 +591,11 @@ def answer_question(message: str, header_lang: str | None = None) -> dict:
         sc = tool_find_scheme(message)
         if sc:
             answer = _compose_scheme_answer(sc, lang)
+            if _MANDATORY_RE.search(message) and sc.get("mandatory_note_en"):
+                # silver-vs-gold style status: lead with what is/isn't mandatory
+                answer = sc["mandatory_note_en"] + " " + answer
+            if _TIMELINE_RE.search(message):
+                answer += _timeline_note(sc, lang)
             url = "/website/hallmark.html" if sc["id"] == "hallmark" else "/website/recommender.html#cert"
             return {"answer": answer,
                     "citations": [{"doc": sc["name_en"], "clause": "Process", "url": url}],
@@ -594,8 +642,14 @@ def answer_question(message: str, header_lang: str | None = None) -> dict:
         if u.kind == "clause":
             std, c = u.std
             answer_text = _compose_standard_answer(std, c, lang)
+            # a "is X mandatory?" question deserves a direct lead-in, not just
+            # the scope clause
+            if _MANDATORY_RE.search(message):
+                answer_text = _mandatory_lead(std, lang) + answer_text
         elif u.kind == "scheme":
             answer_text = _compose_scheme_answer(u.scheme, lang)
+            if _MANDATORY_RE.search(message) and u.scheme.get("mandatory_note_en"):
+                answer_text = u.scheme["mandatory_note_en"] + " " + answer_text
         elif u.kind == "mapping":
             answer_text = _compose_mapping_answer(u.mapping, lang)
         else:

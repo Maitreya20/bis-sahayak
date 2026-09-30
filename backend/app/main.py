@@ -49,7 +49,7 @@ app = FastAPI(title="BIS Sahayak API", version="0.1.0")
 
 class ChatIn(BaseModel):
     message: str = Field(..., min_length=0, max_length=2000)
-    language: str | None = Field(default=None, pattern="^(en|hi|mr)$")
+    language: str | None = None  # sanitised in the handler (unknown -> auto-detect)
 
 
 @app.post("/chat")

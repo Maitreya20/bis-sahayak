@@ -170,6 +170,24 @@ Open a page served by the backend, ask
 "Is IS 302 mandatory for home appliances?" and the answer will come from the
 live corpus — same shape, same confidence badges, same citation chips.
 
+### Pages go live automatically (with fixture fallback)
+
+Three surfaces upgrade themselves when served by the backend, and fall back to
+fixtures when it's absent — so opening the files from disk still demos offline:
+
+- **chat.html** — `BIS.chat()` posts to the live `/chat` (injection in `<head>`).
+- **lab-finder.html** — fetches `GET /labs` and maps rows onto the fixture shape.
+- **recommender.html** — submit runs `GET /standards/search` (hybrid retrieval);
+  the local rules engine answers if the API is unreachable.
+
+### Tests
+
+```bash
+python -m pytest              # 51 contract tests (services + HTTP via TestClient)
+node tools/live-check.mjs     # 11 browser checks vs the live server (CDP, headless)
+node tools/verify.mjs         # 11 static UI regression checks (fixture mode)
+```
+
 ## Supabase
 
 The site runs entirely on local fixtures until it is pointed at a project — zero
